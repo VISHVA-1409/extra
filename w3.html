@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 3 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 07 - Rocks and Minerals</option>
+                    <option value="lecture2">Lecture 08 - Geomorphology and Processes</option>
+                    <option value="lecture3">Lecture 09 - Evolution of Landforms</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 3 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week3.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    3 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "'waxy' is an example of",
+                options: ["cleavage", "structure", "lustre", "streak"],
+                correctAnswer: "lustre"
+            },
+            {
+                question: "ease of passage of light through the mineral is known as",
+                options: ["transparency", "fracture", "structure", "streak"],
+                correctAnswer: "transparency"
+            },
+            {
+                question: "unsorted coarse and fine debris left by melting glaciers, often with angular to sub-angular rock fragments is the definition of",
+                options: ["glacial till", "outwash deposit", "esker", "drumlin"],
+                correctAnswer: "glacial till"
+            },
+            {
+                question: "green or black-coloured inosilicates forming 10% of the Earth's crust is a description of",
+                options: ["amphiboles", "quartz", "feldspar", "pyroxene"],
+                correctAnswer: "pyroxene"
+            },
+            {
+                question: "the ridge edge where two cirques meet is the definition of",
+                options: ["glacier", "arete", "horn", "hanging valley"],
+                correctAnswer: "arete"
+            },
+            {
+                question: "Mechanical action of ocean waves is an example of",
+                options: ["chemical weathering", "physical weathering", "biological weathering", "none of the above"],
+                correctAnswer: "physical weathering"
+            },
+            {
+                question: "Sudden cooling of magma results in",
+                options: [
+                    "smooth grained sedimentary rocks",
+                    "coarse grained sedimentary rocks",
+                    "smooth grained igneous rocks",
+                    "coarse grained igneous rocks"
+                ],
+                correctAnswer: "smooth grained igneous rocks"
+            },
+            {
+                question: "Gypsum is an example of",
+                options: ["siliciclastic rock", "carbonate rock", "evaporite rock", "phosphatic rock"],
+                correctAnswer: "evaporite rock"
+            },
+            {
+                question: "Thermal stresses lead to",
+                options: ["chemical weathering", "physical weathering", "biological weathering", "none of the above"],
+                correctAnswer: "physical weathering"
+            },
+            {
+                question: "Which of these are correctly arranged as per Moh's scale from softest to hardest?",
+                options: [
+                    "talc, apatite, fluorite, diamond",
+                    "talc, calcite, feldspar, diamond",
+                    "talc, fluorite, apatite, diamond",
+                    "diamond, feldspar, calcite, talc"
+                ],
+                correctAnswer: "talc, calcite, feldspar, diamond"
+            }
+        ];
+
+        // Week 3 Assignment Data
+        const weekQuizData = [
+            {
+                question: "the points where three or more cirques meet is the definition of",
+                options: ["cirque", "arete", "horn", "hanging valley"],
+                correctAnswer: "horn"
+            },
+            {
+                question: "Which of these is an example of endogenic process?",
+                options: ["weathering", "mass movement", "erosion", "folding"],
+                correctAnswer: "folding"
+            },
+            {
+                question: "Sandstone is an example of",
+                options: ["siliciclastic rock", "carbonate rock", "evaporite rock", "phosphatic rock"],
+                correctAnswer: "siliciclastic rock"
+            },
+            {
+                question: "smooth oval-shaped ridge-like features comprised of glacial till, gravel and sand arranged parallel to the direction of ice movement is the definition of",
+                options: ["glacial till", "outwash deposit", "esker", "drumlin"],
+                correctAnswer: "drumlin"
+            },
+            {
+                question: "Which of these is an example of exogenic process?",
+                options: ["volcanism", "earthquake", "plate tectonics", "deposition"],
+                correctAnswer: "deposition"
+            },
+            {
+                question: "white or colourless hard mineral virtually insoluble in water is a description of",
+                options: ["amphiboles", "quartz", "feldspar", "pyroxene"],
+                correctAnswer: "quartz"
+            },
+            {
+                question: "Dolomite is an example of",
+                options: ["siliciclastic rock", "carbonate rock", "evaporite rock", "phosphatic rock"],
+                correctAnswer: "carbonate rock"
+            },
+            {
+                question: "green or black coloured inosilicate minerals forming prism or needle-like crystals is a description of",
+                options: ["amphiboles", "feldspar", "mica", "pyroxene"],
+                correctAnswer: "amphiboles"
+            },
+            {
+                question: "deep, long and wide troughs or basins with very steep concave to vertically dropping high walls as its head and sides is the definition of",
+                options: ["cirque", "arete", "horn", "hanging valley"],
+                correctAnswer: "cirque"
+            },
+            {
+                question: "magnesium iron silicate, a primary component of the Earth's upper mantle is a description of",
+                options: ["amphiboles", "feldspar", "quartz", "olivine"],
+                correctAnswer: "olivine"
+            }
+        ];
+        // Lecture 1 Data
+const lecture1Data = [
+  { question: "The 'liquid sphere' of the Earth, which includes all the water bodies, is known as:", options: ["Lithosphere", "Atmosphere", "Biosphere", "Hydrosphere"], correctAnswer: "Hydrosphere" },
+  { question: "A key distinction between a rock and a mineral is that a rock:", options: ["is always man-made.", "is always inorganic.", "does not have a definite chemical composition of mineral constituents.", "is formed from a single element."], correctAnswer: "does not have a definite chemical composition of mineral constituents." },
+  { question: "The definition of a mineral includes the requirement of a(n):", options: ["Indefinite chemical composition.", "Ordered atomic arrangement.", "Liquid or gaseous state.", "Man-made origin."], correctAnswer: "Ordered atomic arrangement." },
+  { question: "Which characteristic of a mineral refers to the color of its powdered form, which is often more consistent than the mineral's body color?", options: ["Lustre", "Cleavage", "Hardness", "Streak"], correctAnswer: "Streak" },
+  { question: "The resistance of a mineral to scratching is quantified using the:", options: ["Mohs scale of cleavage.", "Richter scale of magnitude.", "Mohs scale of hardness.", "Vickers scale of lustre."], correctAnswer: "Mohs scale of hardness." },
+  { question: "Which property describes a mineral's tendency to break along specific planes of weakness where the atomic bonds are weakest?", options: ["Fracture", "Streak", "Cleavage", "Crystal Habit"], correctAnswer: "Cleavage" },
+  { question: "Which major group constitutes the most abundant minerals in the Earth's crust, primarily containing Silicon and Oxygen?", options: ["Carbonates", "Sulfides", "Halides", "Silicates"], correctAnswer: "Silicates" },
+  { question: "Which mineral is the most abundant single mineral in the Earth's crust, constituting over 50% of its composition?", options: ["Quartz", "Olivine", "Mica", "Feldspar"], correctAnswer: "Feldspar" },
+  { question: "Minerals like Muscovite and Biotite, known for their ability to be separated into thin sheets due to perfect basal cleavage, belong to which group?", options: ["Pyroxenes", "Feldspars", "Micas", "Amphiboles"], correctAnswer: "Micas" },
+  { question: "Rocks formed from the cooling and solidification of molten material (magma or lava) are classified as:", options: ["Sedimentary rocks", "Igneous rocks", "Metamorphic rocks", "Bioclastic rocks"], correctAnswer: "Igneous rocks" },
+  { question: "Which category of sedimentary rock is composed primarily of the remains of plants and animals, such as coal or chalk?", options: ["Siliciclastic rocks", "Evaporite rocks", "Organic rocks", "Phosphatic rocks"], correctAnswer: "Organic rocks" },
+  { question: "Rocks formed from the transformation of existing rocks (igneous, sedimentary, or metamorphic) due to changes in Pressure, Volume, and Temperature (PVT) are known as:", options: ["Igneous rocks", "Metamorphic rocks", "Clastic rocks", "Extrusive rocks"], correctAnswer: "Metamorphic rocks" },
+  { question: "The rock cycle illustrates that igneous rocks can melt back into magma, and metamorphic rocks can:", options: ["Only convert into sedimentary rocks.", "Melt back into magma.", "Only be broken down into sediments.", "Never change form."], correctAnswer: "Melt back into magma." },
+  { question: "Evaporite sedimentary rocks include minerals like Gypsum and Halite, and they are formed by which process?", options: ["Volcanic eruption", "Metamorphism", "Precipitation from solution due to evaporation.", "Accumulation of siliciclastic grains."], correctAnswer: "Precipitation from solution due to evaporation." },
+  { question: "In the rock cycle, the process that converts an existing rock into sediments is called:", options: ["Lithification", "Metamorphosis", "Weathering and Erosion", "Crystallization"], correctAnswer: "Weathering and Erosion" }
+];
+const lecture2Data = [
+  { question: "The study of Earth's form or the study of landforms is known as:", options: ["Geology", "Pedology", "Climatology", "Geomorphology"], correctAnswer: "Geomorphology" },
+  { question: "Forces that originate inside the Earth and are the primary cause of land-forming activities (e.g., building mountains) are known as:", options: ["Exogenic forces", "Endogenic forces", "Solar forces", "Gravitational forces"], correctAnswer: "Endogenic forces" },
+  { question: "Forces that originate outside the Earth and are the primary cause of land-wearing activities (e.g., erosion) are known as:", options: ["Diastrophic forces", "Volcanic forces", "Exogenic forces", "Orogenic forces"], correctAnswer: "Exogenic forces" },
+  { question: "The Endogenic process referring to the large-scale deformation of the Earth's crust, specifically folding and faulting, is called:", options: ["Volcanism", "Epeirogenesis", "Diastrophism", "Metamorphism"], correctAnswer: "Diastrophism" },
+  { question: "The type of diastrophic process specifically related to mountain building and commonly associated with folding is:", options: ["Epeirogenic processes", "Orogenic processes", "Volcanic processes", "Tectonic processes"], correctAnswer: "Orogenic processes" },
+  { question: "The diastrophic process that involves the uplift or warping of large parts of the Earth's crust, sometimes referred to as continental building, is:", options: ["Orogenic processes", "Epeirogenic processes", "Erosion", "Faulting"], correctAnswer: "Epeirogenic processes" },
+  { question: "The Exogenic process that involves the breaking down of rocks in place without significant transportation is termed:", options: ["Mass movement", "Erosion", "Weathering", "Diastrophism"], correctAnswer: "Weathering" },
+  { question: "Weathering that involves the mechanical breakdown of rock by forces such as frost wedging, salt crystal growth, or exfoliation is called:", options: ["Chemical weathering", "Physical weathering", "Biological weathering", "Orogenic weathering"], correctAnswer: "Physical weathering" },
+  { question: "The slow, pervasive, downhill shift of soil or rock over a period of years, often resulting in tilted poles or broken fences, is the slowest type of mass movement known as:", options: ["Slide", "Slump", "Flow", "Creep"], correctAnswer: "Creep" },
+  { question: "The mass movement process where a mass of rock or unconsolidated material suddenly shears along a plane and moves rapidly downhill is called a:", options: ["Flow", "Creep", "Slump", "Slide"], correctAnswer: "Slide" },
+  { question: "The Exogenic process where the weathered rock material is picked up and carried from one location to another by agents like water, wind, or ice is known as:", options: ["Erosion", "Deposition", "Weathering", "Transportation"], correctAnswer: "Transportation" },
+  { question: "The process of wearing off or lowering the surface of the Earth, typically a result of Exogenic forces like erosion, is known as:", options: ["Aggradation", "Degradation", "Transportation", "Metamorphism"], correctAnswer: "Degradation" },
+  { question: "The process of building up or adding material to a landform, such as through deposition, is known as:", options: ["Degradation", "Erosion", "Aggradation", "Weathering"], correctAnswer: "Aggradation" },
+  { question: "Which concept suggests that geomorphic agents like water can erode and transport more material in areas with a greater difference in elevation?", options: ["Low relief", "Uniform surface", "High relief", "Isostasy"], correctAnswer: "High relief" },
+  { question: "Agents of erosion are also the agents of deposition because when the speed of the transportation agent reduces, the carried material starts to:", options: ["Change chemically.", "Be eroded further.", "Be deposited.", "Undergo metamorphism."], correctAnswer: "Be deposited." }
+];
+const lecture3Data = [
+  { question: "Relief in geomorphology is defined as the:", options: ["Total area of a landform.", "Difference between two elevation points on the surface of the Earth.", "Average height of a mountain.", "Gradient of a river valley."], correctAnswer: "Difference between two elevation points on the surface of the Earth." },
+  { question: "A surface that is undulating (having waves or a rolling form) is characterized by:", options: ["Low relief", "Uniform relief", "High relief", "Flat relief"], correctAnswer: "High relief" },
+  { question: "Features like continental plates and oceanic plates are considered to be part of the:", options: ["Third order relief", "First order relief", "Second order relief", "Fourth order relief"], correctAnswer: "First order relief" },
+  { question: "Features like rift valleys and fold mountains, which are the direct results of Endogenic forces (plate collision or divergence), belong to which order of relief?", options: ["First order relief", "Second order relief", "Third order relief", "Fourth order relief"], correctAnswer: "Second order relief" },
+  { question: "Features like river gorges and sand dunes, which are the results of Exogenic forces (erosion and deposition), belong to which order of relief?", options: ["First order relief", "Second order relief", "Third order relief", "Primary relief"], correctAnswer: "Third order relief" },
+  { question: "Which glacial landform is a sharp, serrated ridge that forms when two cirques erode back-to-back or side-by-side?", options: ["Drumlin", "Horn", "Arête", "Moraine"], correctAnswer: "Arête" },
+  { question: "A deep valley carved by a river, characterized by very steep sides and a typically straight course, is known as a:", options: ["Meander", "Delta", "Floodplain", "Gorge or Canyon"], correctAnswer: "Gorge or Canyon" },
+  { question: "Which river landform describes a pronounced loop or curve in the river channel that migrates over time, eroding the outer bank and depositing on the inner bank?", options: ["Alluvial Fan", "Oxbow Lake", "Meander", "Gorge"], correctAnswer: "Meander" },
+  { question: "The arc-shaped deposit of sediment that forms when a river emerges from a mountain into a plain and abruptly loses speed is called a(n):", options: ["Delta", "Meander", "Alluvial Fan", "Terrace"], correctAnswer: "Alluvial Fan" },
+  { question: "Which geomorphic agent is primarily responsible for the formation of Karst topography, including sinkholes and caves?", options: ["Glaciers", "Wind", "Groundwater", "Sea waves and currents"], correctAnswer: "Groundwater" },
+  { question: "In a cave system, the cylindrical or conical deposits that grow upwards from the floor of the cave are known as:", options: ["Stalactites", "Stalagmites", "Pillars", "Sinkholes"], correctAnswer: "Stalagmites" },
+  { question: "The process of erosion by sea waves often leads to the formation of a pillar-like rock structure standing isolated in the sea, separated from the main cliff, known as a:", options: ["Sea Cave", "Sea Arch", "Stack", "Spit"], correctAnswer: "Stack" },
+  { question: "Which depositional glacial landform is a long, narrow, winding ridge composed of sand and gravel, believed to have been formed by streams flowing beneath the glacier?", options: ["Drumlin", "Moraine", "Esker", "Till"], correctAnswer: "Esker" },
+  { question: "Which depositional landform is formed by wind (aeolian process) and can occur in various shapes, including crescent (barchan) or star?", options: ["Mushroom rock", "Deflation hollow", "Sand dune", "Bajada"], correctAnswer: "Sand dune" },
+  { question: "In a coastal environment, a depositional feature that is an extended ridge of sand or gravel connected to the mainland on one side, but projecting into the sea on the other, is called a:", options: ["Beach", "Bar", "Stack", "Spit"], correctAnswer: "Spit" }
+];
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

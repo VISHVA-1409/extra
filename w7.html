@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 7 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 19 - Soil</option>
+                    <option value="lecture2">Lecture 20 - Life on Earth</option>
+                    <option value="lecture3">Lecture 21 - Biodiversity</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 7 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week7.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 7 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "Thermal stresses lead to",
+                options: [
+                    "chemical weathering",
+                    "physical weathering",
+                    "biological weathering",
+                    "none of the above"
+                ],
+                correctAnswer: "physical weathering"
+            },
+            {
+                question: "Vertical arrangement of soil horizons is called",
+                options: [
+                    "soil texture",
+                    "soil structure",
+                    "soil profile",
+                    "soil science"
+                ],
+                correctAnswer: "soil profile"
+            },
+            {
+                question: "Khadar is a type of",
+                options: [
+                    "black cotton soil",
+                    "alluvial soil",
+                    "saline soil",
+                    "red and yellow soil"
+                ],
+                correctAnswer: "alluvial soil"
+            },
+            {
+                question: "The term laterite soil is derived from Latin later which means",
+                options: [
+                    "red",
+                    "brick",
+                    "fertile",
+                    "pesticide"
+                ],
+                correctAnswer: "brick"
+            },
+            {
+                question: "Which of these has the highest organic matter content?",
+                options: [
+                    "peaty soil",
+                    "alluvial soil",
+                    "saline soil",
+                    "red and yellow soil"
+                ],
+                correctAnswer: "peaty soil"
+            },
+            {
+                question: "Which of these depicts correctly the lithose primary succession?",
+                options: [
+                    "Rock → Crustose lichen → Foliose lichen → Moss → Herbaceous stage → Shrub → Woodland → Climax",
+                    "Rock → Foliose lichen → Crustose lichen → Moss → Herbaceous stage → Shrub → Woodland → Climax",
+                    "Rock → Moss → Woodland → Foliose lichen → Rock → Herbaceous stage → Shrub → Woodland → Climax",
+                    "Rock → Crustose lichen → Foliose lichen → Shrub → Herbaceous stage → Moss → Woodland → Climax"
+                ],
+                correctAnswer: "Rock → Crustose lichen → Foliose lichen → Moss → Herbaceous stage → Shrub → Woodland → Climax"
+            }
+        ];
+
+        // Week 7 Assignment Data
+        const weekQuizData = [
+            {
+                question: "Soil formation is dependent upon",
+                options: [
+                    "vegetation",
+                    "time",
+                    "climate",
+                    "all of the above"
+                ],
+                correctAnswer: "all of the above"
+            },
+            {
+                question: "Which of these is not a characteristic of pioneer species",
+                options: [
+                    "ability to grow on bare rocks",
+                    "ability to tolerate extreme temperatures",
+                    "large size",
+                    "short life span"
+                ],
+                correctAnswer: "large size"
+            },
+            {
+                question: "groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups is a definition of",
+                options: [
+                    "cells",
+                    "species",
+                    "ecosystems",
+                    "biomes"
+                ],
+                correctAnswer: "species"
+            },
+            {
+                question: "Mechanical action of ocean waves is an example of",
+                options: [
+                    "chemical weathering",
+                    "physical weathering",
+                    "biological weathering",
+                    "none of the above"
+                ],
+                correctAnswer: "physical weathering"
+            },
+            {
+                question: "The climax near Tindni village is being controlled by disturbance by cattle. This is an example of",
+                options: [
+                    "climatic climax",
+                    "edaphic climax",
+                    "disclimax",
+                    "catastrophic climax"
+                ],
+                correctAnswer: "disclimax"
+            },
+            {
+                question: "Carbonation is an example of",
+                options: [
+                    "chemical weathering",
+                    "physical weathering",
+                    "biological weathering",
+                    "none of the above"
+                ],
+                correctAnswer: "chemical weathering"
+            },
+            {
+                question: "In soil profile, C refers to",
+                options: [
+                    "organic surface layer",
+                    "topsoil layer",
+                    "subsoil layer",
+                    "substratum layer"
+                ],
+                correctAnswer: "substratum layer"
+            },
+            {
+                question: "A climax caused by wildfires is an example of",
+                options: [
+                    "climatic climax",
+                    "edaphic climax",
+                    "disclimax",
+                    "catastrophic climax"
+                ],
+                correctAnswer: "catastrophic climax"
+            },
+            {
+                question: "Regur is a term for",
+                options: [
+                    "black cotton soil",
+                    "alluvial soil",
+                    "saline soil",
+                    "red and yellow soil"
+                ],
+                correctAnswer: "black cotton soil"
+            },
+            {
+                question: "the diversity that exists among different geographies is",
+                options: [
+                    "alpha (a) biodiversity",
+                    "beta (β) biodiversity",
+                    "gamma (γ) biodiversity",
+                    "delta (δ) biodiversity"
+                ],
+                correctAnswer: "gamma (γ) biodiversity"
+            }
+        ];
+
+// Lecture 19: Soil
+const lecture1Data = [
+  { question: "Soil is defined as a mixture of rock debris and organic materials that develops on the surface of the Earth, and it is the medium that supports:", options: ["Chemical weathering", "Plant growth", "Only pioneer species", "Volcanic activity"], correctAnswer: "Plant growth" },
+  { question: "The process by which rock is broken down at or near the Earth's surface by physical, chemical, or biological agents is called:", options: ["Erosion", "Deposition", "Weathering", "Diagenesis"], correctAnswer: "Weathering" },
+  { question: "The removal and transport of weathered material by agents like wind, water, or ice is known as:", options: ["Pedogenesis", "Erosion", "Leaching", "Aggradation"], correctAnswer: "Erosion" },
+  { question: "Which type of weathering involves the breakdown of rock minerals through reactions with water or air, such as carbonation and oxidation?", options: ["Physical weathering", "Chemical weathering", "Biological weathering", "Mechanical weathering"], correctAnswer: "Chemical weathering" },
+  { question: "The physical splitting of rocks by the roots of plants growing into cracks is an example of:", options: ["Chemical weathering", "Freeze-thaw weathering", "Biological weathering", "Hydrolysis"], correctAnswer: "Biological weathering" },
+  { question: "In a typical soil profile, the A horizon is also known as the:", options: ["Organic surface layer (O-horizon)", "Topsoil layer", "Subsoil layer (B-horizon)", "Parent material layer (R-horizon)"], correctAnswer: "Topsoil layer" },
+  { question: "Which process in soil formation involves the downward movement and accumulation of materials like clay, iron, or aluminum in a lower layer?", options: ["Illuviation", "Eluviation", "Leaching", "Calcification"], correctAnswer: "Illuviation" },
+  { question: "The term 'pedogenesis' refers to the:", options: ["Classification of soils", "Study of soil erosion", "Process of soil formation", "Transport of sediments"], correctAnswer: "Process of soil formation" },
+  { question: "Which soil classification type, similar to the Black Cotton Soil (Regur), is characterized as a clay-rich soil that shrinks and swells significantly with changes in moisture content, giving it a self-plowing capability?", options: ["Alfisols", "Andisols", "Entisols", "Vertisols"], correctAnswer: "Vertisols" },
+  { question: "Which soil type, characterized by its high organic matter content and found in permafrost regions, is a large storehouse of carbon?", options: ["Ultisols", "Aridisols", "Gelisols", "Spodosols"], correctAnswer: "Gelisols" },
+  { question: "Which major soil type is common in desert areas due to a lack of rainfall and is characterized by low organic content?", options: ["Mollisols", "Oxisols", "Aridisols", "Inceptisols"], correctAnswer: "Aridisols" },
+  { question: "In the soil profile, the letter 'O' refers to the:", options: ["Subsoil layer", "Topsoil layer", "Substratum layer", "Organic surface layer"], correctAnswer: "Organic surface layer" },
+  { question: "The main difference between Eluviation (E-horizon) and Illuviation (B-horizon) is that Eluviation involves:", options: ["The accumulation of minerals.", "The complete absence of soil formation.", "The washing out of minerals.", "Only organic matter decomposition."], correctAnswer: "The washing out of minerals." },
+  { question: "The concept that soil formation is dependent on five major factors—Parent material, Time, Climate, Relief, and Organisms—is summarized by the formula:", options: ["S = f(C, O, V)", "S = f(P, C, R, O, T)", "S = f(R, A, O)", "S = f(H, C, E)"], correctAnswer: "S = f(P, C, R, O, T)" },
+  { question: "The presence of ladders and cracks in rocks, which allows water to penetrate and cause weathering, is a prerequisite for which process?", options: ["Biological weathering", "Chemical weathering", "Physical weathering", "Erosion"], correctAnswer: "Chemical weathering" }
+];
+
+// Lecture 20: Life on Earth
+const lecture2Data = [
+  { question: "Ecological succession is the phenomenon where, over time, a series of changes occur in the:", options: ["Global climate patterns.", "Species composition of an area.", "Earth's geological structure.", "Atmospheric gas composition."], correctAnswer: "Species composition of an area." },
+  { question: "Ecological succession that begins on a newly formed rock or a bare area, where no previous life existed, is called:", options: ["Secondary succession", "Autogenic succession", "Primary succession", "Allogenic succession"], correctAnswer: "Primary succession" },
+  { question: "The type of succession that occurs when a disturbance (like a forest fire) destroys the existing community, but the soil remains intact, is called:", options: ["Primary succession", "Allogenic succession", "Secondary succession", "Climatic succession"], correctAnswer: "Secondary succession" },
+  { question: "The climax community is the final stage of ecological succession that is characterized by being:", options: ["The first community to colonize a bare area.", "Relatively stable and in equilibrium with the environment.", "Highly prone to all forms of disturbance.", "Primarily composed of only pioneer species."], correctAnswer: "Relatively stable and in equilibrium with the environment." },
+  { question: "Which characteristic is typical of species in the climax community, as opposed to pioneer species?", options: ["Very small size", "Short life span", "Ability to grow on bare rock", "Large size and long life span (K-selected species)"], correctAnswer: "Large size and long life span (K-selected species)" },
+  { question: "A climatic climax is a climax community that is controlled by:", options: ["Soil conditions (edaphic factors).", "External disturbances (catastrophic factors).", "Grazing and human intervention (disclimax factors).", "The general climate of the region."], correctAnswer: "The general climate of the region." },
+  { question: "A climax community that is determined and controlled by soil conditions (e.g., specific rock type or nutrient composition) is known as a(n):", options: ["Climatic climax", "Disclimax", "Catastrophic climax", "Edaphic climax"], correctAnswer: "Edaphic climax" },
+  { question: "The Carbon Cycle is primarily driven by which biological process, where carbon from the atmosphere is incorporated into living biomass?", options: ["Respiration", "Decomposition", "Photosynthesis", "Denitrification"], correctAnswer: "Photosynthesis" },
+  { question: "Which process in the Nitrogen Cycle converts atmospheric nitrogen (N2) into forms usable by plants (like ammonia or nitrate)?", options: ["Denitrification", "Assimilation", "Ammonification", "Nitrogen Fixation"], correctAnswer: "Nitrogen Fixation" },
+  { question: "In the Phosphorus Cycle, the largest pool of the nutrient is the:", options: ["Atmospheric gases", "Soluble phosphates in water", "Rock phosphates (in the lithosphere)", "Plant and animal biomass"], correctAnswer: "Rock phosphates (in the lithosphere)" },
+  { question: "The biogeochemical cycles, such as the carbon and nitrogen cycles, ensure the continuous movement of nutrients through which four spheres of the Earth?", options: ["Geosphere, Thermosphere, Mesosphere, Hydrosphere", "Lithosphere, Hydrosphere, Atmosphere, and Biosphere", "Crust, Mantle, Core, and Atmosphere", "Continental, Oceanic, Polar, and Equatorial zones"], correctAnswer: "Lithosphere, Hydrosphere, Atmosphere, and Biosphere" },
+  { question: "In the climax stage of succession, the energy flow (photosynthesis) and respiration are typically:", options: ["Highly variable and unpredictable.", "Roughly equal (P ≈ R).", "Very different (P >> R).", "Dependent on pioneer species."], correctAnswer: "Roughly equal (P ≈ R)." },
+  { question: "The process by which decomposers break down dead organic matter and waste, releasing nutrients back into the soil, is called:", options: ["Leaching", "Nitrogen fixation", "Decomposition", "Eutrophication"], correctAnswer: "Decomposition" },
+  { question: "During the process of secondary succession after a fire, the presence of sprouts on the land indicates that the:", options: ["Pioneer species have fully colonized the area.", "Soil has been entirely destroyed.", "Plant rootstocks in the soil have survived the disturbance.", "Climax community has been restored immediately."], correctAnswer: "Plant rootstocks in the soil have survived the disturbance." },
+  { question: "The concept that all living and non-living elements interact and function as a unit in a system is the definition of a(n):", options: ["Species", "Population", "Community", "Ecosystem"], correctAnswer: "Ecosystem" }
+];
+
+// Lecture 21: Biodiversity
+const lecture3Data = [
+  { question: "The term 'biodiversity' is a contraction of which two words?", options: ["Biogeography and Diversity", "Biotic and Dynamics", "Biological and Diversity", "Biosphere and Dimensions"], correctAnswer: "Biological and Diversity" },
+  { question: "Which level of biodiversity is defined as the variety of life forms within a single species (e.g., different breeds of dogs or varieties of rice)?", options: ["Species diversity", "Ecosystem diversity", "Genetic diversity", "Biome diversity"], correctAnswer: "Genetic diversity" },
+  { question: "The concept that defines a variety of living organisms as 'groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups' is the definition of a:", options: ["Gene pool", "Community", "Population", "Species"], correctAnswer: "Species" },
+  { question: "Species diversity is primarily measured in terms of richness (the number of species) and:", options: ["Biogeography", "Abundance", "Evenness (relative abundance of species)", "Population density"], correctAnswer: "Evenness (relative abundance of species)" },
+  { question: "The diversity of organisms and habitats within a single ecosystem or community is called:", options: ["Beta (β) biodiversity", "Gamma (γ) biodiversity", "Alpha (α) biodiversity", "Delta (δ) biodiversity"], correctAnswer: "Alpha (α) biodiversity" },
+  { question: "Which level of biodiversity quantifies the rate of species change or turnover between two different communities or ecosystems?", options: ["Alpha (α) biodiversity", "Beta (β) biodiversity", "Gamma (γ) biodiversity", "Species richness"], correctAnswer: "Beta (β) biodiversity" },
+  { question: "The latitude gradient hypothesis suggests that biodiversity is highest near the equator and decreases towards the poles, primarily due to the greater amount of:", options: ["Tectonic activity", "Wind energy", "Solar energy (and hence primary production)", "Tides and currents"], correctAnswer: "Solar energy (and hence primary production)" },
+  { question: "The habitat heterogeneity hypothesis states that areas with a greater variety of physical conditions and niches (e.g., mountains and canyons) tend to have:", options: ["Lower species richness.", "Higher rates of extinction.", "Greater biodiversity.", "A uniform climate."], correctAnswer: "Greater biodiversity." },
+  { question: "The Intermediate Disturbance Hypothesis states that the highest levels of biodiversity are found in areas with a disturbance frequency that is:", options: ["Very low or infrequent.", "Very high or frequent.", "Neither very high nor very low.", "Constant and stable over time."], correctAnswer: "Neither very high nor very low." },
+  { question: "In areas with very low or infrequent disturbance, the biodiversity is low because:", options: ["Species die from frequent events like floods or fires.", "Competitive equilibrium is reached, leading to the loss of species with low competitive ability.", "Only pioneer species can survive.", "Speciation rates are greatly reduced."], correctAnswer: "Competitive equilibrium is reached, leading to the loss of species with low competitive ability." },
+  { question: "According to the Intermediate Disturbance Hypothesis, areas with a very high frequency of disturbance will have low biodiversity because:", options: ["There is too much competitive pressure.", "Species die every year and face a huge amount of extinction.", "They have very low primary production.", "They are at the climax stage of succession."], correctAnswer: "Species die every year and face a huge amount of extinction." },
+  { question: "Which type of biodiversity is defined as the variety of ecosystems and habitats across a large area or region?", options: ["Species diversity", "Genetic diversity", "Ecosystem diversity", "Alpha diversity"], correctAnswer: "Ecosystem diversity" },
+  { question: "The species-area curve shows that as the size of the geographic area under consideration increases, the number of species present:", options: ["Decreases exponentially.", "Remains constant.", "Increases.", "Shows no correlation."], correctAnswer: "Increases." },
+  { question: "The fact that the Amazon rainforest has a far greater number of species than the polar regions of the Earth supports the:", options: ["Intermediate Disturbance Hypothesis", "Habitat Heterogeneity Hypothesis", "Latitude Gradient Hypothesis", "Species-Time Hypothesis"], correctAnswer: "Latitude Gradient Hypothesis" },
+  { question: "The total diversity of organisms that is supported by all the habitats in a large geographical region is referred to as:", options: ["Alpha (α) biodiversity", "Beta (β) biodiversity", "Gamma (γ) biodiversity", "Species evenness"], correctAnswer: "Gamma (γ) biodiversity" }
+];
+
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 4 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 10 - Structure and Composition</option>
+                    <option value="lecture2">Lecture 11 - Atmospheric Circulation and Weather</option>
+                    <option value="lecture3">Lecture 12 - Climate and Climate Change</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 4 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week4.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 4 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "Which of these is the densest layer?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Troposphere"
+            },
+            {
+                question: "Which of these is not a climatic forcing for Earth?",
+                options: [
+                    "changes in plate tectonics",
+                    "changes in Earth's orbit",
+                    "changes in Sun's orbit",
+                    "changes in Sun's strength"
+                ],
+                correctAnswer: "changes in Sun's orbit"
+            },
+            {
+                question: "Which of these contains the most water vapour and aerosols?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Troposphere"
+            },
+            {
+                question: "Which of these is true about Coriolis force on the Earth?",
+                options: [
+                    "It is maximum at poles and zero at Equator.",
+                    "It is zero at poles and maximum at Equator.",
+                    "In the Northern hemisphere, it deflects winds towards left.",
+                    "In the Southern hemisphere, it deflects winds towards right."
+                ],
+                correctAnswer: "It is maximum at poles and zero at Equator."
+            },
+            {
+                question: "From the surface of the Earth to upwards, which of these is the correct sequence of atmospheric layers?",
+                options: [
+                    "troposphere, stratosphere, mesosphere, thermosphere, exosphere",
+                    "troposphere, mesosphere, stratosphere, thermosphere, exosphere",
+                    "troposphere, thermosphere, mesosphere, stratosphere, exosphere",
+                    "troposphere, exosphere, thermosphere, mesosphere, stratosphere"
+                ],
+                correctAnswer: "troposphere, stratosphere, mesosphere, thermosphere, exosphere"
+            },
+            {
+                question: "The ability of a system to adjust to climate change (including climate variability and extremes) to moderate potential damages, to take advantage of opportunities, or to cope with the consequences is a definition for",
+                options: [
+                    "adaptive response",
+                    "adaptive capacity",
+                    "mitigative response",
+                    "mitigative capacity"
+                ],
+                correctAnswer: "adaptive capacity"
+            },
+            {
+                question: "Flights of jet planes typically occur in",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Stratosphere"
+            },
+            {
+                question: "Ionosphere is part of which layer?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Thermosphere"
+            }
+        ];
+
+        // Week 4 Assignment Data
+        const weekQuizData = [
+            {
+                question: "Which of these air masses is generally cool and moist?",
+                options: ["cP", "mP", "cT", "mT"],
+                correctAnswer: "mP"
+            },
+            {
+                question: "Which of these air masses is generally cold and dry?",
+                options: ["cP", "mP", "cT", "mT"],
+                correctAnswer: "cP"
+            },
+            {
+                question: "The ISS orbits in which layer?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Thermosphere"
+            },
+            {
+                question: "The government came up with a regulation that incandescent bulbs be replaced by LED bulbs, so that electricity consumption and release of carbon dioxide from power plants is reduced. In the context of climate change, such an action would be called",
+                options: ["adaptation", "mitigation", "deceleration", "maladaptation"],
+                correctAnswer: "mitigation"
+            },
+            {
+                question: "Surplus seed and sperm banking is an adaptation option to facilitate",
+                options: [
+                    "resistance to climate changes",
+                    "resilience to climate changes",
+                    "response to climate changes",
+                    "none of these"
+                ],
+                correctAnswer: "resilience to climate changes"
+            },
+            {
+                question: "The classical period for taking averages for climate is",
+                options: ["10 years", "20 years", "30 years", "40 years"],
+                correctAnswer: "30 years"
+            },
+            {
+                question: "Noctilucent clouds are present in which layer?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Mesosphere"
+            },
+            {
+                question: "Because of climate change, Mudumalai Tiger Reserve is suffering from frequent droughts. The management has built several artificial water holes for animals, and fills them up regularly with tankers. In the context of climate change, such an action would be called",
+                options: ["adaptation", "mitigation", "deceleration", "maladaptation"],
+                correctAnswer: "adaptation"
+            },
+            {
+                question: "Which of these is home to the ozone layer?",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Stratosphere"
+            },
+            {
+                question: "Most of the weather phenomena occur in",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                correctAnswer: "Troposphere"
+            }
+        ];
+
+
+// Lecture 10: Structure and Composition
+const lecture1Data = [
+  { question: "The term \"atmosphere\" is derived from the Greek words atmos and sphaira, which mean:", options: ["Earth and water","Vapour/Gas and Sphere","Cold and hot","Air and gravity"], correctAnswer: "Vapour/Gas and Sphere" },
+  { question: "Which fundamental force holds the atmosphere in place around a planet or celestial body?", options: ["Centrifugal force","Electromagnetic force","Strong nuclear force","Gravity"], correctAnswer: "Gravity" },
+  { question: "Besides sufficient gravity, what is the second necessary condition for a celestial body to retain an atmosphere?", options: ["High solar wind","Low temperature","Presence of liquid water","High rotation speed"], correctAnswer: "Low temperature" },
+  { question: "Which planet in our solar system has the largest planetary atmosphere?", options: ["Earth","Mars","Jupiter","Venus"], correctAnswer: "Jupiter" },
+  { question: "The first atmosphere of the early Earth was primarily composed of:", options: ["Nitrogen and Oxygen","Water vapor and Carbon dioxide","Gases of the solar nebula, primarily hydrogen","Methane and Ammonia"], correctAnswer: "Gases of the solar nebula, primarily hydrogen" },
+  { question: "The Earth's third atmosphere, which is similar to the present-day atmosphere, was characterized by the introduction of:", options: ["Methane","Carbon dioxide","Oxygen, produced by the great oxygenation event","Neon"], correctAnswer: "Oxygen, produced by the great oxygenation event" },
+  { question: "The decrease in temperature as one ascends through the troposphere is known as the:", options: ["Isothermal rate","Lapse boundary","Lapse rate (6.5 degrees Celsius per kilometer)","Temperature inversion"], correctAnswer: "Lapse rate (6.5 degrees Celsius per kilometer)" },
+  { question: "What is the average lapse rate (decrease in temperature with altitude) per kilometer in the troposphere?", options: ["3.5 degrees Celsius","5.0 degrees Celsius","6.5 degrees Celsius","10.0 degrees Celsius"], correctAnswer: "6.5 degrees Celsius" },
+  { question: "The air temperature of a place is influenced by its latitude, altitude, and its distance from the sea, which exerts a moderating influence. This is due to the moderating influence of:", options: ["Aspect and shadows","The sea and other large water masses","Warm and cold air masses","Geomagnetic fields"], correctAnswer: "The sea and other large water masses" },
+  { question: "The transfer of heat due to the movement of a mass of fluid (like air or water), such as the shifting of warm or cold air masses, is termed:", options: ["Convection","Evaporation","Sublimation","Advection"], correctAnswer: "Advection" },
+  { question: "According to the temperature distribution shown in the lecture, which regions of the planet are generally the warmest?", options: ["The mid-latitudes","The poles","The highlands","The equator"], correctAnswer: "The equator" },
+  { question: "Temperature distribution is not only affected by latitude but also by the presence of:", options: ["Volcanic eruptions","Transform boundaries","Warm and cold ocean currents","Lunar tides"], correctAnswer: "Warm and cold ocean currents" },
+  { question: "The current atmosphere, which has increasing carbon dioxide, is referred to in the lecture as the:", options: ["Paleo atmosphere","Tertiary atmosphere","Anthropogenically modulated atmosphere","Great oxygenation atmosphere"], correctAnswer: "Anthropogenically modulated atmosphere" },
+  { question: "The fact that the temperature in the troposphere generally decreases as altitude increases indicates that the atmosphere is primarily heated from:", options: ["The sun directly","The stratosphere","Below (the Earth's surface)","Volcanic activity"], correctAnswer: "Below (the Earth's surface)" },
+  { question: "Due to its small mass and close proximity to the sun, Mercury is described as having a:", options: ["Thick atmosphere","Nitrogen-rich atmosphere","Very thin atmosphere","Primary hydrogen atmosphere"], correctAnswer: "Very thin atmosphere" }
+];
+
+// Lecture 11: Atmospheric Circulation and Weather
+const lecture2Data = [
+  { question: "Atmospheric circulation is essential for the planet because it helps to redistribute:", options: ["Oxygen","Nitrogen","Heat","Momentum"], correctAnswer: "Heat" },
+  { question: "The heat paradox (where polar regions lose more heat than they receive from the sun) is solved by the transfer of heat from the equators towards the poles via:", options: ["Conduction through the crust","Tectonic plate movement","Air circulation and water circulation","Magnetic field lines"], correctAnswer: "Air circulation and water circulation" },
+  { question: "Atmospheric pressure is fundamentally caused by the hydrostatic pressure created by the:", options: ["Rotation of the planet","Gravitational pull of the moon","Weight of air above the point of measurement","Amount of water vapor"], correctAnswer: "Weight of air above the point of measurement" },
+  { question: "Air always moves from a region of:", options: ["Low pressure to an area of high pressure","High pressure to an area of low pressure","Low temperature to an area of high temperature","High density to an area of low density"], correctAnswer: "High pressure to an area of low pressure" },
+  { question: "The standard atmosphere is defined as 101,325 Pascals (Pa), which is equivalent to:", options: ["1 bar and 100 mm Hg","0.5 bar and 760 mm Hg","10 bars and 76 mm Hg","1 bar and 760 mm Hg"], correctAnswer: "1 bar and 760 mm Hg" },
+  { question: "In a low-pressure area, there is typically a deficit of air, while in a high-pressure area, there is an excess of air. Winds move to:", options: ["Increase the excess","Fill in the void","Further reduce the deficit","Maintain the status quo"], correctAnswer: "Fill in the void" },
+  { question: "In the context of hydrostatic pressure in a fluid column, if the height (h) of the column above a point increases, the pressure at that point will:", options: ["Decrease","Remain the same","Increase","Become zero"], correctAnswer: "Increase" },
+  { question: "In the atmosphere, locations that are near the surface of the Earth will have a greater amount of pressure than locations that are higher above because:", options: ["Gravity is weaker at the surface.","They are warmer.","They have a larger column of air above them.","They have less dust particles."], correctAnswer: "They have a larger column of air above them." },
+  { question: "The Coriolis force, which is caused by the planetary rotation, primarily serves to:", options: ["Increase atmospheric pressure","Decrease the wind speed","Modify the direction of air movement","Cause the formation of clouds"], correctAnswer: "Modify the direction of air movement" },
+  { question: "The prevailing wind direction and air movement are ultimately the cause of:", options: ["Global warming","Diastrophism","Weather phenomena","Plate tectonics"], correctAnswer: "Weather phenomena" },
+  { question: "A severe violent local storm of short duration in small areas, caused by intense convection on moist hot days, and often associated with cumulonimbus clouds, is called a:", options: ["Tornado","Tropical Cyclone","Thunderstorm","Extratropical Cyclone"], correctAnswer: "Thunderstorm" },
+  { question: "Thunderstorms typically occur in India during which season?", options: ["Post-monsoon season","Winter season","Pre-monsoon season","Late monsoon season"], correctAnswer: "Pre-monsoon season" },
+  { question: "The convection current in a thunderstorm leads to the rising of:", options: ["Cold and dry air","Warm and dry air","Cold and moist air","Hot and moist air"], correctAnswer: "Hot and moist air" },
+  { question: "When the hot and moist air is raised upward by convection currents in a thunderstorm, it cools down, which ultimately results in:", options: ["Wind speed reduction","Air mass mixing","Precipitation","Pressure increase"], correctAnswer: "Precipitation" },
+  { question: "What is the standard unit of measurement for atmospheric pressure, often given in N/m^2?", options: ["Bar","Millibars","Millimeters of Mercury (mm Hg)","Pascals (Pa)"], correctAnswer: "Pascals (Pa)" }
+];
+
+// Lecture 12: Climate and Climate Change
+const lecture3Data = [
+  { question: "Weather is defined as the short-term conditions of the lower atmosphere, while climate is defined as the:", options: ["Maximum conditions observed in a region.","Daily fluctuations of temperature.","Broad composite of the average conditions of a region.","Worst conditions observed in a region."], correctAnswer: "Broad composite of the average conditions of a region." },
+  // Note: Item 2 is a quote/saying, not a MCQ
+  { question: "The conditions considered in the definition of climate include temperature, snow and ice cover, winds, and:", options: ["Altitude","Tectonic activity","Amount of rainfall or snowfall","Solar activity"], correctAnswer: "Amount of rainfall or snowfall" },
+  { question: "A change in weather is generally not a cause for concern, but a change in climate is, because climate is an average taken over a:", options: ["Single day","Single year","Short period of 10 years","Long term"], correctAnswer: "Long term" },
+  { question: "The difference between a cold climate and a sunny weather illustrates the distinction between:", options: ["Adaptation and Mitigation","Endogenic and Exogenic processes","Long-term average and short-term condition","High pressure and Low pressure"], correctAnswer: "Long-term average and short-term condition" },
+  { question: "Which component of the climate system specifically includes elements like the soil, topography, and the solid crust?", options: ["Ocean","Atmosphere","Vegetation","Land"], correctAnswer: "Land" },
+  { question: "Which component of the climate system includes the trees, grasses, and other plant life that interact with the atmosphere?", options: ["Land","Ocean","Ice cover","Vegetation"], correctAnswer: "Vegetation" },
+  { question: "The key difference between mitigation and adaptation in the context of climate change is that mitigation aims to reduce:", options: ["Vulnerability to climate stimuli.","Maladaptation.","The root cause (greenhouse gas emissions).","Local effects of warming."], correctAnswer: "The root cause (greenhouse gas emissions)." },
+  { question: "Which adaptation option is best described as an action to help a species or system withstand the impacts of climate change, often for a short time?", options: ["Resilience","Response","Resistance","Maladaptation"], correctAnswer: "Resistance" },
+  { question: "Building dams to reduce the impact of increased floods is an example of which type of adaptation option?", options: ["Resistance","Response","Resilience","Mitigation"], correctAnswer: "Resilience" },
+  { question: "Moving a species to a newer geographic range because its original habitat is no longer suitable due to climate change is an example of which adaptation option?", options: ["Resistance","Resilience","Response","Mitigation"], correctAnswer: "Response" },
+  { question: "A \"Maladaptation\" is defined as any change in natural or human systems that inadvertently:", options: ["Promotes mitigation options.","Reduces greenhouse gas emissions.","Increases the vulnerability to climate stimuli.","Improves long-term climate projections."], correctAnswer: "Increases the vulnerability to climate stimuli." },
+  { question: "Using air conditioners to adapt to warmer temperatures, which in turn leads to a massive increase in carbon dioxide emissions from power plants, is a classic example of:", options: ["Mitigation","Resistance","Resilience","Maladaptation"], correctAnswer: "Maladaptation" },
+  { question: "Which component of the climate system includes the Earth's water bodies (oceans, rivers, lakes) and their storage and circulation?", options: ["Atmosphere","Land","Ice cover","Ocean"], correctAnswer: "Ocean" },
+  { question: "Climate change is defined as a change in the average conditions of a region that is:", options: ["Occurring over a day","Always negative","Over and above the natural variability","Only related to temperature"], correctAnswer: "Over and above the natural variability" }
+];
+
+
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

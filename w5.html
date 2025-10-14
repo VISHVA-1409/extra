@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 5 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 13 - Structure and Composition (Hydrosphere)</option>
+                    <option value="lecture2">Lecture 14 - Oceans and Water Movement</option>
+                    <option value="lecture3">Lecture 15 - Hydrological cycle</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 5 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week5.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 5 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "Low islands consisting of coral reefs surrounding a central depression is a description of",
+                options: [
+                    "oceanic deep / trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "atoll"
+            },
+            {
+                question: "Equal salinity curves are called",
+                options: [
+                    "isopycnal curves",
+                    "isohaline curves",
+                    "isotherm curves",
+                    "isobuoyant curves"
+                ],
+                correctAnswer: "isohaline curves"
+            },
+            {
+                question: "Which of these is a major feature of the ocean floor?",
+                options: [
+                    "oceanic deep / trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "oceanic deep / trench"
+            },
+            {
+                question: "Equal temperature curves are called",
+                options: [
+                    "isopycnal curves",
+                    "isohaline curves",
+                    "isotherm curves",
+                    "isobuoyant curves"
+                ],
+                correctAnswer: "isotherm curves"
+            },
+            {
+                question: "Which of these is not a primary force initiating and governing movement of ocean currents?",
+                options: [
+                    "phase separation",
+                    "gravity",
+                    "Coriolis force",
+                    "arrangement of coasts"
+                ],
+                correctAnswer: "arrangement of coasts"
+            },
+            {
+                question: "Relatively steep-sided, narrow, deep basins is a description of",
+                options: [
+                    "oceanic deep / trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "oceanic deep / trench"
+            }
+        ];
+
+        // Week 5 Assignment Data
+        const weekQuizData = [
+            {
+                question: "Equal density curves are called",
+                options: [
+                    "isopycnal curves",
+                    "isohaline curves",
+                    "isotherm curves",
+                    "isobuoyant curves"
+                ],
+                correctAnswer: "isopycnal curves"
+            },
+            {
+                question: "Which of these is a minor feature of the ocean floor?",
+                options: [
+                    "continental shelf",
+                    "continental slope",
+                    "guyot",
+                    "abyssal plain"
+                ],
+                correctAnswer: "guyot"
+            },
+            {
+                question: "Flat, deep areas of the ocean is a description of",
+                options: [
+                    "oceanic deep/trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "abyssal plain"
+                ],
+                correctAnswer: "abyssal plain"
+            },
+            {
+                question: "Volcanic mountains in the ocean is a description of",
+                options: [
+                    "oceanic deep/trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "seamount"
+            },
+            {
+                question: "Which of these are the largest mountain ranges on Earth?",
+                options: [
+                    "oceanic deep/trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "mid-oceanic ridge"
+            },
+            {
+                question: "deep valleys, often cutting across continental shelves and slopes is a description of",
+                options: [
+                    "oceanic deep/trench",
+                    "mid-oceanic ridge",
+                    "guyot",
+                    "submarine canyon"
+                ],
+                correctAnswer: "submarine canyon"
+            },
+            {
+                question: "Continental slope has a gradient of",
+                options: [
+                    "0-1 degree",
+                    "1-2 degree",
+                    "2-5 degree",
+                    "5-10 degree"
+                ],
+                correctAnswer: "2-5 degree"
+            },
+            {
+                question: "Which of these is not a prominent tidal pattern?",
+                options: [
+                    "diurnal",
+                    "mixed diurnal",
+                    "semidiurnal",
+                    "mixed semidiurnal"
+                ],
+                correctAnswer: "mixed diurnal"
+            },
+            {
+                question: "relatively steep-sided, narrow, deep basins is a description of",
+                options: [
+                    "oceanic deep/trench",
+                    "mid-oceanic ridge",
+                    "seamount",
+                    "atoll"
+                ],
+                correctAnswer: "oceanic deep/trench"
+            },
+            {
+                question: "In the sea, a layer where the temperature decreases rapidly from the mixed upper layer to the cold deeper layer is called",
+                options: [
+                    "isopycnal",
+                    "thermophil",
+                    "thermohaline",
+                    "thermocline"
+                ],
+                correctAnswer: "thermocline"
+            }
+        ];
+
+// Lecture 13: Structure and Composition (Hydrosphere)
+const lecture1Data = [
+  { question: "What is the Greek root word that means \"water,\" from which the term Hydrosphere is derived?", options: ["Sphaira","Atmos","Hydro","Lithos"], correctAnswer: "Hydro" },
+  { question: "The hydrosphere is defined as the combined mass of water found:", options: ["Only on the surface of the planet.","On and under the surface, but not above.","On, under, and above the surface of a planet.","Only in the oceans and seas."], correctAnswer: "On, under, and above the surface of a planet." },
+  { question: "Which sphere is correctly defined as the \"gaseous sphere\" or the envelope of air that surrounds the planet?", options: ["Lithosphere","Hydrosphere","Biosphere","Atmosphere"], correctAnswer: "Atmosphere" },
+  { question: "What percentage of the Earth's total water is contained in the oceans?", options: ["2.05%","71.00%","97.25%","0.68%"], correctAnswer: "97.25%" },
+  { question: "Excluding oceans, what is the second largest reservoir of water on Earth, accounting for 2.05% of the total water?", options: ["Groundwater","Lakes","Ice and snow","Biological water"], correctAnswer: "Ice and snow" },
+  { question: "The water present in the form of water vapor in the atmosphere is included as a part of which sphere?", options: ["Lithosphere","Biosphere","Hydrosphere","Mesosphere"], correctAnswer: "Hydrosphere" },
+  { question: "The largest reservoir of freshwater on Earth is found in the form of:", options: ["Rivers and streams","Groundwater","Ice and snow","Soil moisture"], correctAnswer: "Ice and snow" },
+  { question: "The total concentration of dissolved solids in a body of water is referred to as its:", options: ["Density","Temperature","Salinity","Buoyancy"], correctAnswer: "Salinity" },
+  { question: "Which vertical layer in the ocean is characterized by a rapid increase in density with increasing depth?", options: ["Thermocline","Isopycnal","Halocline","Pycnocline"], correctAnswer: "Pycnocline" },
+  { question: "Lines on a map connecting points of equal salinity are known as:", options: ["Isopycnals","Isotherms","Isohalines","Isobars"], correctAnswer: "Isohalines" },
+  { question: "Which major ocean floor feature has a very gentle slope (0-1 degree) and extends from the coast to the continental break?", options: ["Submarine Canyon","Continental Slope","Continental Shelf","Abyssal Plain"], correctAnswer: "Continental Shelf" },
+  { question: "The ocean floor feature that extends from the continental slope with a gentle gradient of 0.5-1 degree towards the abyssal plain is the:", options: ["Trench","Continental Shelf","Continental Rise","Mid-oceanic Ridge"], correctAnswer: "Continental Rise" },
+  { question: "What is the geological term for the cylindrical or conical structures that rise from the abyssal plain and are less than 1000m in height?", options: ["Seamounts","Guyots","Atolls","Knolls"], correctAnswer: "Knolls" },
+  { question: "The water fraction found in the living organisms on the planet is called:", options: ["Groundwater","Soil moisture","Atmosphere water","Biological water"], correctAnswer: "Biological water" },
+  { question: "What is the gradient range of the continental shelf?", options: ["2-5 degrees","5-10 degrees","0-1 degree","1-2 degrees"], correctAnswer: "0-1 degree" }
+];
+
+// Lecture 14: Oceans and Water Movement
+const lecture2Data= [
+  { question: "Which of these is NOT listed as a major water movement in the ocean?", options: ["Ocean currents","Upwelling","Waves","Tidal bore"], correctAnswer: "Tidal bore" },
+  { question: "Ocean currents are defined as the regular movement of water in a definite path and direction that is:", options: ["Intermittent and random.","Continuous and definite.","Driven solely by gravity.","Only observed in the upper 10% of the water."], correctAnswer: "Continuous and definite." },
+  { question: "The process where the freezing of salt water leads to the expulsion of salt, resulting in very saline and dense unfrozen water, is known as:", options: ["Condensation","Evaporation","Phase separation","Differentiation"], correctAnswer: "Phase separation" },
+  { question: "Which two forces are classified as secondary forces because they only alter the movement of ocean currents, rather than initiating them?", options: ["Wind and Gravity","Coriolis force and Heating","Shape of the ocean floor and arrangement of coasts","Phase separation and Coriolis force"], correctAnswer: "Shape of the ocean floor and arrangement of coasts" },
+  { question: "The Coriolis force is categorized as a primary force for ocean currents because it:", options: ["Initiates and governs the movement.","Is solely responsible for the direction change.","Only affects deep currents.","Is a result of tidal action."], correctAnswer: "Initiates and governs the movement." },
+  { question: "Currents that move in the upper 10% or the upper 100-200 meters of the ocean water are known as:", options: ["Deep currents","Thermohaline currents","Surface currents","Upwelling currents"], correctAnswer: "Surface currents" },
+  { question: "Which motion of ocean water primarily transfers energy, but the water particles only move up and down, resulting in no net transfer of mass?", options: ["Ocean currents","Tides","Upwelling","Waves"], correctAnswer: "Waves" },
+  { question: "Waves primarily originate due to the friction between the air and the water surface, which is caused by:", options: ["Tides","Wind","Gravitational pull","Deep currents"], correctAnswer: "Wind" },
+  { question: "Waves grow in size and height until their speed matches the speed of the wind, especially in areas that are NOT interrupted by:", options: ["Tides","Land","Deep currents","Low pressure"], correctAnswer: "Land" },
+  { question: "The phenomenon where colder, nutrient-rich water from the deep ocean moves up towards the surface is known as:", options: ["Downwelling","Tide","Upwelling","Oceanic divergence"], correctAnswer: "Upwelling" },
+  { question: "An extreme tidal phenomenon where the incoming high tide moves up a river or estuary as a solitary wave is called a:", options: ["Tidal range","Seiche","Tsunami","Tidal bore"], correctAnswer: "Tidal bore" },
+  { question: "The tide pattern characterized by two high tides and two low tides of unequal height in a tidal cycle is the:", options: ["Semidiurnal tide","Diurnal tide","Mixed semidiurnal tide","Mixed diurnal tide"], correctAnswer: "Mixed semidiurnal tide" },
+  { question: "What phenomenon is caused by the gravitational pull of the Sun and the Moon?", options: ["Waves","Upwelling","Tides","Ocean currents"], correctAnswer: "Tides" },
+  { question: "The fact that the unfrozen portion of salt water becomes very dense during phase separation contributes to the formation of:", options: ["Upwelling","Surface currents","Deep currents","Waves"], correctAnswer: "Deep currents" },
+  { question: "What causes the largest and highest waves on a global scale?", options: ["Deep-sea trenches","High coastal walls","Long, uninterrupted expanses of ocean (fetch)","Strong tidal forces"], correctAnswer: "Long, uninterrupted expanses of ocean (fetch)" }
+];
+
+// Lecture 15: Hydrological cycle
+const lecture3Data = [
+  { question: "A large portion of the Earth, as much as around 70 percent, is covered with water bodies, leading to its nickname:", options: ["The Blue Sphere","The Watery Planet","The Hydrosphere","The Temperate Zone"], correctAnswer: "The Watery Planet" },
+  { question: "The water cycle is defined as the movement of water that is:", options: ["Intermittent and random.","Continuous.","Seasonal and paused in winter.","Only occurring over the land surface."], correctAnswer: "Continuous." },
+  { question: "The process in which liquid water converts into water vapor after being heated by the Sun is known as:", options: ["Condensation","Precipitation","Evaporation","Runoff"], correctAnswer: "Evaporation" },
+  { question: "When water vapor cools down in the atmosphere, it condenses to form structures such as clouds, fog, mist, haze, and so on. This process is called:", options: ["Transportation","Evaporation","Condensation","Sublimation"], correctAnswer: "Condensation" },
+  { question: "The primary energy source that drives the process of evaporation and powers the entire hydrological cycle is:", options: ["Earth's geothermal heat","Gravitational potential energy","The heat of the Sun","Wind energy"], correctAnswer: "The heat of the Sun" },
+  { question: "The falling of water from the atmosphere back to the Earth's surface in forms like rain, snow, or hail is called:", options: ["Condensation","Evaporation","Precipitation","Runoff"], correctAnswer: "Precipitation" },
+  { question: "The movement of water on the land's surface according to the slope and gravity is known as:", options: ["Infiltration","Condensation","Runoff","Advection"], correctAnswer: "Runoff" },
+  { question: "Water droplets in clouds will fall as precipitation when they coalesce and become:", options: ["Too cold to remain suspended.","Too saline.","Too heavy to remain suspended.","Too close to a water body."], correctAnswer: "Too heavy to remain suspended." },
+  { question: "The movement of water vapor in the atmosphere from one place to another by winds is referred to as:", options: ["Condensation","Runoff","Transportation/Advection","Precipitation"], correctAnswer: "Transportation/Advection" },
+  { question: "Water that is there in the living organisms on the planet (plants and animals) is called:", options: ["Ground water","Soil moisture","Biological water","Atmospheric water"], correctAnswer: "Biological water" },
+  { question: "Due to the melting of glaciers caused by climate change, the increased amount of water in the oceans results in which specific threat to coastal areas?", options: ["Increased salinity","Loss of heat","Flooding/Inundation","Stronger ocean currents"], correctAnswer: "Flooding/Inundation" },
+  { question: "Which property of ice/glaciers means that they reflect most of the heat back into the atmosphere?", options: ["Low density","Low emissivity","Large albedo","Small volume"], correctAnswer: "Large albedo" },
+  { question: "In contrast to ice, liquid water is characterized by having a:", options: ["Large albedo","Low albedo","High reflection rate","High freezing point"], correctAnswer: "Low albedo" },
+  { question: "The movement of water that is there in the form of groundwater and soil moisture is categorized as occurring:", options: ["On the surface of the Earth.","Above the surface of the Earth.","Below the surface of the Earth.","Only in the biosphere."], correctAnswer: "Below the surface of the Earth." },
+  { question: "What process occurs when water on the land's surface moves downwards into the soil or rock layers?", options: ["Runoff","Evaporation","Infiltration/Percolation","Condensation"], correctAnswer: "Infiltration/Percolation" }
+];
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

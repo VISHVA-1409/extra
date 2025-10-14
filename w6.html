@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 6 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 16 - Structure and Physiography of India</option>
+                    <option value="lecture2">Lecture 17 - Climate and Habitats of India</option>
+                    <option value="lecture3">Lecture 18 - Drainage Systems</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 6 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week6.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 6 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "Which of these are broad groups of peninsular plateau of India?",
+                options: [
+                    "the Deccan plateau",
+                    "the Central Highlands",
+                    "the North-Eastern plateau",
+                    "all of these"
+                ],
+                correctAnswer: "all of these"
+            },
+            {
+                question: "In Koeppen classification, which is steppe precipitation?",
+                options: ["W", "S", "f", "s"],
+                correctAnswer: "S"
+            },
+            {
+                question: "In Koeppen classification, which is warm summer temperature?",
+                options: ["h", "k", "a", "b"],
+                correctAnswer: "b"
+            },
+            {
+                question: "In Koeppen classification, which is hot summer temperature?",
+                options: ["h", "k", "a", "b"],
+                correctAnswer: "a"
+            },
+            {
+                question: "In Koeppen classification, which is summer dry precipitation?",
+                options: ["W", "S", "f", "s"],
+                correctAnswer: "s"
+            },
+            {
+                question: "In Koeppen classification, which is polar tundra temperature?",
+                options: ["C", "d", "F", "T"],
+                correctAnswer: "T"
+            },
+            {
+                question: "In Koeppen classification, which is polar climate?",
+                options: ["A", "B", "C", "E"],
+                correctAnswer: "E"
+            }
+        ];
+
+        // Week 6 Assignment Data
+        const weekQuizData = [
+            {
+                question: "In Koeppen classification, which is hot summer temperature?",
+                options: ["h", "k", "a", "b"],
+                correctAnswer: "a"
+            },
+            {
+                question: "In Koeppen classification, which is desert precipitation?",
+                options: ["W", "S", "f", "s"],
+                correctAnswer: "W"
+            },
+            {
+                question: "India's location is",
+                options: [
+                    "Equatorial in South, Tropical in North",
+                    "Tropical in South, Equatorial in North",
+                    "Tropical in South, Sub-tropical in North",
+                    "Sub-tropical in South, Tropical in North"
+                ],
+                correctAnswer: "Tropical in South, Sub-tropical in North"
+            },
+            {
+                question: "In Koeppen classification, which is cold arid temperature?",
+                options: ["h", "k", "a", "b"],
+                correctAnswer: "k"
+            },
+            {
+                question: "In Koeppen classification, which is winter dry precipitation?",
+                options: ["W", "S", "f", "w"],
+                correctAnswer: "w"
+            },
+            {
+                question: "In Koeppen classification, which is cool summer temperature?",
+                options: ["a", "b", "c", "d"],
+                correctAnswer: "c"
+            },
+            {
+                question: "Which of these is the correct sequence of seasons in India?",
+                options: [
+                    "Hot weather season, Retreating monsoon season, South-West monsoon season, Cold weather season",
+                    "Hot weather season, South-West monsoon season, Cold weather season, Retreating monsoon season",
+                    "Hot weather season, Cold weather season, South-West monsoon season, Retreating monsoon season",
+                    "Hot weather season, South-West monsoon season, Retreating monsoon season, Cold weather season"
+                ],
+                correctAnswer: "Hot weather season, South-West monsoon season, Retreating monsoon season, Cold weather season"
+            },
+            {
+                question: "In Koeppen classification, which is monsoonal precipitation?",
+                options: ["w", "m", "f", "s"],
+                correctAnswer: "m"
+            },
+            {
+                question: "Physiography is the outcome of",
+                options: [
+                    "structure",
+                    "process",
+                    "stage of development",
+                    "all of these"
+                ],
+                correctAnswer: "all of these"
+            },
+            {
+                question: "In Koeppen classification, which is equatorial climate?",
+                options: ["A", "B", "C", "E"],
+                correctAnswer: "A"
+            }
+        ];
+
+// Lecture 16: Structure and Physiography of India
+const lecture1Data = [
+  { question: "India is located in which continent?", options: ["Africa", "Europe", "Asia", "Australia"], correctAnswer: "Asia" },
+  { question: "The maximum latitudinal extent of India (from north to south) is approximately:", options: ["10 degrees", "20 degrees", "30 degrees", "45 degrees"], correctAnswer: "30 degrees" },
+  { question: "The maximum longitudinal extent of India (from west to east) is approximately:", options: ["10 degrees", "20 degrees", "30 degrees", "45 degrees"], correctAnswer: "30 degrees" },
+  { question: "The Himalayas and other Northern Mountains are an example of which type of mountain?", options: ["Block mountains", "Volcanic mountains", "Young fold mountains", "Residual mountains"], correctAnswer: "Young fold mountains" },
+  { question: "The Himalayas stretch in which general direction across the north of India?", options: ["North to South", "South to North", "West to East", "Northwest to Southeast"], correctAnswer: "West to East" },
+  { question: "The Indo-Gangetic plain, which is one of the world's most fertile regions, is an example of which type of plain?", options: ["Erosional plain", "Structural plain", "Depositional plain", "Glacial plain"], correctAnswer: "Depositional plain" },
+  { question: "Which physiographic division is characterized by its oldest and most stable geological structure, primarily composed of old crystalline, igneous, and metamorphic rocks?", options: ["Northern Plains", "Northern Mountains", "Coastal Plains", "Peninsular Plateau"], correctAnswer: "Peninsular Plateau" },
+  { question: "The Deccan Plateau is primarily composed of which type of rock, resulting from ancient flood basalt eruptions?", options: ["Sandstone", "Limestone", "Granite", "Basalt"], correctAnswer: "Basalt" },
+  { question: "The Western Ghats are a continuous chain of mountains, while the Eastern Ghats are:", options: ["Higher in altitude.", "Broken and discontinuous.", "Younger in geological age.", "Primarily composed of limestone."], correctAnswer: "Broken and discontinuous." },
+  { question: "The Thar Desert, or the Great Indian Desert, is primarily located in which physiographic division?", options: ["Northern Plains", "Peninsular Plateau", "Indian Desert", "Eastern Coastal Plains"], correctAnswer: "Indian Desert" },
+  { question: "Which physiographic division is crucial for India's economy and food security due to the presence of large, perennial river systems and extremely fertile soil?", options: ["Indian Desert", "Northern Plains", "Islands", "Peninsular Plateau"], correctAnswer: "Northern Plains" },
+  { question: "The Western Coastal Plains are generally narrower than the Eastern Coastal Plains, and are known for which economic activity?", options: ["Dry farming", "Trade and commerce (due to ports)", "Coal mining", "Hydroelectric power generation"], correctAnswer: "Trade and commerce (due to ports)" },
+  { question: "The Lakshadweep Islands, located in the Arabian Sea, are primarily of which geological origin?", options: ["Volcanic origin (like the Andamans)", "Tectonic origin", "Biological origin (Corals/Atolls)", "Continental fragment origin"], correctAnswer: "Biological origin (Corals/Atolls)" },
+  { question: "The Andaman and Nicobar Islands, located in the Bay of Bengal, are considered larger islands that are remnants of which geological structure?", options: ["Old volcanic arc", "Coral atolls", "Submerged fold mountains", "Continental fragments"], correctAnswer: "Submerged fold mountains" },
+  { question: "The large variations in the geology and physiography of India are the primary reason for the country's:", options: ["Uniform climate.", "High population density.", "Large number of climates and varied habitats (biodiversity).", "Abundance of metal ores."], correctAnswer: "Large number of climates and varied habitats (biodiversity)." }
+];
+
+// Lecture 17: Climate and Habitats of India
+const lecture2Data= [
+  { question: "The climate of India is largely defined as a:", options: ["Polar climate", "Mediterranean climate", "Tropical/Subtropical monsoon climate", "Temperate maritime climate"], correctAnswer: "Tropical/Subtropical monsoon climate" },
+  { question: "The South-West Monsoon season in India typically occurs during which months?", options: ["October to February", "March to May", "June to September", "December to January"], correctAnswer: "June to September" },
+  { question: "Which atmospheric phenomenon is responsible for bringing the bulk of India's annual rainfall?", options: ["North-East Trade Winds", "Western Disturbances", "South-West Monsoon", "Tropical Cyclones"], correctAnswer: "South-West Monsoon" },
+  { question: "The Cold Weather Season in India is generally characterized by:", options: ["High humidity and heavy rainfall.", "High temperature and low pressure.", "Clear skies, low temperature, and low humidity.", "Strong trade winds and high solar insolation."], correctAnswer: "Clear skies, low temperature, and low humidity." },
+  { question: "During the Hot Weather Season (March to May), the most significant characteristic is the:", options: ["Heavy snowfall in the plains.", "High temperature and low pressure over the North Indian plains.", "Onset of the monsoon.", "Cold winds from the Himalayas."], correctAnswer: "High temperature and low pressure over the North Indian plains." },
+  { question: "In the Koeppen classification system, the capital letter 'A' is used to denote which major climate type?", options: ["Arid climate", "Equatorial/Tropical climate", "Temperate climate", "Polar climate"], correctAnswer: "Equatorial/Tropical climate" },
+  { question: "In the Koeppen classification system, which small letter is used to indicate a dry season in summer?", options: ["$w$", "$m$", "$s$", "$f$"], correctAnswer: "$s$" },
+  { question: "The climate type Am, which is found in a small part of the Indian coast south of the Western Ghats, indicates a:", options: ["Steppe climate with a cold arid temperature.", "Tropical monsoonal climate.", "Warm temperate climate with a dry summer.", "Tundra climate."], correctAnswer: "Tropical monsoonal climate." },
+  { question: "Which climate type, denoted by BW h, is characteristic of the Indian desert region?", options: ["Tropical wet and dry climate", "Cold arid steppe climate", "Hot arid desert climate", "Monsoon with a short dry season"], correctAnswer: "Hot arid desert climate" },
+  { question: "According to the Koeppen classification, the highest parts of the Himalayas are characterized by an E (Polar) climate, specifically ET, which stands for:", options: ["Tundra with a dry summer.", "Ice cap.", "Tundra.", "Tropical."], correctAnswer: "Tundra." },
+  { question: "Which type of forest habitat is found in areas with a very high amount of rainfall (typically over 200 cm), such as the Western Ghats and North-East India?", options: ["Tropical Deciduous Forests", "Tropical Thorn Forests", "Tropical Evergreen Forests", "Alpine Forests"], correctAnswer: "Tropical Evergreen Forests" },
+  { question: "The adaptation shown by Mangrove plants, where seeds germinate while still attached to the parent plant to ensure survival in saline water, is called:", options: ["Hydrophily", "Pneumatophores", "Halophytes", "Vivipary"], correctAnswer: "Vivipary" },
+  { question: "Mangrove trees (found in Tidal/Swamp Forests) develop specialized upward-growing roots that help them exchange gases in waterlogged, anaerobic soil. These roots are called:", options: ["Prop roots", "Adventitious roots", "Stilt roots", "Pneumatophores"], correctAnswer: "Pneumatophores" },
+  { question: "The Tropical Deciduous Forests are characterized by the deciduous nature of their trees, meaning they shed their leaves during which time of the year?", options: ["Rainy season", "Dry season", "Cold season", "Post-monsoon season"], correctAnswer: "Dry season" },
+  { question: "The largest amount of area in India is covered by which type of forest habitat?", options: ["Tropical Evergreen Forests", "Mountain Forests", "Tropical Deciduous Forests", "Tidal/Swamp Forests"], correctAnswer: "Tropical Deciduous Forests" }
+];
+
+// Lecture 18: Drainage Systems
+const lecture3Data= [
+  { question: "The large amount of water flowing in the rivers of North India is primarily due to the rivers being:", options: ["Rain-fed only.", "Snow-fed (from the Himalayas) and rain-fed.", "Spring-fed only.", "Artificially maintained."], correctAnswer: "Snow-fed (from the Himalayas) and rain-fed." },
+  { question: "The drainage system of India is broadly divided into the Himalayan Drainage and the:", options: ["Coastal Drainage", "Desert Drainage", "Island Drainage", "Peninsular Drainage"], correctAnswer: "Peninsular Drainage" },
+  { question: "The rivers of the Himalayan Drainage system are generally characterized by:", options: ["Seasonal flow and gentle gradients.", "Short courses and small deltas.", "Perennial flow and steep gradients.", "Being non-navigable and highly polluted."], correctAnswer: "Perennial flow and steep gradients." },
+  { question: "The rivers of the Peninsular Drainage system are mostly characterized by:", options: ["Seasonal flow and gentle gradients.", "Perennial flow and high erosional capacity.", "Deep gorges and oxbow lakes.", "Being young and forming deltas."], correctAnswer: "Seasonal flow and gentle gradients." },
+  { question: "Which major river system is known to have cut deep gorges through the Himalayas, indicating that it existed even before the mountains were fully uplifted (antecedent drainage)?", options: ["Ganga", "Yamuna", "Kaveri", "Indus/Brahmaputra"], correctAnswer: "Indus/Brahmaputra" },
+  { question: "In the Himalayan Drainage system, the rivers have reached the mature stage of evolution in which area?", options: ["The steep mountains", "The foothills", "The plains", "The coast"], correctAnswer: "The plains" },
+  { question: "Most of the rivers in Peninsular India flow towards which body of water, making the eastern side the main drainage basin?", options: ["Arabian Sea", "Indian Ocean", "Bay of Bengal", "Rann of Kutch"], correctAnswer: "Bay of Bengal" },
+  { question: "The Narmada and Tapti (Tapi) rivers of the Peninsular Drainage system are unique because they flow westwards and drain into the:", options: ["Bay of Bengal", "Indian Ocean", "Arabian Sea", "Andaman Sea"], correctAnswer: "Arabian Sea" },
+  { question: "The Damodar river, famous for its association with coal mining and early development of hydroelectric projects, is a major tributary of which river?", options: ["Ganga", "Brahmaputra", "Godavari", "Hooghly (Ganga-Padma)"], correctAnswer: "Hooghly (Ganga-Padma)" },
+  { question: "The formation of oxbow lakes and meanders is typical of rivers in which stage of evolution?", options: ["Youthful stage", "Old stage", "Mature stage", "Senile stage"], correctAnswer: "Mature stage" },
+  { question: "Which term describes the river system in which the main river and its tributaries drain a particular geographical area?", options: ["Water shed", "Catchment area", "River basin", "Drainage system"], correctAnswer: "Drainage system" },
+  { question: "A watershed or water divide is defined as the elevated area that:", options: ["Is the source of a river.", "Separates two different drainage basins.", "Is the location of a delta.", "Only has seasonal flow."], correctAnswer: "Separates two different drainage basins." },
+  { question: "Which of the following is cited as a major conservation challenge currently facing India's river systems?", options: ["Natural siltation", "Tectonic upliftment", "Pollution (domestic, municipal, industrial waste)", "Excessive dam construction"], correctAnswer: "Pollution (domestic, municipal, industrial waste)" },
+  { question: "The catfish that was introduced in the Bharatpur National Park (Keoladeo Ghana National Park) and later became an invasive species, posing a threat to local bird species like the Sarus cranes, was originally brought from:", options: ["Europe", "Africa", "South America", "East Asia"], correctAnswer: "Africa" },
+  { question: "What type of drainage pattern do the Himalayan rivers typically follow as they flow out of the mountains and into the plains?", options: ["Radial pattern", "Dendritic pattern", "Trellis pattern", "Dendritic pattern"], correctAnswer: "Dendritic pattern" }
+];
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

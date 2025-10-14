@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 8 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 8 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 22 - Threats to Species</option>
+                    <option value="lecture2">Lecture 23 - Ex-Situ and In-Situ Conservation</option>
+                    <option value="lecture3">Lecture 24 - Benefits from Conservation</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 8 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week8.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 8 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "The acronym HIPPO does not include",
+                options: [
+                    "habitat loss",
+                    "habitat enhancement",
+                    "invasive species",
+                    "human over-population"
+                ],
+                correctAnswer: "habitat enhancement"
+            },
+            {
+                question: "The elephant has a home range of several square kilometres, regulates the ecosystem by its habit of destructive feeding, and people can relate to this animal which is important for conservation. Given this background, the elephant can be called as",
+                options: [
+                    "umbrella species",
+                    "keystone species",
+                    "flagship species",
+                    "all of the above"
+                ],
+                correctAnswer: "all of the above"
+            },
+            {
+                question: "Religious benefits are an example of",
+                options: [
+                    "provisioning service",
+                    "regulating service",
+                    "supporting service",
+                    "cultural service"
+                ],
+                correctAnswer: "cultural service"
+            },
+            {
+                question: "Which of these is a deterministic factor?",
+                options: [
+                    "environmental variation",
+                    "forest fire",
+                    "death rate",
+                    "diseases"
+                ],
+                correctAnswer: "death rate"
+            },
+            {
+                question: "According to Leopold, which of these is not a tool of habitat management?",
+                options: [
+                    "fire",
+                    "gun",
+                    "cattle",
+                    "sickle"
+                ],
+                correctAnswer: "sickle"
+            }
+        ];
+
+        const weekQuizData= [
+  {
+    question: "The fig tree bears fruits in times when animals do not have much access to food. In this context, it would be a good example of:",
+    options: ["least concern species", "keystone species", "flagship species", "extinct species"],
+    correctAnswer: "keystone species"
+  },
+  {
+    question: "The 'subset of physical and biotic environmental factors that permit an animal (or plant) to survive and reproduce' is the definition of:",
+    options: ["habitat", "ecosystem", "biome", "biosphere"],
+    correctAnswer: "habitat"
+  },
+  {
+    question: "Which of these correctly represents the process of habitat fragmentation and loss?",
+    options: [
+      "Original forest Dissection Perforation Fragmentation Attrition",
+      "Original forest Dissection- Attrition-Fragmentation Perforation",
+      "Original forest Dissection Perforation Attrition Fragmentation",
+      "Original forest Dissection Fragmentation Perforation Attrition"
+    ],
+    correctAnswer: "Original forest Dissection Perforation. Fragmentation Attrition"
+  },
+  {
+    question: "Soil formation is an example of:",
+    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
+    correctAnswer: "supporting service"
+  },
+  {
+    question: "Biological control of pest populations is an example of:",
+    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
+    correctAnswer: "regulating service"
+  },
+  {
+    question: "The acronym HIPPO does not include:",
+    options: ["habitat loss", "Invasive species", "pollination", "pollution"],
+    correctAnswer: "pollination"
+  },
+  {
+    question: "The tiger has a home range of several square kilometres, regulates the ecosystem through controlling herbivore populations and trophic cascades, and people come to tiger reserves to watch tigers. Thus, the tiger can be called as:",
+    options: ["umbrella species", "keystone species", "flagship species", "all of the above"],
+    correctAnswer: "all of the above"
+  },
+  {
+    question: "People come to Sessa orchid sanctuary in Arunachal Pradesh to witness orchids, which in this context would be classified as:",
+    options: ["umbrella species", "keystone species", "flagship species", "extinct species"],
+    correctAnswer: "flagship species"
+  },
+  {
+    question: "Captive breeding is an example of:",
+    options: ["in-situ conservation", "ex-situ conservation", "in-situ preservation", "ex-situ preservation"],
+    correctAnswer: "ex-situ conservation"
+  },
+  {
+    question: "We prefer those areas for the creation of a conservation reserve where the level of threat is:",
+    options: ["very high", "medium", "overly low", "non-existent"],
+    correctAnswer: "medium"
+  }
+];
+
+
+
+       
+// Lecture 22: Threats to Species
+const lecture1Data = [
+  { question: "What is defined as the reduction in the quality of a habitat, where the habitat still exists but its capacity to support a species is diminished?", options: ["Habitat loss", "Habitat fragmentation", "Habitat degradation", "Habitat displacement"], correctAnswer: "Habitat degradation" },
+  { question: "The complete disappearance of a habitat from a geographical area is referred to as:", options: ["Habitat degradation", "Habitat fragmentation", "Habitat loss", "Habitat dissection"], correctAnswer: "Habitat loss" },
+  { question: "The term HIPPO is an acronym used to summarize the major threats to species and stands for Habitat Loss, Invasive Species, Pollution, Population (human), and:", options: ["Ocean warming", "Overfishing", "Overexploitation", "Ozone depletion"], correctAnswer: "Overexploitation" },
+  { question: "Which stage of the habitat loss process is characterized by a formerly continuous habitat being broken down into smaller patches?", options: ["Perforation", "Dissection", "Attrition", "Fragmentation"], correctAnswer: "Fragmentation" },
+  { question: "The process where small, non-contiguous gaps are created within an original habitat (e.g., small clearings), reducing the core area, is known as:", options: ["Dissection", "Fragmentation", "Attrition", "Perforation"], correctAnswer: "Perforation" },
+  { question: "In the context of habitat loss, the final stage where the remaining habitat patches become smaller and fewer is termed:", options: ["Perforation", "Fragmentation", "Attrition", "Dissection"], correctAnswer: "Attrition" },
+  { question: "Which type of invasive species is often introduced for food, aesthetics, or biological control, but later outcompetes native species and threatens biodiversity?", options: ["Exotic species", "Native species", "Alien species", "Endemic species"], correctAnswer: "Alien species" },
+  { question: "The threat posed by the DDT chemical, which accumulates in the food chain and causes thin-shelled eggs in birds of prey, is an example of which major threat?", options: ["Habitat loss", "Invasive species", "Pollution", "Overexploitation"], correctAnswer: "Pollution" },
+  { question: "The threat of Overexploitation primarily occurs when the harvesting rate of a species:", options: ["Is less than the natural growth rate.", "Exceeds the natural rate of increase/recruitment.", "Is driven by pollution.", "Is regulated by keystone species."], correctAnswer: "Exceeds the natural rate of increase/recruitment." },
+  { question: "The shift in a habitat to a location where the species are no longer able to survive, often due to climate change (e.g., a mountain species moving higher until there is no mountain left), is called:", options: ["Habitat loss", "Habitat fragmentation", "Habitat displacement", "Habitat degradation"], correctAnswer: "Habitat displacement" },
+  { question: "Linear infrastructure, such as roads, railways, and canals, primarily contributes to which habitat impact?", options: ["Habitat loss", "Habitat fragmentation", "Habitat displacement", "Pollution"], correctAnswer: "Habitat fragmentation" },
+  { question: "When roads are built through a forest, the increased ease of access for humans leads to a higher risk of:", options: ["Habitat displacement", "Poaching and illicit felling of trees", "Increased habitat quality", "Reduced edge effects"], correctAnswer: "Poaching and illicit felling of trees" },
+  { question: "The edge effect in a fragmented habitat leads to:", options: ["Lower temperature and higher humidity inside the patch.", "Increased temperature, decreased humidity, and increased access to invasives at the boundary.", "Improved movement for all species.", "Greater genetic diversity."], correctAnswer: "Increased temperature, decreased humidity, and increased access to invasives at the boundary." },
+  { question: "The threat posed by human population growth primarily translates into an increased demand for:", options: ["Flagship species", "Natural resources and land", "Captive breeding programs", "Ex-situ conservation"], correctAnswer: "Natural resources and land" },
+  { question: "What is the psychological and physical barrier that prevents animals from moving between fragmented habitat patches?", options: ["Habitat degradation", "Dissection", "Barriers created by roads and human structures", "Attrition"], correctAnswer: "Barriers created by roads and human structures" }
+];
+
+// Lecture 23: Ex-Situ and In-Situ Conservation
+const lecture2Data= [
+  { question: "Conservation that is performed off-site (away from the species' natural habitat) is known as:", options: ["In-situ conservation", "In-situ preservation", "Ex-situ conservation", "Ex-situ preservation"], correctAnswer: "Ex-situ conservation" },
+  { question: "The establishment of National Parks and Wildlife Sanctuaries are prime examples of which type of conservation?", options: ["Ex-situ conservation", "In-situ conservation", "Ex-situ preservation", "Captive breeding"], correctAnswer: "In-situ conservation" },
+  { question: "The storage of germplasm (seeds, embryos, etc.) in a seed bank or a gene bank is an example of:", options: ["In-situ conservation", "Species reintroduction", "Ex-situ conservation", "Habitat restoration"], correctAnswer: "Ex-situ conservation" },
+  { question: "A species that is considered Endemic is one that is:", options: ["Present across a very large geographical area.", "Found only in a specific geographical area.", "Extinct in the wild.", "Non-native to a region."], correctAnswer: "Found only in a specific geographical area." },
+  { question: "The technique where organisms are taken from an ex-situ conservation facility and placed back into their natural habitat is called:", options: ["Captive breeding", "Genetic rescue", "Species reintroduction", "Cloning"], correctAnswer: "Species reintroduction" },
+  { question: "Which concept is used to identify gaps in the current protected area network and suggest new reserves to protect habitats that are currently under-represented?", options: ["Flagship species approach", "Keystone species identification", "Gap analysis", "Reserve design principles"], correctAnswer: "Gap analysis" },
+  { question: "The IUCN Red List classification of a species that is not currently considered threatened, but may become so in the future due to high-risk factors, is:", options: ["Critically Endangered (CR)", "Endangered (EN)", "Vulnerable (VU)", "Near Threatened (NT)"], correctAnswer: "Near Threatened (NT)" },
+  { question: "According to the IUCN classification, which category is assigned to a species that is no longer found in its native habitat, but still exists in cultivation or captivity?", options: ["Extinct in the Wild (EW)", "Extinct (EX)", "Data Deficient (DD)", "Vulnerable (VU)"], correctAnswer: "Vulnerable (VU)" },
+  { question: "When selecting a conservation reserve, an area with a high species richness and a high degree of endemism is generally preferred because it:", options: ["Has a very high level of existing protection.", "Maximizes the number of species saved per unit area/effort.", "Is easier to manage and police.", "Requires minimal human interference."], correctAnswer: "Maximizes the number of species saved per unit area/effort." },
+  { question: "A species that requires a very large home range and whose conservation automatically protects a large number of other species is called a(n):", options: ["Keystone species", "Flagship species", "Umbrella species", "Endemic species"], correctAnswer: "Umbrella species" },
+  { question: "Why is the creation of reserves in areas with a very high level of threat generally not preferred for effective conservation?", options: ["They lack flagship species.", "They are usually in remote, inaccessible areas.", "The chances of success are low for the investment made (risk is too high).", "They have low species richness."], correctAnswer: "The chances of success are low for the investment made (risk is too high)." },
+  { question: "The conservation of the Fig tree as an example of a Keystone species is important because it:", options: ["Has a very large home range.", "Bears fruit during times of food scarcity for many animals.", "Attracts tourists to the area.", "Is an umbrella species."], correctAnswer: "Bears fruit during times of food scarcity for many animals." },
+  { question: "In the context of reserve selection, why is a location with a medium level of threat often considered the most suitable?", options: ["The threat is already non-existent.", "The area is naturally protected.", "It is not too late to conserve the area, and the chances of success are still high.", "It has the lowest cost of acquisition."], correctAnswer: "It is not too late to conserve the area, and the chances of success are still high." },
+  { question: "What is the primary function of Botanical Gardens and Zoological Parks in biodiversity conservation?", options: ["In-situ protection of entire ecosystems.", "Habitat restoration.", "Ex-situ conservation and public awareness/education.", "Gap analysis studies."], correctAnswer: "Ex-situ conservation and public awareness/education." },
+  { question: "Habitat restoration is a key component of which type of conservation strategy?", options: ["Ex-situ conservation", "In-situ conservation", "Genetic banking", "Translocation"], correctAnswer: "In-situ conservation" }
+];
+
+
+// Lecture 24: Benefits from Conservation
+const lecture3Data= [
+  { question: "When designing a conservation reserve, the principle 'Big is better than small' is primarily based on the idea that larger areas:", options: ["Are easier to manage.", "Have a higher degree of endemism.", "Support a larger population and can maintain genetic diversity.", "Have a lower extinction rate due to less pollution."], correctAnswer: "Support a larger population and can maintain genetic diversity." },
+  { question: "The principle 'One large reserve is better than several small ones' assumes that:", options: ["Smaller reserves cannot support any species.", "A single large reserve minimizes the negative effects of fragmentation and edge effects.", "Multiple small reserves are too expensive.", "Only large reserves contain keystone species."], correctAnswer: "A single large reserve minimizes the negative effects of fragmentation and edge effects." },
+  { question: "According to reserve design principles, a corridor (a strip of habitat connecting two larger reserves) is desirable because it facilitates:", options: ["Lower rates of poaching.", "Movement and genetic exchange between animal populations.", "Higher rates of primary production.", "Reduced human population density."], correctAnswer: "Movement and genetic exchange between animal populations." },
+  { question: "Which concept states that greater biodiversity ensures that a disaster or disease will not wipe out the entire system because other species can take the place of the wiped-out ones, thus minimizing the volatility of the investment?", options: ["Insurance Effect", "Keystone Effect", "Portfolio Effect", "Flagship Effect"], correctAnswer: "Portfolio Effect" },
+  { question: "The benefit of biodiversity that is exemplified by plants providing food, fuel, timber, and medicinal resources is classified as a(n):", options: ["Regulating service", "Cultural service", "Supporting service", "Provisioning service"], correctAnswer: "Provisioning service" },
+  { question: "Which ecosystem service category includes benefits like climate regulation, biological control of pests, and pollination?", options: ["Provisioning service", "Regulating service", "Supporting service", "Cultural service"], correctAnswer: "Regulating service" },
+  { question: "Ecosystem services that are necessary for the production of all other services (such as nutrient cycling and soil formation) are classified as:", options: ["Provisioning service", "Regulating service", "Supporting service", "Cultural service"], correctAnswer: "Supporting service" },
+  { question: "The non-material benefits people obtain from ecosystems, such as spiritual enrichment, recreation, and aesthetic enjoyment, are classified as:", options: ["Provisioning service", "Regulating service", "Supporting service", "Cultural service"], correctAnswer: "Cultural service" },
+  { question: "The principle that refers to the fact that different species within an ecosystem play a similar functional role, so if one is lost, another can take its place to maintain the system's function, is called the:", options: ["Portfolio effect", "Insurance effect", "Redundancy effect", "Trophic cascade"], correctAnswer: "Insurance effect" },
+  { question: "The benefit of pollination by insects and animals is a vital service that directly supports the production of food. It is therefore categorized as a Regulating Service that supports which other service?", options: ["Cultural service", "Provisioning service", "Supporting service", "Non-use value"], correctAnswer: "Provisioning service" },
+  { question: "According to the principles of reserve design, the principle 'A closer reserve is better than a far reserve' refers to the idea that:", options: ["Far reserves are more expensive.", "Proximity facilitates movement and recolonization, increasing stability.", "Far reserves are prone to higher human-wildlife conflict.", "Close reserves have a higher degree of endemism."], correctAnswer: "Proximity facilitates movement and recolonization, increasing stability." },
+  { question: "In the context of reserve design, a reserve that is circular in shape is generally preferred over a long, narrow one because a circular shape:", options: ["Is easier to manage.", "Has higher internal heterogeneity.", "Minimizes the 'edge effect' and maximizes the core area.", "Is always closer to other reserves."], correctAnswer: "Minimizes the 'edge effect' and maximizes the core area." },
+  { question: "The 'Bank for the Buck' approach in conservation reserve design aims to:", options: ["Prioritize the most expensive land for conservation.", "Achieve the maximum species conserved for a unit of effort/funding.", "Focus solely on areas with very low levels of threat.", "Only protect keystone species."], correctAnswer: "Achieve the maximum species conserved for a unit of effort/funding." },
+  { question: "In reserve design, when comparing reserves connected by a corridor versus those that are isolated, which option is generally preferred for long-term viability?", options: ["Connected reserves with corridors", "Isolated reserves", "Small, isolated reserves", "Reserves with only edge habitat"], correctAnswer: "Connected reserves with corridors" },
+  { question: "The benefit of biodiversity that involves the purification of water and air is a crucial example of which category of ecosystem service?", options: ["Provisioning service", "Regulating service", "Cultural service", "Supporting service"], correctAnswer: "Regulating service" }
+];
+
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

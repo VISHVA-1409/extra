@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 12 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 12 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 34 - Remote Sensing and GIS</option>
+                    <option value="lecture2">Lecture 35 - Disasters and Remote Sensing/LiDAR</option>
+                    <option value="lecture3">Lecture 36 - Valuation of Natural Resources</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week  Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 12 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week12.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 12 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "The conditions determined by physical, social, economic and environmental factors or processes which increase the susceptibility of an individual, a community, assets or systems to the impacts of hazards. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "vulnerability"
+            },
+            {
+                question: "The value derived from the knowledge of use of resources by others in the current generation is called",
+                options: [
+                    "altruistic value",
+                    "bequest value",
+                    "existence value",
+                    "option value"
+                ],
+                correctAnswer: "altruistic value"
+            }
+        ];
+
+        // Week 12 Assignment Data
+        const weekQuizData = [
+            {
+                question: "The time of flight for LIDAR is 0.00001 sec. Find the distance of the object from the instrument.",
+                options: [
+                    "500 m",
+                    "1000 m",
+                    "1500 m",
+                    "2000 m"
+                ],
+                correctAnswer: "1500 m"
+            },
+            {
+                question: "Which of these uses imputed willingness to pay?",
+                options: [
+                    "market price method",
+                    "replacement cost method",
+                    "travel cost method",
+                    "contingent valuation method"
+                ],
+                correctAnswer: "replacement cost method"
+            },
+            {
+                question: "The situation of people, infrastructure, housing, production capacities and other tangible human assets located in hazard-prone areas. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "exposure"
+            },
+            {
+                question: "A process, phenomenon or human activity that may cause loss of life, injury or other health impacts, property damage, social and economic disruption or environmental degradation. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "hazard"
+            },
+            {
+                question: "A serious disruption of the functioning of a community or a society at any scale due to hazardous events interacting with conditions of exposure, vulnerability and capacity, leading to one or more of the following: human, material, economic and environmental losses and impacts. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "disaster"
+            },
+            {
+                question: "The combination of all the strengths, attributes and resources available within an organisation, community or society to manage and reduce disaster risks and strengthen resilience. is a definition for",
+                options: [
+                    "contingency",
+                    "disaster management",
+                    "vulnerability",
+                    "capacity"
+                ],
+                correctAnswer: "capacity"
+            },
+            {
+                question: "Bathymetric LIDAR uses",
+                options: [
+                    "far infrared light",
+                    "near infrared light",
+                    "orange light",
+                    "green light"
+                ],
+                correctAnswer: "green light"
+            },
+            {
+                question: "IMU stands for",
+                options: [
+                    "Imperial metering unit",
+                    "Inertial metering unit",
+                    "Imperial measurement unit",
+                    "Inertial measurement unit"
+                ],
+                correctAnswer: "Inertial measurement unit"
+            },
+            {
+                question: "Which of these is not a consumptive value?",
+                options: [
+                    "timber",
+                    "firewood",
+                    "non-timber forest products",
+                    "education"
+                ],
+                correctAnswer: "education"
+            },
+            {
+                question: "The frequency of flyovers is an indicator of",
+                options: [
+                    "spatial resolution",
+                    "temporal resolution",
+                    "spectral resolution",
+                    "radiometric resolution"
+                ],
+                correctAnswer: "temporal resolution"
+            }
+        ];
+
+// Lecture 34: Remote Sensing and GIS
+const lecture34RemoteSensingGIS = [
+  { question: "Photogrammetry is defined as:", options: ["The science of light reflection from objects.", "The science and technology of obtaining spatial measurements from photographs.", "The technology for creating aerial photographs.", "The study of electromagnetic radiation."], correctAnswer: "The science and technology of obtaining spatial measurements from photographs." },
+  { question: "Remote sensing is the acquisition of information about an object or phenomenon:", options: ["By making direct physical contact with the object.", "Only through active systems like RADAR.", "Without making physical contact with the object.", "By analyzing only the visible spectrum."], correctAnswer: "Without making physical contact with the object." },
+  { question: "Which of the following is an example of a passive remote sensing system?", options: ["LiDAR", "RADAR", "Aerial Photography using the Sun's light", "SONAR"], correctAnswer: "Aerial Photography using the Sun's light" },
+  { question: "The most common source of electromagnetic radiation (EMR) in a passive remote sensing system is:", options: ["The sensor itself", "Cosmic rays", "The Sun", "Earth's heat"], correctAnswer: "The Sun" },
+  { question: "Electromagnetic radiation travels at what speed?", options: ["The speed of sound", "Varies depending on the medium", "The velocity of light", "A constant 100,000 km/s"], correctAnswer: "The velocity of light" },
+  { question: "Wavelength in electromagnetic radiation is defined as:", options: ["The number of cycles per second.", "The height of the wave.", "The distance between two successive peaks or crests of a wave.", "The speed of the wave."], correctAnswer: "The distance between two successive peaks or crests of a wave." },
+  { question: "The size of the smallest possible feature that can be detected by a sensor is known as:", options: ["Spectral resolution", "Radiometric resolution", "Spatial resolution", "Temporal resolution"], correctAnswer: "Spatial resolution" },
+  { question: "The resolution that refers to the number and size of the electromagnetic bands being used by a sensor is:", options: ["Spatial resolution", "Spectral resolution", "Temporal resolution", "Radiometric resolution"], correctAnswer: "Spectral resolution" },
+  { question: "A sensor's capacity to discriminate different intensities of energy is called:", options: ["Spatial resolution", "Spectral resolution", "Radiometric resolution", "Temporal resolution"], correctAnswer: "Radiometric resolution" },
+  { question: "Which of the following is NOT a primary function of a Geographic Information System (GIS)?", options: ["Capture spatial data.", "Manipulate and analyze geographical data.", "Present geographical data.", "Generate sensor-specific electromagnetic energy."], correctAnswer: "Generate sensor-specific electromagnetic energy." },
+  { question: "Which type of GIS data uses a fixed grid of cells to represent spatial information, similar to a digital photograph?", options: ["Vector data", "Attribute data", "Raster data", "Tabular data"], correctAnswer: "Raster data" },
+  { question: "Points, lines, and polygons are the geometric features used to represent spatial information in which type of GIS data model?", options: ["Raster data", "Attribute data", "Vector data", "Image data"], correctAnswer: "Vector data" },
+  { question: "Which of the following is considered one of the five essential components of a Geographic Information System (GIS)?", options: ["GPS satellites", "Earth's magnetic field", "People/Users", "Optical telescope"], correctAnswer: "People/Users" },
+  { question: "The regions of the electromagnetic spectrum where energy passes through the atmosphere with very little absorption or scattering are known as:", options: ["Absorption bands", "Spectral gaps", "Atmospheric windows", "Blackbody radiation"], correctAnswer: "Atmospheric windows" },
+  { question: "The fundamental principle governing the interaction of EMR with a surface is that the incident energy is partitioned into:", options: ["Reflection, Refraction, and Scattering.", "Absorption, Transmission, and Reflection.", "Wavelength, Frequency, and Velocity.", "Active, Passive, and Semi-active."], correctAnswer: "Absorption, Transmission, and Reflection." }
+];
+
+// Lecture 35: Disasters and Remote Sensing/LiDAR
+const lecture35DisastersLiDAR = [
+  { question: "LiDAR is an acronym for:", options: ["Light Intensity Data and Retrieval", "Light Detection and Ranging", "Laser Image Digital Analysis and Recording", "Linear Distance and Angle Retrieval"], correctAnswer: "Light Detection and Ranging" },
+  { question: "LiDAR is an active remote sensing technique because it uses:", options: ["Only the Sun's reflected light.", "Radio waves to detect objects.", "An emitted LASER pulse.", "Passive thermal energy."], correctAnswer: "An emitted LASER pulse." },
+  { question: "In LiDAR, the distance to an object is calculated by measuring the:", options: ["Angle of incidence of the laser.", "Frequency shift of the light.", "Time of flight of the laser pulse.", "Intensity of the reflected light."], correctAnswer: "Time of flight of the laser pulse." },
+  { question: "A key advantage of using LiDAR over passive remote sensing systems is its ability to:", options: ["Work regardless of cloud cover.", "Penetrate through solid surfaces.", "Be used effectively during the night.", "Use a broader range of the electromagnetic spectrum."], correctAnswer: "Be used effectively during the night." },
+  { question: "Disaster risk is mathematically defined as a combination of:", options: ["Capacity and preparedness.", "Hazard, vulnerability, and exposure.", "Disaster and emergency.", "Response and recovery."], correctAnswer: "Hazard, vulnerability, and exposure." },
+  { question: "The 'characteristics and circumstances of a community... that make it susceptible to the damaging effects of a hazard' defines:", options: ["Risk", "Exposure", "Vulnerability", "Disaster"], correctAnswer: "Vulnerability" },
+  { question: "The concept of Disaster Risk Reduction (DRR) encompasses:", options: ["Only post-disaster recovery efforts.", "Preventing new risk, reducing existing risk, and managing residual risk.", "Primarily focusing on emergency response.", "Only the financial measures to cover losses."], correctAnswer: "Preventing new risk, reducing existing risk, and managing residual risk." },
+  { question: "Bathymetric LiDAR is primarily used for measuring depths up to:", options: ["100 meters in clear water.", "50 meters in clear water.", "1 meter in any water body.", "500 meters in deep ocean."], correctAnswer: "50 meters in clear water." },
+  { question: "Which component of a LiDAR system is crucial for determining the exact geographical position of the instrument?", options: ["LASER", "IMU (Inertial Measurement Unit)", "GPS", "Receiver/Sensor"], correctAnswer: "GPS" },
+  { question: "The global framework guiding Disaster Risk Reduction efforts from 2015 to 2030 is known as the:", options: ["Kyoto Protocol", "Paris Agreement", "Sendai Framework", "Millennium Development Goals"], correctAnswer: "Sendai Framework" },
+  { question: "Which disaster management term is defined as 'The lessening of the potential adverse impacts of physically exposing oneself to a hazard'?", options: ["Response", "Recovery", "Mitigation", "Preparedness"], correctAnswer: "Mitigation" },
+  { question: "The four phases of the Disaster Management Cycle are:", options: ["Assessment, Analysis, Action, and Aftermath.", "Hazard, Exposure, Vulnerability, and Capacity.", "Mitigation, Preparedness, Response, and Recovery.", "Prevention, Protection, Participation, and Planning."], correctAnswer: "Mitigation, Preparedness, Response, and Recovery." },
+  { question: "Disaster Risk Management (DRM) is best described as:", options: ["A one-time intervention after a major disaster.", "An ongoing process to systematically analyze and manage disaster risk.", "Only the immediate steps taken to save lives.", "A legislative framework with no practical application."], correctAnswer: "An ongoing process to systematically analyze and manage disaster risk." },
+  { question: "If a hazard occurs in an area, but the area is not exposed to it, the result is:", options: ["High vulnerability", "High risk", "No disaster", "An unavoidable disaster"], correctAnswer: "No disaster" },
+  { question: "The LiDAR data product that represents the elevation of the terrain with all features like buildings and vegetation digitally removed is called the:", options: ["Digital Surface Model (DSM)", "Digital Elevation Model (DEM)", "Digital Terrain Model (DTM)", "Contours Map"], correctAnswer: "Digital Terrain Model (DTM)" }
+];
+
+// Lecture 36: Valuation of Natural Resources
+const lecture36ValuationNaturalResources = [
+  { question: "A natural resource is fundamentally defined as a resource that:", options: ["Can be exploited for economic gain.", "Exists without the actions of humans.", "Is found on the Earth's surface.", "Is renewable in nature."], correctAnswer: "Exists without the actions of humans." },
+  { question: "The Total Economic Value (TEV) of a natural resource is the sum of:", options: ["Market Price and Replacement Cost.", "Direct Use Value and Indirect Use Value.", "Use Value and Non-Use Value.", "Consumptive Value and Non-consumptive Value."], correctAnswer: "Use Value and Non-Use Value." },
+  { question: "The Use Value of a natural resource includes which of the following components?", options: ["Existence, Altruistic, and Bequest value.", "Direct, Indirect, and Option value.", "Consumptive and Non-consumptive value.", "Cultural, Aesthetic, and Spiritual value."], correctAnswer: "Direct, Indirect, and Option value." },
+  { question: "The Non-Use Value of a natural resource includes which of the following components?", options: ["Direct, Indirect, and Option value.", "Consumptive, Non-consumptive, and Option value.", "Existence, Altruistic, and Bequest value.", "Market price, Replacement cost, and Travel cost."], correctAnswer: "Existence, Altruistic, and Bequest value." },
+  { question: "Products like timber, firewood, and non-timber forest products contribute to which component of the economic value of a forest?", options: ["Option Value", "Indirect Use Value", "Direct Use Value", "Altruistic Value"], correctAnswer: "Direct Use Value" },
+  { question: "The value of an ecosystem service, such as water purification or climate regulation, is categorized under which type of value?", options: ["Option Value", "Indirect Use Value", "Direct Use Value", "Bequest Value"], correctAnswer: "Indirect Use Value" },
+  { question: "The value attributed to retaining the choice of using a natural resource, such as a potential medicinal compound from a plant, in the future is called the:", options: ["Existence Value", "Bequest Value", "Altruistic Value", "Option Value"], correctAnswer: "Option Value" },
+  { question: "The value of a species or ecosystem that a person has never seen and never intends to see, simply because they believe it should continue to exist, is called the:", options: ["Option Value", "Bequest Value", "Existence Value", "Direct Use Value"], correctAnswer: "Existence Value" },
+  { question: "The value derived from ensuring that natural resources are available for future generations is known as:", options: ["Altruistic Value", "Bequest Value", "Option Value", "Direct Use Value"], correctAnswer: "Bequest Value" },
+  { question: "Which valuation method is used when the direct price of a good or service from a natural resource (e.g., timber) can be determined?", options: ["Replacement Cost Method", "Contingent Valuation Method", "Market Price Method", "Travel Cost Method"], correctAnswer: "Market Price Method" },
+  { question: "A method that estimates the value of an ecosystem service by calculating the cost of a man-made alternative (e.g., a dam to replace natural flood control) is the:", options: ["Market Price Method", "Replacement Cost Method", "Hedonic Pricing Method", "Contingent Valuation Method"], correctAnswer: "Replacement Cost Method" },
+  { question: "Which valuation method is typically used to estimate the value of recreational areas, such as a national park, by analyzing visitor expenditures?", options: ["Hedonic Pricing Method", "Replacement Cost Method", "Contingent Valuation Method", "Travel Cost Method"], correctAnswer: "Travel Cost Method" },
+  { question: "The method that determines the value of a natural resource by observing its effect on the market price of other goods (e.g., higher house prices near a park) is called the:", options: ["Travel Cost Method", "Replacement Cost Method", "Hedonic Pricing Method", "Contingent Valuation Method"], correctAnswer: "Hedonic Pricing Method" },
+  { question: "Which of the following is an example of a non-consumptive use value?", options: ["Hunting for food", "Harvesting medicinal plants", "Ecotourism", "Logging"], correctAnswer: "Ecotourism" },
+  { question: "The value of a natural resource that is derived from the satisfaction of knowing it benefits others in the current generation is known as:", options: ["Existence Value", "Bequest Value", "Altruistic Value", "Option Value"], correctAnswer: "Altruistic Value" }
+];
+
+        let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

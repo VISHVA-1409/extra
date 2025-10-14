@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 - Quiz & Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Mobile First - Base styles for smallest screens */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tablet and smaller */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+            }
+        }
+
+        /* Logo Section */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .books-icon {
+            font-size: 2em;
+        }
+
+        @media (max-width: 480px) {
+            .books-icon {
+                font-size: 1.5em;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+
+        .accordion-item {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 18px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(90deg, #5568d3 0%, #6a3a8f 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .accordion-content.active {
+            max-height: 10000px;
+            padding: 25px;
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 24px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-size: 0.95em;
+            font-weight: 500;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .option {
+                padding: 12px 14px;
+                font-size: 0.88em;
+            }
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .option.wrong {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 8px;
+                margin-top: 16px;
+            }
+        }
+
+        .submit-btn, .random-btn, .restart-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 120px;
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submit-btn, .random-btn, .restart-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 0.85em;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .random-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .random-btn:hover {
+            background: #d97706;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #dc2626;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .lecture-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: white;
+            margin-bottom: 20px;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lecture-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+            transform: translateX(-4px);
+        }
+
+        .select-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-viewer {
+                height: 400px;
+            }
+        }
+
+        .pdf-fullscreen-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-fullscreen-btn:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3a8f 100%);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Header Section -->
+        <div class="logo-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="EXTRA - Learn Deeply, Grow more, Excel!">
+            </div>
+            <div class="header-content">
+                <span class="books-icon">📚</span>
+                <h1>Week 5 - Learning Materials</h1>
+            </div>
+        </div>
+
+        <!-- Extra Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>💡 Extra Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="extraQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('extra')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('extra')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('extra')">Restart</button>
+                </div>
+                <div id="extraScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- AI Generate Questions Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>🤖 AI Generate Questions</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <label class="select-label">Select Lecture:</label>
+                <select id="lectureSelect" class="lecture-select" onchange="loadLectureQuiz()">
+                    <option value="">-- Choose a Lecture --</option>
+                    <option value="lecture1">Lecture 04 - Overview of the Course</option>
+                    <option value="lecture2">Lecture 05 - Structure of the Earth</option>
+                    <option value="lecture3">Lecture 06 - Features on the Earth</option>
+                </select>
+                <div id="aiQuiz"></div>
+                <div class="button-group" style="display: none;" id="aiButtonGroup">
+                    <button class="submit-btn" onclick="submitQuiz('ai')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('ai')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('ai')">Restart</button>
+                </div>
+                <div id="aiScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- Week 1 Assignment Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📝 Week 2 - Assignment Quiz</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div id="weekQuiz"></div>
+                <div class="button-group">
+                    <button class="submit-btn" onclick="submitQuiz('week')">Submit Quiz</button>
+                    <button class="random-btn" onclick="randomizeQuiz('week')">Shuffle Order</button>
+                    <button class="restart-btn" onclick="restartQuiz('week')">Restart</button>
+                </div>
+                <div id="weekScore" class="score-display"></div>
+            </div>
+        </div>
+
+        <!-- PDF Solution Section -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>📄 PDF (Solution)</span>
+                <span class="accordion-arrow">▼</span>
+            </div>
+            <div class="accordion-content">
+                <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
+                    📄 Open PDF in Full Page
+                </button>
+                <iframe id="pdfViewer" class="pdf-viewer" src="week2.pdf"></iframe>
+                <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
+                    Week 2 Solution 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extra Questions Data
+        const extraQuizData = [
+            {
+                question: "Which of these is true about P waves?",
+                options: [
+                    "They are longitudinal in nature",
+                    "They are transverse in nature",
+                    "They cannot move through gases",
+                    "They cannot move through liquids"
+                ],
+                correctAnswer: "They are longitudinal in nature"
+            },
+            {
+                question: "Inclusions are older than the host rock. This is known as",
+                options: [
+                    "Principle of superposition",
+                    "Principle of original horizontality",
+                    "Principle of lateral continuity",
+                    "Principle of inclusions"
+                ],
+                correctAnswer: "Principle of inclusions"
+            },
+            {
+                question: "Mount Fuji is an example of",
+                options: [
+                    "Shield volcano",
+                    "Stratovolcano",
+                    "Caldera",
+                    "Flood basalt province"
+                ],
+                correctAnswer: "Stratovolcano"
+            },
+            {
+                question: "Layers of rocks deposited from above (e.g. sediments and lava flows) are originally laid down horizontally. This is known as",
+                options: [
+                    "Principle of superposition",
+                    "Principle of original horizontality",
+                    "Principle of lateral continuity",
+                    "Principle of inclusions"
+                ],
+                correctAnswer: "Principle of original horizontality"
+            }
+        ];
+
+        // Week 2 Assignment Data
+        const weekQuizData = [
+            {
+                question: "In an undisturbed sedimentary strata, bottom layers are older than layers above them. This is known as",
+                options: [
+                    "Principle of superposition",
+                    "Principle of original horizontality",
+                    "Principle of lateral continuity",
+                    "Principle of inclusions"
+                ],
+                correctAnswer: "Principle of superposition"
+            },
+            {
+                question: "Mount Vesuvius is an example of",
+                options: [
+                    "Shield volcano",
+                    "Composite volcano",
+                    "Caldera",
+                    "Flood basalt province"
+                ],
+                correctAnswer: "Composite volcano"
+            },
+            {
+                question: "Krakatoa eruption resulted in the formation of",
+                options: [
+                    "Shield volcano",
+                    "Stratovolcano",
+                    "Caldera",
+                    "Flood basalt province"
+                ],
+                correctAnswer: "Caldera"
+            },
+            {
+                question: "Which of these is not a method of absolute dating?",
+                options: [
+                    "radioisotope dating",
+                    "thermoluminescence dating",
+                    "inclusion study",
+                    "fission track dating"
+                ],
+                correctAnswer: "inclusion study"
+            },
+            {
+                question: "Which of these is true about S waves?",
+                options: [
+                    "They are longitudinal in nature",
+                    "They are transverse in nature",
+                    "They cannot move through solids, liquids and gases",
+                    "They are the first to reach the surface of the Earth"
+                ],
+                correctAnswer: "They are transverse in nature"
+            },
+            {
+                question: "Hawaiian volcanoes are an example of",
+                options: [
+                    "Shield volcano",
+                    "Stratovolcano",
+                    "Caldera",
+                    "Flood basalt province"
+                ],
+                correctAnswer: "Shield volcano"
+            },
+            {
+                question: "Within a depositional basin, strata are laterally continuous in all directions till the edge of the basin. This is known as",
+                options: [
+                    "Principle of superposition",
+                    "Principle of original horizontality",
+                    "Principle of lateral continuity",
+                    "Principle of inclusions"
+                ],
+                correctAnswer: "Principle of lateral continuity"
+            },
+            {
+                question: "Which of these is a gas giant?",
+                options: [
+                    "Mercury",
+                    "Venus",
+                    "Mars",
+                    "Saturn"
+                ],
+                correctAnswer: "Saturn"
+            },
+            {
+                question: "Assemblage of fossils are unique to the time that they lived in, and so can be used to age rocks across a wide geographic distribution. This is known as",
+                options: [
+                    "Principle of fossil succession",
+                    "Principle of original horizontality",
+                    "Principle of superposition",
+                    "Principle of cross-cutting relationships"
+                ],
+                correctAnswer: "Principle of fossil succession"
+            },
+            {
+                question: "Which of these is an example of direct source of information about the Earth?",
+                options: [
+                    "earthquake",
+                    "volcanic eruption",
+                    "magnetic survey",
+                    "gravity anomaly"
+                ],
+                correctAnswer: "volcanic eruption"
+            }
+        ];
+
+        // Lecture 1 Data
+// Lecture 3: Biogeography
+const lecture1Data = [
+  {
+    question: "Biogeography primarily studies:",
+    options: [
+      "Geology of the Earth",
+      "Distribution of living organisms on Earth",
+      "Formation of mountains",
+      "Ocean currents"
+    ],
+    correctAnswer: "Distribution of living organisms on Earth"
+  },
+  {
+    question: "The range of a species refers to:",
+    options: [
+      "The type of food it eats",
+      "The geographical area where it is found",
+      "Its evolutionary age",
+      "Its reproductive capacity"
+    ],
+    correctAnswer: "The geographical area where it is found"
+  },
+  {
+    question: "Camouflage helps animals by:",
+    options: [
+      "Making them more visible to predators",
+      "Helping them blend with surroundings",
+      "Increasing body temperature",
+      "Enhancing vocal communication"
+    ],
+    correctAnswer: "Helping them blend with surroundings"
+  },
+  {
+    question: "The ability of polar bears to survive cold due to thick fur and fat is an example of:",
+    options: [
+      "Ecological degradation",
+      "Behavioral adaptation",
+      "Physical adaptation",
+      "Migration"
+    ],
+    correctAnswer: "Physical adaptation"
+  },
+  {
+    question: "Hibernation in polar bears is primarily for:",
+    options: [
+      "Escaping predators",
+      "Conserve energy during harsh winters",
+      "Breeding",
+      "Hunting"
+    ],
+    correctAnswer: "Conserve energy during harsh winters"
+  },
+  {
+    question: "The study of how organisms are distributed at different altitudes is related to:",
+    options: [
+      "Areal geography",
+      "Altitudinal zonation",
+      "Stratified ecology",
+      "Continental drift"
+    ],
+    correctAnswer: "Altitudinal zonation"
+  },
+  {
+    question: "The primary factor determining the type of forest in a region is:",
+    options: [
+      "Soil fertility",
+      "Climate",
+      "Rainfall only",
+      "Latitude alone"
+    ],
+    correctAnswer: "Climate"
+  },
+  {
+    question: "Pull factors for species migration include:",
+    options: [
+      "Scarcity of food",
+      "Harsh climate",
+      "Availability of water and food",
+      "Overpopulation"
+    ],
+    correctAnswer: "Availability of water and food"
+  },
+  {
+    question: "Push factors make life for species:",
+    options: [
+      "Easier and more comfortable",
+      "Difficult or unsuitable for survival",
+      "More diverse",
+      "Evolutionarily faster"
+    ],
+    correctAnswer: "Difficult or unsuitable for survival"
+  },
+  {
+    question: "The line above which trees stop growing on mountains is called:",
+    options: [
+      "Vegetation limit",
+      "Growth threshold",
+      "Tree line",
+      "Snow line"
+    ],
+    correctAnswer: "Tree line"
+  },
+  {
+    question: "Lack of soil and drought at higher altitudes contribute to:",
+    options: [
+      "Increased tree density",
+      "Presence of tree line",
+      "Tropical forest growth",
+      "Desert vegetation"
+    ],
+    correctAnswer: "Presence of tree line"
+  },
+  {
+    question: "Excessive snow throughout the year affects plants by:",
+    options: [
+      "Providing extra nutrients",
+      "Preventing availability of liquid water",
+      "Enhancing sunlight exposure",
+      "Increasing photosynthesis"
+    ],
+    correctAnswer: "Preventing availability of liquid water"
+  },
+  {
+    question: "Liebig’s Law of the Minimum states that growth is limited by:",
+    options: [
+      "The factor in greatest abundance",
+      "The factor in least amount relative to requirement",
+      "Average of all factors",
+      "None of these"
+    ],
+    correctAnswer: "The factor in least amount relative to requirement"
+  },
+  {
+    question: "Shelford’s Law of Tolerance emphasizes:",
+    options: [
+      "The factor for which an organism has the widest tolerance range",
+      "The factor for which an organism has the narrowest range of tolerance",
+      "Temperature variations alone",
+      "All biotic relationships"
+    ],
+    correctAnswer: "The factor for which an organism has the narrowest range of tolerance"
+  },
+  {
+    question: "High winds at elevated altitudes affect trees by:",
+    options: [
+      "Enhancing growth",
+      "Increasing root stability",
+      "Uprooting or breaking them",
+      "Providing moisture"
+    ],
+    correctAnswer: "Uprooting or breaking them"
+  }
+];
+// Lecture 4: Origin and Evolution of the Earth
+ const lecture2Data = [
+  {
+    question: "Which scientist was the first to observe in 1912 that light from distant galaxies is red-shifted, implying they are moving away from Earth?",
+    options: [
+      "Edwin Hubble",
+      "Georges Lemaitre",
+      "Vesto Slipher",
+      "Alexander Friedmann"
+    ],
+    correctAnswer: "Vesto Slipher"
+  },
+  {
+    question: "According to the Doppler effect, the red-shift of light from a galaxy indicates that its light spectrum is shifting towards:",
+    options: [
+      "Lower wavelengths and higher energy",
+      "Lower wavelengths and lower frequency",
+      "Higher wavelengths and lower frequency",
+      "Higher frequency and higher energy"
+    ],
+    correctAnswer: "Higher wavelengths and lower frequency"
+  },
+  {
+    question: "According to Edwin Hubble's observations, the speed at which a galaxy moves away from Earth is proportional to its:",
+    options: [
+      "Mass",
+      "Age",
+      "Distance",
+      "Temperature"
+    ],
+    correctAnswer: "Distance"
+  },
+  {
+    question: "The current accepted age of the universe, based on the Big Bang theory, is approximately:",
+    options: [
+      "4.6 billion years",
+      "4.5 million years",
+      "13.7 billion years",
+      "300,000 years"
+    ],
+    correctAnswer: "13.7 billion years"
+  },
+  {
+    question: "After the Big Bang, atoms were finally able to form when the universe's temperature dropped below:",
+    options: [
+      "10,000 Kelvin",
+      "6,000 Kelvin",
+      "4,500 Kelvin",
+      "1,000 Kelvin"
+    ],
+    correctAnswer: "4,500 Kelvin"
+  },
+  {
+    question: "The two main proponents of the Nebular Hypothesis, which explains the formation of the Sun and planets from a rotating cloud of gas and dust, were:",
+    options: [
+      "Edwin Hubble and Vesto Slipher",
+      "Robert Hooke and James Hutton",
+      "Immanuel Kant and Pierre Laplace",
+      "Alfred Wegener and Abraham Ortelius"
+    ],
+    correctAnswer: "Immanuel Kant and Pierre Laplace"
+  },
+  {
+    question: "The approximate age of the Earth is:",
+    options: [
+      "13.7 billion years",
+      "65 million years",
+      "4.6 billion years",
+      "200 million years"
+    ],
+    correctAnswer: "4.6 billion years"
+  },
+  {
+    question: "The initial molten state of the early Earth was primarily caused by the conversion of:",
+    options: [
+      "Solar energy into chemical energy",
+      "Gravitational potential energy into thermal energy",
+      "Chemical energy into mechanical energy",
+      "Kinetic energy into potential energy"
+    ],
+    correctAnswer: "Gravitational potential energy into thermal energy"
+  },
+  {
+    question: "Which relative dating principle states that sedimentary strata are initially deposited in a near-horizontal position or parallel to the Earth's surface?",
+    options: [
+      "Principle of Superposition",
+      "Principle of Lateral Continuity",
+      "Principle of Original Horizontality",
+      "Principle of Inclusions"
+    ],
+    correctAnswer: "Principle of Original Horizontality"
+  },
+  {
+    question: "Which relative dating principle dictates that any geological feature (like a fault or an igneous intrusion) that cuts across another feature must be younger than the feature it cuts?",
+    options: [
+      "Principle of Superposition",
+      "Principle of Cross-Cutting Relationships",
+      "Principle of Original Horizontality",
+      "Principle of Lateral Continuity"
+    ],
+    correctAnswer: "Principle of Cross-Cutting Relationships"
+  },
+  {
+    question: "The absolute dating method that relies on the predictable decay rate (half-life) of unstable isotopes within a rock sample is:",
+    options: [
+      "Thermoluminescence dating",
+      "Fission track dating",
+      "Inclusion study",
+      "Radioisotope dating"
+    ],
+    correctAnswer: "Radioisotope dating"
+  },
+  {
+    question: "Thermoluminescence dating determines the age of a rock by measuring:",
+    options: [
+      "The number of cracks caused by radioactive decay",
+      "The ratio of parent to daughter isotopes",
+      "Trapped electrons released upon heating",
+      "The total mass of the sample"
+    ],
+    correctAnswer: "Trapped electrons released upon heating"
+  },
+  {
+    question: "Fission track dating measures the damaged trails left by fission fragments in which material?",
+    options: [
+      "Sedimentary rock",
+      "Iron-nickel meteorites",
+      "Basaltic lava",
+      "Uranium-bearing minerals and glasses"
+    ],
+    correctAnswer: "Uranium-bearing minerals and glasses"
+  },
+  {
+    question: "When using the geomagnetism method to date the ocean floor, what term is used when the Earth's magnetic North Pole is pointing towards the geographical South Pole?",
+    options: [
+      "Normal Polarity",
+      "True North",
+      "Reversed Polarity",
+      "Magnetic Dip"
+    ],
+    correctAnswer: "Reversed Polarity"
+  },
+  {
+    question: "Density differences within the early molten Earth caused heavier elements like iron and nickel to sink toward the center, a process known as:",
+    options: [
+      "Accretion",
+      "Isostasy",
+      "Differentiation",
+      "Segregation"
+    ],
+    correctAnswer: "Differentiation"
+  }
+];
+
+
+// Lecture 5: Structure of the Earth
+const lecture5StructureEarth = [
+  {
+    question: "Apart from volcanic eruptions, which of the following is a direct source of information about the Earth's interior that confirms temperature and density increase with depth?",
+    options: [
+      "Gravity anomaly surveys",
+      "Magnetic field analysis",
+      "Deep drilling",
+      "Meteorite analysis"
+    ],
+    correctAnswer: "Deep drilling"
+  },
+  {
+    question: "Which two elements are the primary constituents of the Earth's core, based on studies of materials that sank during the early molten phase?",
+    options: [
+      "Aluminum and Silicon",
+      "Oxygen and Magnesium",
+      "Iron and Nickel",
+      "Gold and Uranium"
+    ],
+    correctAnswer: "Iron and Nickel"
+  },
+  {
+    question: "Hydrothermal vents, which are studied to sample material coming from the Earth's interior, are typically found in which location?",
+    options: [
+      "Deep continental mines",
+      "Glacial ice sheets",
+      "Ocean bottoms",
+      "High-altitude plateaus"
+    ],
+    correctAnswer: "Ocean bottoms"
+  },
+  {
+    question: "Molten rock material that is inside the Earth, beneath the surface, is referred to as:",
+    options: [
+      "Lava",
+      "Ash",
+      "Magma",
+      "Scoria"
+    ],
+    correctAnswer: "Magma"
+  },
+  {
+    question: "A volcano that has not erupted for a significant period of time but is still considered capable of erupting again is classified as a(n):",
+    options: [
+      "Extinct volcano",
+      "Shield volcano",
+      "Dormant volcano",
+      "Active volcano"
+    ],
+    correctAnswer: "Dormant volcano"
+  },
+  {
+    question: "Stratovolcanoes, or composite volcanoes, are characterized by their conical shape and structure, which is built up of alternating layers of:",
+    options: [
+      "Basalt and granite",
+      "Magma and water vapor",
+      "Lava flows and ash",
+      "Iron and nickel"
+    ],
+    correctAnswer: "Lava flows and ash"
+  },
+  {
+    question: "Which type of seismic wave is longitudinal in nature, causing particles to move parallel to the direction of wave propagation (compression and dilation)?",
+    options: [
+      "S-waves",
+      "Love waves",
+      "Rayleigh waves",
+      "P-waves"
+    ],
+    correctAnswer: "P-waves"
+  },
+  {
+    question: "Unlike S-waves, P-waves have the ability to travel through which three states of matter?",
+    options: [
+      "Only solids",
+      "Only solids and liquids",
+      "Only liquids and gases",
+      "Solids, liquids, and gases"
+    ],
+    correctAnswer: "Solids, liquids, and gases"
+  },
+  {
+    question: "Which layer of the Earth's internal structure is composed of liquid material, preventing the passage of S-waves through it?",
+    options: [
+      "Inner Core",
+      "Mantle",
+      "Asthenosphere",
+      "Outer Core"
+    ],
+    correctAnswer: "Outer Core"
+  },
+  {
+    question: "The state of matter of the Earth's Inner Core is theorized to be:",
+    options: [
+      "Liquid",
+      "Solid",
+      "Gaseous",
+      "Plastic (Ductile)"
+    ],
+    correctAnswer: "Solid"
+  },
+  {
+    question: "Based on density segregation, which layer of the Earth has the lowest overall density?",
+    options: [
+      "Mantle",
+      "Outer Core",
+      "Inner Core",
+      "Crust"
+    ],
+    correctAnswer: "Crust"
+  },
+  {
+    question: "The rigid, outermost layer of the Earth, which is broken into tectonic plates, is called the:",
+    options: [
+      "Asthenosphere",
+      "Mesosphere",
+      "Lithosphere",
+      "Outer Core"
+    ],
+    correctAnswer: "Lithosphere"
+  },
+  {
+    question: "The layer in the upper mantle that is characterized as being ductile or 'plastic' and acts as the source of magma is the:",
+    options: [
+      "Lithosphere",
+      "Mesosphere",
+      "Asthenosphere",
+      "Outer Core"
+    ],
+    correctAnswer: "Asthenosphere"
+  },
+  {
+    question: "Seismic waves that are generated by a bomb or nuclear test explosion are classified as which type of earthquake?",
+    options: [
+      "Tectonic earthquake",
+      "Volcanic earthquake",
+      "Explosion earthquake",
+      "Reservoir-induced earthquake"
+    ],
+    correctAnswer: "Explosion earthquake"
+  },
+  {
+    question: "Which of the following is considered an indirect source of information about the Earth's interior?",
+    options: [
+      "Drilling samples",
+      "Volcanic lava",
+      "Hydrothermal vent samples",
+      "Meteorites"
+    ],
+    correctAnswer: "Meteorites"
+  }
+];
+
+
+// Lecture  3 Data
+// Lecture 6: Features on the Earth
+ const lecture3Data = [
+  {
+    question: "Approximately what percentage of the Earth's surface is covered by oceans?",
+    options: [
+      "29%",
+      "50%",
+      "65%",
+      "71%"
+    ],
+    correctAnswer: "71%"
+  },
+  {
+    question: "The Dutch map maker who first proposed in 1596 that the Americas, Europe, and Africa were earlier joined together, based on their coastline match, was:",
+    options: [
+      "Alfred Wegener",
+      "Edwin Hubble",
+      "Abraham Ortelius",
+      "Georges Lemaitre"
+    ],
+    correctAnswer: "Abraham Ortelius"
+  },
+  {
+    question: "The German meteorologist who formally proposed the 'Continental Drift' theory in 1912 was:",
+    options: [
+      "Abraham Ortelius",
+      "Alfred Wegener",
+      "James Hutton",
+      "Harry Hess"
+    ],
+    correctAnswer: "Alfred Wegener"
+  },
+  {
+    question: "The single, huge supercontinent proposed by the Continental Drift theory, meaning 'All Earth,' was named:",
+    options: [
+      "Laurasia",
+      "Gondwanaland",
+      "Pangaea",
+      "Panthalassa"
+    ],
+    correctAnswer: "Pangaea"
+  },
+  {
+    question: "The vast mega-ocean that surrounded the supercontinent Pangaea was called:",
+    options: [
+      "Tethys Sea",
+      "The Atlantic",
+      "Panthalassa",
+      "The Pacific"
+    ],
+    correctAnswer: "Panthalassa"
+  },
+  {
+    question: "Pangaea is believed to have begun splitting apart into Laurasia and Gondwanaland approximately:",
+    options: [
+      "65 million years ago",
+      "4.6 billion years ago",
+      "200 million years ago",
+      "1.5 billion years ago"
+    ],
+    correctAnswer: "200 million years ago"
+  },
+  {
+    question: "After the initial split of Pangaea, the northern continental mass was named:",
+    options: [
+      "Gondwanaland",
+      "Panthalassa",
+      "Laurasia",
+      "Eurasia"
+    ],
+    correctAnswer: "Laurasia"
+  },
+  {
+    question: "After the initial split of Pangaea, the southern continental mass was named:",
+    options: [
+      "Laurasia",
+      "Tethys",
+      "Gondwanaland",
+      "Asia"
+    ],
+    correctAnswer: "Gondwanaland"
+  },
+  {
+    question: "Which piece of evidence for Continental Drift involves ancient sedimentary rock formed from glacial deposits that are found on continents now separated by oceans (e.g., India, Africa, Australia)?",
+    options: [
+      "Gold Placer deposits",
+      "Marine deposits of Jurassic age",
+      "Matching rock belts",
+      "Tillite"
+    ],
+    correctAnswer: "Tillite"
+  },
+  {
+    question: "Which fossil of a fern-like plant found across India, Africa, South America, Australia, and Antarctica provided significant biological evidence for Continental Drift?",
+    options: [
+      "Mesosaurus",
+      "Lystrosaurus",
+      "Glossopteris",
+      "Tyrannosaurus"
+    ],
+    correctAnswer: "Glossopteris"
+  },
+  {
+    question: "The primary driving force for the movement of the Earth's lithospheric plates is believed to be:",
+    options: [
+      "Tidal forces",
+      "Earth's rotational momentum",
+      "Convection currents in the asthenosphere",
+      "Gravitational pull of the Moon"
+    ],
+    correctAnswer: "Convection currents in the asthenosphere"
+  },
+  {
+    question: "The state of gravitational equilibrium between the Earth's rigid lithosphere and the denser, ductile asthenosphere is known as:",
+    options: [
+      "Differentiation",
+      "Isostasy",
+      "Subduction",
+      "Accretion"
+    ],
+    correctAnswer: "Isostasy"
+  },
+  {
+    question: "Which type of plate boundary is characterized by two lithospheric plates moving away from each other, often resulting in the formation of mid-oceanic ridges?",
+    options: [
+      "Convergent boundary",
+      "Transform boundary",
+      "Divergent boundary",
+      "Subduction boundary"
+    ],
+    correctAnswer: "Divergent boundary"
+  },
+  {
+    question: "Which type of plate boundary is characterized by two lithospheric plates moving horizontally past each other, often leading to major fault systems and earthquakes?",
+    options: [
+      "Convergent boundary",
+      "Divergent boundary",
+      "Transform boundary",
+      "Subduction boundary"
+    ],
+    correctAnswer: "Transform boundary"
+  },
+  {
+    question: "The process in which one tectonic plate sinks beneath another (typically an oceanic plate beneath a continental plate) at a convergent boundary is called:",
+    options: [
+      "Accretion",
+      "Isostasy",
+      "Subduction",
+      "Rifting"
+    ],
+    correctAnswer: "Subduction"
+  }
+];
+
+let userAnswers = {
+            extra: {},
+            week: {},
+            ai: {}
+        };
+
+        let currentLectureData = [];
+        let currentQuestionOrder = {
+            extra: [],
+            week: [],
+            ai: []
+        };
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Initialize quiz - FIXED VERSION
+        function initQuiz(quizData, containerId, quizType) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            currentQuestionOrder[quizType] = Array.from({ length: quizData.length }, (_, i) => i);
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-index', index);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes in the option text to prevent breaking the onclick
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${index}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option - FIXED VERSION
+        function selectOption(element, quizType, questionIndex, answer) {
+            // Check if quiz is already submitted
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            if (scoreDiv.style.display === 'block') {
+                return; // Don't allow selection after submission
+            }
+
+            const parentOptions = element.parentElement;
+            const allOptions = parentOptions.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Store the answer
+            userAnswers[quizType][questionIndex] = answer;
+        }
+
+        // Submit quiz
+        function submitQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const scoreDiv = document.getElementById(quizType + 'Score');
+            
+            let correct = 0;
+            let total = quizData.length;
+
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[quizType][index];
+                const questionDiv = document.querySelectorAll(`#${quizType}Quiz .quiz-question`)[index];
+                const options = questionDiv.querySelectorAll('.option');
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (opt.textContent.trim() === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (opt.textContent.trim() === userAnswer && userAnswer !== q.correctAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswer === q.correctAnswer) {
+                    correct++;
+                }
+            });
+
+            const percentage = ((correct / total) * 100).toFixed(1);
+            scoreDiv.innerHTML = `
+                <strong>Your Score: ${correct} / ${total}</strong><br>
+                Percentage: ${percentage}%
+            `;
+            scoreDiv.style.display = 'block';
+        }
+
+        // Randomize quiz order - FIXED VERSION
+        function randomizeQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            const container = document.getElementById(quizType + 'Quiz');
+            
+            // Shuffle the question order
+            const shuffledOrder = shuffleArray(Array.from({ length: quizData.length }, (_, i) => i));
+            currentQuestionOrder[quizType] = shuffledOrder;
+
+            // Re-render questions in shuffled order
+            container.innerHTML = '';
+            shuffledOrder.forEach((originalIndex, displayIndex) => {
+                const q = quizData[originalIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.setAttribute('data-original-index', originalIndex);
+                
+                let optionsHTML = '';
+                q.options.forEach((option) => {
+                    // Escape quotes properly
+                    const escapedOption = option.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    optionsHTML += `
+                        <div class="option" onclick="selectOption(this, '${quizType}', ${originalIndex}, '${escapedOption}')">
+                            ${option}
+                        </div>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">${displayIndex + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+
+                // Restore selected answer if exists
+                if (userAnswers[quizType][originalIndex]) {
+                    const options = questionDiv.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.textContent.trim() === userAnswers[quizType][originalIndex]) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                }
+            });
+
+            // Hide score display
+            document.getElementById(quizType + 'Score').style.display = 'none';
+        }
+
+        // Restart quiz
+        function restartQuiz(quizType) {
+            const quizData = quizType === 'extra' ? extraQuizData : (quizType === 'ai' ? currentLectureData : weekQuizData);
+            
+            userAnswers[quizType] = {};
+            document.getElementById(quizType + 'Score').style.display = 'none';
+            initQuiz(quizData, quizType + 'Quiz', quizType);
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.accordion-arrow').forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove('active');
+                }
+            });
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
+        // Load lecture quiz
+        function loadLectureQuiz() {
+            const lectureSelect = document.getElementById('lectureSelect');
+            const selectedLecture = lectureSelect.value;
+            
+            if (!selectedLecture) {
+                document.getElementById('aiQuiz').innerHTML = '';
+                document.getElementById('aiButtonGroup').style.display = 'none';
+                document.getElementById('aiScore').style.display = 'none';
+                return;
+            }
+
+            if (selectedLecture === 'lecture1') {
+                currentLectureData = lecture1Data;
+            } else if (selectedLecture === 'lecture2') {
+                currentLectureData = lecture2Data;
+            } else if (selectedLecture === 'lecture3') {
+                currentLectureData = lecture3Data;
+            }
+
+            userAnswers.ai = {};
+            document.getElementById('aiScore').style.display = 'none';
+            initQuiz(currentLectureData, 'aiQuiz', 'ai');
+            document.getElementById('aiButtonGroup').style.display = 'flex';
+        }
+
+        // Open PDF in fullscreen
+        function openPDFFullscreen() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfSrc = pdfViewer.src;
+            
+            // Open PDF in new window/tab at full size
+            window.open(pdfSrc, '_blank', 'width=' + screen.width + ',height=' + screen.height);
+        }
+
+        // Initialize quizzes on page load
+        initQuiz(extraQuizData, 'extraQuiz', 'extra');
+        initQuiz(weekQuizData, 'weekQuiz', 'week');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest MCQ Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(-45deg, #65c1e4, #4daf7c, #e47fcc);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #333;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .quiz-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+        }
+        
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #e32b12;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .question-container {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a5276;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        
+        .option:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.01);
+        }
+        
+        input[type="radio"] {
+            cursor: pointer;
+        }
+        
+        input[type="radio"]:checked + label {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border-left: 4px solid #3c763d;
+        }
+        
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+            border-left: 4px solid #a94442;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2e7d32;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.7);
+            border-radius: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        .reset-btn {
+            background-color: #f44336;
+        }
+        
+        .reset-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.7);
+            border-radius: 5px;
+        }
+        
+        .toggle-btn {
+            background-color: #2980b9;
+            padding: 8px 12px;
+        }
+        
+        .toggle-btn:hover {
+            background-color: #1a5276;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(to right, #4CAF50, #2196F3);
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .floating-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Conservation Geography Quiz</h1>
+        <h2>Week 7 - 12</h2>
+        
+        <div class="control-panel">
+            <button id="randomize-btn" class="toggle-btn">Randomize Questions</button>
+            <button id="original-btn" class="toggle-btn">Original Order</button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress">0%</div>
+        </div>
+        
+        <div id="quiz"></div>
+        <button id="submit" type="button">Submit Answers</button>
+        <button id="reset" type="button" class="reset-btn" style="display: none;">Reset Quiz</button>
+        <div class="score-display" id="score"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Soil formation is dependent upon",
+                options: [
+                    "vegetation",
+                    "time",
+                    "climate",
+                    "all of the above"
+                ],
+                correctAnswer: "all of the above"
+            },
+            {
+                question: "Which of these is not a characteristic of pioneer species",
+                options: [
+                    "ability to grow on bare rocks",
+                    "ability to tolerate extreme temperatures",
+                    "large size",
+                    "short life span"
+                ],
+                correctAnswer: "large size"
+            },
+            {
+                question: "groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups is a definition of",
+                options: [
+                    "cells",
+                    "species",
+                    "ecosystems",
+                    "biomes"
+                ],
+                correctAnswer: "species"
+            },
+            {
+                question: "Mechanical action of ocean waves is an example of",
+                options: [
+                    "chemical weathering",
+                    "physical weathering",
+                    "biological weathering",
+                    "none of the above"
+                ],
+                correctAnswer: "physical weathering"
+            },
+            {
+                question: "The climax near Tindni village is being controlled by disturbance by cattle. This is an example of",
+                options: [
+                    "climatic climax",
+                    "edaphic climax",
+                    "disclimax",
+                    "catastrophic climax"
+                ],
+                correctAnswer: "disclimax"
+            },
+            {
+                question: "Carbonation is an example of",
+                options: [
+                    "chemical weathering",
+                    "physical weathering",
+                    "biological weathering",
+                    "none of the above"
+                ],
+                correctAnswer: "chemical weathering"
+            },
+            {
+                question: "In soil profile, C refers to",
+                options: [
+                    "organic surface layer",
+                    "topsoil layer",
+                    "subsoil layer",
+                    "substratum layer"
+                ],
+                correctAnswer: "substratum layer"
+            },
+            {
+                question: "A climax caused by wildfires is an example of",
+                options: [
+                    "climatic climax",
+                    "edaphic climax",
+                    "disclimax",
+                    "catastrophic climax"
+                ],
+                correctAnswer: "catastrophic climax"
+            },
+            {
+                question: "Regur is a term for",
+                options: [
+                    "black cotton soil",
+                    "alluvial soil",
+                    "saline soil",
+                    "red and yellow soil"
+                ],
+                correctAnswer: "black cotton soil"
+            },
+            {
+                question: "the diversity that exists among different geographies is",
+                options: [
+                    "alpha (a) biodiversity",
+                    "beta (β) biodiversity",
+                    "gamma (γ) biodiversity",
+                    "delta (δ) biodiversity"
+                ],
+                correctAnswer: "gamma (γ) biodiversity"
+            },
+            {
+    question: "The fig tree bears fruits in times when animals do not have much access to food. In this context, it would be a good example of:",
+    options: ["least concern species", "keystone species", "flagship species", "extinct species"],
+    correctAnswer: "keystone species"
+  },
+  {
+    question: "The 'subset of physical and biotic environmental factors that permit an animal (or plant) to survive and reproduce' is the definition of:",
+    options: ["habitat", "ecosystem", "biome", "biosphere"],
+    correctAnswer: "habitat"
+  },
+  {
+    question: "Which of these correctly represents the process of habitat fragmentation and loss?",
+    options: [
+      "Original forest Dissection Perforation Fragmentation Attrition",
+      "Original forest Dissection- Attrition-Fragmentation Perforation",
+      "Original forest Dissection Perforation Attrition Fragmentation",
+      "Original forest Dissection Fragmentation Perforation Attrition"
+    ],
+    correctAnswer: "Original forest Dissection Perforation. Fragmentation Attrition"
+  },
+  {
+    question: "Soil formation is an example of:",
+    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
+    correctAnswer: "supporting service"
+  },
+  {
+    question: "Biological control of pest populations is an example of:",
+    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
+    correctAnswer: "regulating service"
+  },
+  {
+    question: "The acronym HIPPO does not include:",
+    options: ["habitat loss", "Invasive species", "pollination", "pollution"],
+    correctAnswer: "pollination"
+  },
+  {
+    question: "The tiger has a home range of several square kilometres, regulates the ecosystem through controlling herbivore populations and trophic cascades, and people come to tiger reserves to watch tigers. Thus, the tiger can be called as:",
+    options: ["umbrella species", "keystone species", "flagship species", "all of the above"],
+    correctAnswer: "all of the above"
+  },
+  {
+    question: "People come to Sessa orchid sanctuary in Arunachal Pradesh to witness orchids, which in this context would be classified as:",
+    options: ["umbrella species", "keystone species", "flagship species", "extinct species"],
+    correctAnswer: "flagship species"
+  },
+  {
+    question: "Captive breeding is an example of:",
+    options: ["in-situ conservation", "ex-situ conservation", "in-situ preservation", "ex-situ preservation"],
+    correctAnswer: "ex-situ conservation"
+  },
+  {
+    question: "We prefer those areas for the creation of a conservation reserve where the level of threat is:",
+    options: ["very high", "medium", "overly low", "non-existent"],
+    correctAnswer: "medium"
+  },
+   {
+                question: "According to Malthusian model,",
+                options: [
+                    "Population grows in geometric progression, food supply increases in arithmetic progression",
+                    "Population grows in geometric progression, food supply increases in geometric progression",
+                    "Population grows in arithmetic progression, food supply increases in arithmetic progression",
+                    "Population grows in arithmetic progression, food supply increases in geometric progression"
+                ],
+                correctAnswer: "Population grows in geometric progression, food supply increases in arithmetic progression"
+            },
+            {
+                question: "Which of these is commonly observed during humanising of nature?",
+                options: [
+                    "environmental determinism",
+                    "possibilism",
+                    "neodeterminism",
+                    "stop and go determinism"
+                ],
+                correctAnswer: "possibilism"
+            },
+            {
+                question: "Which of these is a pillar of sustainability",
+                options: [
+                    "social sustainability",
+                    "industrial sustainability",
+                    "agricultural sustainability",
+                    "trans-boundary sustainability"
+                ],
+                correctAnswer: "social sustainability"
+            },
+            {
+                question: "Which of these is commonly observed in primitive societies?",
+                options: [
+                    "environmental determinism",
+                    "possibilism",
+                    "neodeterminism",
+                    "stop and go determinism"
+                ],
+                correctAnswer: "environmental determinism"
+            },
+            {
+                question: "The demographic transition sees a society move from",
+                options: [
+                    "high birth rate, low death rate to low birth rate, high death rate",
+                    "low birth rate, high death rate to low birth rate, low death rate",
+                    "high birth rate, high death rate to low birth rate, low death rate",
+                    "high birth rate, high death rate to low birth rate, high death rate"
+                ],
+                correctAnswer: "high birth rate, high death rate to low birth rate, low death rate"
+            },
+            {
+                question: "The logistic growth equation curve is",
+                options: [
+                    "I-shaped",
+                    "J-shaped",
+                    "S-shaped",
+                    "U-shaped"
+                ],
+                correctAnswer: "S-shaped"
+            },
+            {
+                question: "Which of these is a preventive check according to Malthus?",
+                options: [
+                    "foresight",
+                    "vice",
+                    "misery",
+                    "flood"
+                ],
+                correctAnswer: "foresight"
+            },
+            {
+                question: "Which of these is not a pillar of sustainability?",
+                options: [
+                    "environmental sustainability",
+                    "economic sustainability",
+                    "social sustainability",
+                    "trans-boundary sustainability"
+                ],
+                correctAnswer: "trans-boundary sustainability"
+            },
+            {
+                question: "The book 'An Essay on the Principle of Population' was written by",
+                options: [
+                    "Darwin",
+                    "Malthus",
+                    "Verhulst",
+                    "Tilman"
+                ],
+                correctAnswer: "Malthus"
+            },
+            {
+                question: "Which of these is the equation of 'logistic growth'?",
+                options: [
+                    "dN/dt = rN",
+                    "dN/dt = rN(1-N/K)",
+                    "dN/dt = rN(1-K/N)",
+                    "dN/dt = rN(K-N)"
+                ],
+                correctAnswer: "dN/dt = rN(1-N/K)"
+            },
+            {
+                question: "Hydrogen for nuclear fusion comes under the category of",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "stock resources"
+            },
+            {
+                question: "Which of these is the largest source of ammonia (NH3) in the atmosphere?",
+                options: [
+                    "animal manure",
+                    "mineral fertiliser",
+                    "crops and their decomposition",
+                    "human waste"
+                ],
+                correctAnswer: "animal manure"
+            },
+            {
+                question: "the part of actual resources that can be developed profitably in the future is a definition of",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "reserve resources"
+            },
+            {
+                question: "Timber from forests that is being harvested can be categorised under",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "actual resources"
+            },
+            {
+                question: "Rain gardens are primarily meant to",
+                options: [
+                    "reduce water usage",
+                    "increase recharge to groundwater",
+                    "protect existing water sources",
+                    "increase water flow to streams"
+                ],
+                correctAnswer: "increase recharge to groundwater"
+            },
+            {
+                question: "Oil that has not been drilled can be categorised under",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "potential resources"
+            },
+            {
+                question: "Which of these is the largest source of nitrogen oxides in the atmosphere?",
+                options: [
+                    "electricity generation",
+                    "mobile sources",
+                    "industrial processes",
+                    "waste disposal"
+                ],
+                correctAnswer: "mobile sources"
+            },
+            {
+                question: "Those resources that are currently being used after surveying, quantification and qualification is a definition of",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "actual resources"
+            },
+            {
+                question: "those resources that may be used in the future is a definition of",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "potential resources"
+            },
+            {
+                question: "Low concentration ores come in the category of",
+                options: [
+                    "potential resources",
+                    "actual resources",
+                    "reserve resources",
+                    "stock resources"
+                ],
+                correctAnswer: "reserve resources"
+            },
+            {
+                question: "New Delhi can best be categorised as",
+                options: [
+                    "administrative town",
+                    "industrial town",
+                    "transport town",
+                    "commercial town"
+                ],
+                correctAnswer: "administrative town"
+            },
+            {
+                question: "Which of these is a factor governing barrier effect of roads?",
+                options: [
+                    "traffic intensity",
+                    "speed of vehicles",
+                    "driver sensitivity",
+                    "all of these"
+                ],
+                correctAnswer: "all of these"
+            },
+            {
+                question: "Which of these is a factor governing barrier effect of roads?",
+                options: [
+                    "presence and location of animal crossings",
+                    "movement pattern of species",
+                    "species specific preference of road use",
+                    "all of these"
+                ],
+                correctAnswer: "all of these"
+            },
+            {
+                question: "Varanasi can best be categorised as",
+                options: [
+                    "mining town",
+                    "garrison town",
+                    "educational town",
+                    "religious town"
+                ],
+                correctAnswer: "religious town"
+            },
+            {
+                question: "The ability to produce a good using fewer inputs than another producer is",
+                options: [
+                    "comparative advantage",
+                    "absolute advantage",
+                    "production advantage",
+                    "resource advantage"
+                ],
+                correctAnswer: "absolute advantage"
+            },
+            {
+                question: "the price of a good that prevails in the world market for that good is the definition of",
+                options: [
+                    "export price",
+                    "import price",
+                    "world price",
+                    "domestic price"
+                ],
+                correctAnswer: "world price"
+            },
+            {
+                question: "Visakhapatnam can best be categorised as",
+                options: [
+                    "administrative town",
+                    "industrial town",
+                    "transport town",
+                    "commercial town"
+                ],
+                correctAnswer: "transport town"
+            },
+            {
+                question: "Which of these is/are example(s) of mitigation measures to mitigate impacts of linear infrastructure on wildlife?",
+                options: [
+                    "land bridges",
+                    "canopy bridges",
+                    "glider poles",
+                    "all of these"
+                ],
+                correctAnswer: "all of these"
+            },
+            {
+                question: "Bhilai can best be categorised as",
+                options: [
+                    "administrative town",
+                    "industrial town",
+                    "transport town",
+                    "commercial town"
+                ],
+                correctAnswer: "industrial town"
+            },
+            {
+                question: "the ability to produce a good at a lower opportunity cost than another producer is a definition of",
+                options: [
+                    "real advantage",
+                    "monetary advantage",
+                    "comparative advantage",
+                    "opportunity advantage"
+                ],
+                correctAnswer: "comparative advantage"
+            },
+            {
+                question: "The time of flight for LIDAR is 0.00001 sec. Find the distance of the object from the instrument.",
+                options: [
+                    "500 m",
+                    "1000 m",
+                    "1500 m",
+                    "2000 m"
+                ],
+                correctAnswer: "1500 m"
+            },
+            {
+                question: "Which of these uses imputed willingness to pay?",
+                options: [
+                    "market price method",
+                    "replacement cost method",
+                    "travel cost method",
+                    "contingent valuation method"
+                ],
+                correctAnswer: "replacement cost method"
+            },
+            {
+                question: "The situation of people, infrastructure, housing, production capacities and other tangible human assets located in hazard-prone areas. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "exposure"
+            },
+            {
+                question: "A process, phenomenon or human activity that may cause loss of life, injury or other health impacts, property damage, social and economic disruption or environmental degradation. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "hazard"
+            },
+            {
+                question: "A serious disruption of the functioning of a community or a society at any scale due to hazardous events interacting with conditions of exposure, vulnerability and capacity, leading to one or more of the following: human, material, economic and environmental losses and impacts. is a definition for",
+                options: [
+                    "hazard",
+                    "exposure",
+                    "vulnerability",
+                    "disaster"
+                ],
+                correctAnswer: "disaster"
+            },
+            {
+                question: "The combination of all the strengths, attributes and resources available within an organisation, community or society to manage and reduce disaster risks and strengthen resilience. is a definition for",
+                options: [
+                    "contingency",
+                    "disaster management",
+                    "vulnerability",
+                    "capacity"
+                ],
+                correctAnswer: "capacity"
+            },
+            {
+                question: "Bathymetric LIDAR uses",
+                options: [
+                    "far infrared light",
+                    "near infrared light",
+                    "orange light",
+                    "green light"
+                ],
+                correctAnswer: "green light"
+            },
+            {
+                question: "IMU stands for",
+                options: [
+                    "Imperial metering unit",
+                    "Inertial metering unit",
+                    "Imperial measurement unit",
+                    "Inertial measurement unit"
+                ],
+                correctAnswer: "Inertial measurement unit"
+            },
+            {
+                question: "Which of these is not a consumptive value?",
+                options: [
+                    "timber",
+                    "firewood",
+                    "non-timber forest products",
+                    "education"
+                ],
+                correctAnswer: "education"
+            },
+            {
+                question: "The frequency of flyovers is an indicator of",
+                options: [
+                    "spatial resolution",
+                    "temporal resolution",
+                    "spectral resolution",
+                    "radiometric resolution"
+                ],
+                correctAnswer: "temporal resolution"
+            }
+        ];
+
+
+        // Store original order
+        const originalQuizData = [...quizData];
+        let currentQuizData = [...originalQuizData];
+        
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submit');
+        const resetButton = document.getElementById('reset');
+        const scoreDisplay = document.getElementById('score');
+        const randomizeBtn = document.getElementById('randomize-btn');
+        const originalBtn = document.getElementById('original-btn');
+        const progressBar = document.getElementById('progress');
+        
+        // Function to shuffle array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // Create animated background bubbles
+        function createBubbles() {
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('floating-bubble');
+                
+                // Random size between 20px and 100px
+                const size = Math.random() * 80 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `${Math.random() * 20 - 20}%`;
+                
+                // Random animation duration
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                
+                // Random delay
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(bubble);
+                
+                // Remove bubble after animation completes
+                setTimeout(() => {
+                    bubble.remove();
+                }, (parseFloat(bubble.style.animationDuration) + parseFloat(bubble.style.animationDelay)) * 1000);
+            }
+        }
+        
+        // Set up continuous bubble creation
+        setInterval(createBubbles, 3000);
+        createBubbles(); // Initial bubbles
+        
+        function buildQuiz() {
+            const output = [];
+            
+            currentQuizData.forEach((question, questionIndex) => {
+                const options = [];
+                
+                for (let i = 0; i < question.options.length; i++) {
+                    options.push(
+                        `<div class="option">
+                            <input type="radio" id="question${questionIndex}option${i}" name="question${questionIndex}" value="${question.options[i]}">
+                            <label for="question${questionIndex}option${i}">${question.options[i]}</label>
+                        </div>`
+                    );
+                }
+                
+                output.push(
+                    `<div class="question-container" style="animation-delay: ${questionIndex * 0.1}s">
+                        <div class="question">${questionIndex + 1}. ${question.question}</div>
+                        <div class="options">${options.join('')}</div>
+                        <div class="feedback" id="feedback${questionIndex}"></div>
+                    </div>`
+                );
+            });
+            
+            quizContainer.innerHTML = output.join('');
+            
+            // Add event listeners to track progress
+            updateProgress();
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(button => {
+                button.addEventListener('change', updateProgress);
+            });
+        }
+        
+        function updateProgress() {
+            const totalQuestions = currentQuizData.length;
+            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+            const progressPercentage = Math.round((answeredQuestions / totalQuestions) * 100);
+            
+            progressBar.style.width = `${progressPercentage}%`;
+            progressBar.textContent = `${progressPercentage}% Complete`;
+        }
+        
+        function showResults() {
+            const answerContainers = quizContainer.querySelectorAll('.question-container');
+            let score = 0;
+            
+            currentQuizData.forEach((question, questionIndex) => {
+                const answerContainer = answerContainers[questionIndex];
+                const selector = `input[name=question${questionIndex}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+                const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+                
+                if (userAnswer === question.correctAnswer) {
+                    score++;
+                    feedbackDiv.innerHTML = `<span style="font-size:18px">✓</span> Yes, the answer is correct.<br>Accepted Answer:<br><em>${question.correctAnswer}</em><br><strong>1 point</strong>`;
+                    feedbackDiv.className = 'feedback correct';
+                    answerContainer.style.borderLeft = '4px solid #3c763d';
+                } else {
+                    feedbackDiv.innerHTML = `<span style="font-size:18px">✗</span> Incorrect. The correct answer is:<br><em>${question.correctAnswer}</em>`;
+                    feedbackDiv.className = 'feedback incorrect';
+                    answerContainer.style.borderLeft = '4px solid #a94442';
+                }
+                
+                feedbackDiv.style.display = 'block';
+                
+                // Animate feedback appearance
+                feedbackDiv.style.opacity = '0';
+                setTimeout(() => {
+                    feedbackDiv.style.opacity = '1';
+                }, 100);
+            });
+            
+            const percentage = Math.round((score / currentQuizData.length) * 100);
+            scoreDisplay.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 10px;">Final Score: ${score} out of ${currentQuizData.length} (${percentage}%)</div>
+                <div style="font-size: 18px;">${getScoreMessage(percentage)}</div>
+            `;
+            
+            submitButton.style.display = 'none';
+
+            resetButton.style.display = 'block';
+
+// Create confetti effect for good scores
+if (percentage >= 70) {
+    createConfetti();
+}
+}
+
+function getScoreMessage(percentage) {
+    if (percentage >= 90) {
+        return "Excellent! You're a conservation geography expert! 🌳👑";
+    } else if (percentage >= 70) {
+        return "Great job! You have solid knowledge about conservation geography! 🌲";
+    } else if (percentage >= 50) {
+        return "Good effort! Keep learning about our conservation geography! 🌱";
+    } else {
+        return "You might want to review the conservation geography concepts again. Don't give up! 📚";
+    }
+}
+
+function createConfetti() {
+    for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = `${Math.random() * 10 + 5}px`;
+        confetti.style.height = `${Math.random() * 10 + 5}px`;
+        confetti.style.backgroundColor = ['#4CAF50', '#2196F3', '#e47fcc', '#FFC107', '#9C27B0'][Math.floor(Math.random() * 5)];
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.top = '-10px';
+        confetti.style.borderRadius = `${Math.random() > 0.5 ? '50%' : '0'}`;
+        confetti.style.zIndex = '1000';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.style.opacity = Math.random() * 0.7 + 0.3;
+        
+        document.body.appendChild(confetti);
+        
+        // Animate falling
+        const animationDuration = Math.random() * 3 + 2;
+        confetti.animate([
+            { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+            { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        ], {
+            duration: animationDuration * 1000,
+            easing: 'ease-in',
+            iterations: 1
+        });
+        
+        // Remove after animation
+        setTimeout(() => {
+            confetti.remove();
+        }, animationDuration * 1000);
+    }
+}
+
+function resetQuiz() {
+    // Clear all selections
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => button.checked = false);
+    
+    // Hide feedback
+    const feedbackDivs = document.querySelectorAll('.feedback');
+    feedbackDivs.forEach(div => div.style.display = 'none');
+    
+    // Reset question container styling
+    const questionContainers = document.querySelectorAll('.question-container');
+    questionContainers.forEach(container => container.style.borderLeft = '1px solid #ddd');
+    
+    // Reset score display
+    scoreDisplay.innerHTML = '';
+    
+    // Show submit button, hide reset button
+    submitButton.style.display = 'block';
+    resetButton.style.display = 'none';
+    
+    // Reset progress bar
+    progressBar.style.width = '0%';
+    progressBar.textContent = '0% Complete';
+}
+
+// Event listeners for randomize/original order buttons
+randomizeBtn.addEventListener('click', function() {
+    currentQuizData = shuffleArray([...originalQuizData]);
+    buildQuiz();
+    resetQuiz();
+    
+    // Highlight active button
+    randomizeBtn.style.backgroundColor = '#1a5276';
+    originalBtn.style.backgroundColor = '#2980b9';
+    
+    // Add a little animation to the quiz container
+    document.querySelector('.quiz-container').classList.add('pop');
+    setTimeout(() => {
+        document.querySelector('.quiz-container').classList.remove('pop');
+    }, 300);
+});
+
+originalBtn.addEventListener('click', function() {
+    currentQuizData = [...originalQuizData];
+    buildQuiz();
+    resetQuiz();
+    
+    // Highlight active button
+    originalBtn.style.backgroundColor = '#1a5276';
+    randomizeBtn.style.backgroundColor = '#2980b9';
+    
+    // Add a little animation to the quiz container
+    document.querySelector('.quiz-container').classList.add('pop');
+    setTimeout(() => {
+        document.querySelector('.quiz-container').classList.remove('pop');
+    }, 300);
+});
+
+// Add pop animation to CSS
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+        @keyframes pop {
+            0% { transform: scale(0.98); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .pop {
+            animation: pop 0.3s ease;
+        }
+    </style>
+`);
+
+// Initial build
+buildQuiz();
+
+// Event listeners
+submitButton.addEventListener('click', showResults);
+resetButton.addEventListener('click', resetQuiz);
+    </script>
