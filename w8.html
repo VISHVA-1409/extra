@@ -521,7 +521,7 @@
                 <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
                     📄 Open PDF in Full Page
                 </button>
-                <iframe id="pdfViewer" class="pdf-viewer" src="week8.pdf"></iframe>
+                <iframe id="pdfViewer" class="pdf-viewer" src="Education for Sustainable Development Week 8.pdf"></iframe>
                 <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
                     Week 8 Solution 
                 </p>
@@ -532,114 +532,109 @@
     <script>
        // Extra Questions Data
         const extraQuizData = [
-            {
-                question: "The acronym HIPPO does not include",
-                options: [
-                    "habitat loss",
-                    "habitat enhancement",
-                    "invasive species",
-                    "human over-population"
-                ],
-                correctAnswer: "habitat enhancement"
-            },
-            {
-                question: "The elephant has a home range of several square kilometres, regulates the ecosystem by its habit of destructive feeding, and people can relate to this animal which is important for conservation. Given this background, the elephant can be called as",
-                options: [
-                    "umbrella species",
-                    "keystone species",
-                    "flagship species",
-                    "all of the above"
-                ],
-                correctAnswer: "all of the above"
-            },
-            {
-                question: "Religious benefits are an example of",
-                options: [
-                    "provisioning service",
-                    "regulating service",
-                    "supporting service",
-                    "cultural service"
-                ],
-                correctAnswer: "cultural service"
-            },
-            {
-                question: "Which of these is a deterministic factor?",
-                options: [
-                    "environmental variation",
-                    "forest fire",
-                    "death rate",
-                    "diseases"
-                ],
-                correctAnswer: "death rate"
-            },
-            {
-                question: "According to Leopold, which of these is not a tool of habitat management?",
-                options: [
-                    "fire",
-                    "gun",
-                    "cattle",
-                    "sickle"
-                ],
-                correctAnswer: "sickle"
-            }
+             {
+        question: "The Okayama Commitments, Japan focus on ___ .",
+        options: ["environmental conservation", "literacy", "empowerment", "all of the above"],
+        correctAnswer: "all of the above"
+    },
+    {
+        question: "Education is related to SDG 1 such that ___ .",
+        options: ["education helps in skills required to build resilient infrastructure", "education enhances skills to use natural resources more sustainably", "education is critical to lifting people out of poverty", "education helps reduce gender gaps"],
+        correctAnswer: "education is critical to lifting people out of poverty"
+    },
+    {
+        question: "The ___ model structures sustainability competencies into cognitive, affective motivational and behavioral goal dimensions .",
+        options: ["canvas", "picture", "hexagon", "frame"],
+        correctAnswer: "frame"
+    },
+    {
+        question: "An affective goal commitment or a _ of actions, is the core of any motivation.",
+        options: ["never assessed sequence", "positively assessed sequence", "newly assessed sequence", "biologically assessed sequence"],
+        correctAnswer: "positively assessed sequence"
+    },
+    {
+        question: "Which of the following is false?",
+        options: ["local problems can have global consequences", "a systems thinking approach is important for sustainability issues", "women play a vital role in environmental management", "warfare is inherently constructive"],
+        correctAnswer: "warfare is inherently constructive"
+    },
+    {
+        question: "The ___ principle advocates to take action to avoid possibility of irreversible environmental or social harm.",
+        options: ["precautionary", "secondary", "participatory", "permanent"],
+        correctAnswer: "precautionary"
+    },
+    {
+        question: "GAP on ESD stands for Global ___ Programme.",
+        options: ["Action", "Activity", "Affect", "Antecedent"],
+        correctAnswer: "Action"
+    },
+    {
+        question: "Which of the following is not a key competency for sustainable development?",
+        options: ["anticipatory", "isolative", "collaborative", "normative"],
+        correctAnswer: "isolative"
+    },
+    {
+        question: "___ pedagogy sees students as autonomous learners and emphasizes active development of knowledge.",
+        options: ["Institution-centered", "Learner-centered", "Media-centered", "Teacher-centered"],
+        correctAnswer: "Learner-centered"
+    },
+    {
+        question: "Experience for action-oriented learning may come from a __.",
+        options: ["project", "internship", "facilitating a workshop", "all of the above"],
+        correctAnswer: "all of the above"
+    }
         ];
 
         const weekQuizData= [
-  {
-    question: "The fig tree bears fruits in times when animals do not have much access to food. In this context, it would be a good example of:",
-    options: ["least concern species", "keystone species", "flagship species", "extinct species"],
-    correctAnswer: "keystone species"
-  },
-  {
-    question: "The 'subset of physical and biotic environmental factors that permit an animal (or plant) to survive and reproduce' is the definition of:",
-    options: ["habitat", "ecosystem", "biome", "biosphere"],
-    correctAnswer: "habitat"
-  },
-  {
-    question: "Which of these correctly represents the process of habitat fragmentation and loss?",
-    options: [
-      "Original forest Dissection Perforation Fragmentation Attrition",
-      "Original forest Dissection- Attrition-Fragmentation Perforation",
-      "Original forest Dissection Perforation Attrition Fragmentation",
-      "Original forest Dissection Fragmentation Perforation Attrition"
-    ],
-    correctAnswer: "Original forest Dissection Perforation. Fragmentation Attrition"
-  },
-  {
-    question: "Soil formation is an example of:",
-    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
-    correctAnswer: "supporting service"
-  },
-  {
-    question: "Biological control of pest populations is an example of:",
-    options: ["provisioning service", "regulating service", "supporting service", "cultural service"],
-    correctAnswer: "regulating service"
-  },
-  {
-    question: "The acronym HIPPO does not include:",
-    options: ["habitat loss", "Invasive species", "pollination", "pollution"],
-    correctAnswer: "pollination"
-  },
-  {
-    question: "The tiger has a home range of several square kilometres, regulates the ecosystem through controlling herbivore populations and trophic cascades, and people come to tiger reserves to watch tigers. Thus, the tiger can be called as:",
-    options: ["umbrella species", "keystone species", "flagship species", "all of the above"],
-    correctAnswer: "all of the above"
-  },
-  {
-    question: "People come to Sessa orchid sanctuary in Arunachal Pradesh to witness orchids, which in this context would be classified as:",
-    options: ["umbrella species", "keystone species", "flagship species", "extinct species"],
-    correctAnswer: "flagship species"
-  },
-  {
-    question: "Captive breeding is an example of:",
-    options: ["in-situ conservation", "ex-situ conservation", "in-situ preservation", "ex-situ preservation"],
-    correctAnswer: "ex-situ conservation"
-  },
-  {
-    question: "We prefer those areas for the creation of a conservation reserve where the level of threat is:",
-    options: ["very high", "medium", "overly low", "non-existent"],
-    correctAnswer: "medium"
-  }
+   {
+        question: "The Okayama Commitment is from",
+        options: ["Russia", "South Korea", "North Korea", "Japan"],
+        correctAnswer: "Japan"
+    },
+    {
+        question: "Which of the following is a policy support mechanism of Okayama Commitment?",
+        options: ["Taking money", "Content development", "Exploitation of resources", "None of the given"],
+        correctAnswer: "Content development"
+    },
+    {
+        question: "Education is related to SDG 9 such that",
+        options: ["education helps in skills required to build resilient infrastructure", "education enhances skills to use natural resources more sustainably", "education is critical to lifting people out of poverty", "education helps reduce gender gaps"],
+        correctAnswer: "education helps in skills required to build resilient infrastructure"
+    },
+    {
+        question: "The frame model structures sustainability competencies into _ goal dimensions.",
+        options: ["8", "3", "11", "45"],
+        correctAnswer: "3"
+    },
+    {
+        question: "Sustainability issues must be looked at through a approach.",
+        options: ["isolated thinking", "independent thinking", "silos thinking", "systems thinking"],
+        correctAnswer: "systems thinking"
+    },
+    {
+        question: "Technology and Science can alone solve all our sustainability problems.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "GAP in the context of ESD stands for",
+        options: ["Global Action Programme", "Great Activity Plan", "Global Attention Programme", "Great Action Policy"],
+        correctAnswer: "Global Action Programme"
+    },
+    {
+        question: "competency is the ability to understand and evaluate multiple futures.",
+        options: ["anticipatory", "normative", "strategic", "collaborative"],
+        correctAnswer: "anticipatory"
+    },
+    {
+        question: "The ability to question norms is competency.",
+        options: ["critical thinking", "normative", "anticipatory", "self-awareness"],
+        correctAnswer: "critical thinking"
+    },
+    {
+        question: "Action-oriented learning draws on Kolb's concept of",
+        options: ["experiential learning", "experimental learning", "rote learning", "direct learning"],
+        correctAnswer: "experimental learning"
+    }
 ];
 
 

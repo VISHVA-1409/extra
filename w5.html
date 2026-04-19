@@ -521,7 +521,7 @@
                 <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
                     📄 Open PDF in Full Page
                 </button>
-                <iframe id="pdfViewer" class="pdf-viewer" src="week5.pdf"></iframe>
+                <iframe id="pdfViewer" class="pdf-viewer" src="Education for Sustainable Development Week 5.pdf"></iframe>
                 <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
                     Week 5 Solution 
                 </p>
@@ -532,170 +532,110 @@
     <script>
          // Extra Questions Data
         const extraQuizData = [
-            {
-                question: "Low islands consisting of coral reefs surrounding a central depression is a description of",
-                options: [
-                    "oceanic deep / trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "atoll"
-            },
-            {
-                question: "Equal salinity curves are called",
-                options: [
-                    "isopycnal curves",
-                    "isohaline curves",
-                    "isotherm curves",
-                    "isobuoyant curves"
-                ],
-                correctAnswer: "isohaline curves"
-            },
-            {
-                question: "Which of these is a major feature of the ocean floor?",
-                options: [
-                    "oceanic deep / trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "oceanic deep / trench"
-            },
-            {
-                question: "Equal temperature curves are called",
-                options: [
-                    "isopycnal curves",
-                    "isohaline curves",
-                    "isotherm curves",
-                    "isobuoyant curves"
-                ],
-                correctAnswer: "isotherm curves"
-            },
-            {
-                question: "Which of these is not a primary force initiating and governing movement of ocean currents?",
-                options: [
-                    "phase separation",
-                    "gravity",
-                    "Coriolis force",
-                    "arrangement of coasts"
-                ],
-                correctAnswer: "arrangement of coasts"
-            },
-            {
-                question: "Relatively steep-sided, narrow, deep basins is a description of",
-                options: [
-                    "oceanic deep / trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "oceanic deep / trench"
-            }
+           {
+        question: "Which of the following is not an indigenous system of medicine?",
+        options: ["ayurveda", "siddha", "surgery", "homeopathy"],
+        correctAnswer: "surgery"
+    },
+    {
+        question: "Which of the following is not a health system building block as suggested by WHO?",
+        options: ["Financing", "Service delivery", "Politics", "Leadership/Governance"],
+        correctAnswer: "Politics"
+    },
+    {
+        question: "Technology in healthcare infrastructure can be used through ___.",
+        options: ["Increasing cost of medicine", "Mobile hospital", "Mobile medicine", "None of the above"],
+        correctAnswer: "Mobile hospital"
+    },
+    {
+        question: "___ in healthcare is how well a healthcare system meets its objectives.",
+        options: ["Cost", "Value", "Currency", "Expense"],
+        correctAnswer: "Value"
+    },
+    {
+        question: "The National Digital Health Mission will help in better management using the open ___ framework.",
+        options: ["MPI", "KPI", "UPI", "API"],
+        correctAnswer: "API"
+    },
+    {
+        question: "The POSHAN Abhiyan in India was launched in ___ .",
+        options: ["1999", "2023", "2018", "1965"],
+        correctAnswer: "2018"
+    },
+    {
+        question: "Sus-QI extends the scope of QI to include ___.",
+        options: ["ecological sustainability", "financial value", "short term perspective", "economic profit"],
+        correctAnswer: "ecological sustainability"
+    },
+    {
+        question: "___ is the worst level of food security for a country.",
+        options: ["Drought", "Famine", "Flood", "Obesity"],
+        correctAnswer: "Famine"
+    },
+    {
+        question: "The ___ program in India has been key source of extra nourishment for millions of school going children.",
+        options: ["post-day meal", "end-day meal", "mid-day meal", "start-day meal"],
+        correctAnswer: "mid-day meal"
+    },
+    {
+        question: "Which of the following is not a pillar of food security?",
+        options: ["Food access", "Food tax", "Food availability", "Food use"],
+        correctAnswer: "Food tax"
+    }
         ];
 
         // Week 5 Assignment Data
         const weekQuizData = [
             {
-                question: "Equal density curves are called",
-                options: [
-                    "isopycnal curves",
-                    "isohaline curves",
-                    "isotherm curves",
-                    "isobuoyant curves"
-                ],
-                correctAnswer: "isopycnal curves"
-            },
-            {
-                question: "Which of these is a minor feature of the ocean floor?",
-                options: [
-                    "continental shelf",
-                    "continental slope",
-                    "guyot",
-                    "abyssal plain"
-                ],
-                correctAnswer: "guyot"
-            },
-            {
-                question: "Flat, deep areas of the ocean is a description of",
-                options: [
-                    "oceanic deep/trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "abyssal plain"
-                ],
-                correctAnswer: "abyssal plain"
-            },
-            {
-                question: "Volcanic mountains in the ocean is a description of",
-                options: [
-                    "oceanic deep/trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "seamount"
-            },
-            {
-                question: "Which of these are the largest mountain ranges on Earth?",
-                options: [
-                    "oceanic deep/trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "mid-oceanic ridge"
-            },
-            {
-                question: "deep valleys, often cutting across continental shelves and slopes is a description of",
-                options: [
-                    "oceanic deep/trench",
-                    "mid-oceanic ridge",
-                    "guyot",
-                    "submarine canyon"
-                ],
-                correctAnswer: "submarine canyon"
-            },
-            {
-                question: "Continental slope has a gradient of",
-                options: [
-                    "0-1 degree",
-                    "1-2 degree",
-                    "2-5 degree",
-                    "5-10 degree"
-                ],
-                correctAnswer: "2-5 degree"
-            },
-            {
-                question: "Which of these is not a prominent tidal pattern?",
-                options: [
-                    "diurnal",
-                    "mixed diurnal",
-                    "semidiurnal",
-                    "mixed semidiurnal"
-                ],
-                correctAnswer: "mixed diurnal"
-            },
-            {
-                question: "relatively steep-sided, narrow, deep basins is a description of",
-                options: [
-                    "oceanic deep/trench",
-                    "mid-oceanic ridge",
-                    "seamount",
-                    "atoll"
-                ],
-                correctAnswer: "oceanic deep/trench"
-            },
-            {
-                question: "In the sea, a layer where the temperature decreases rapidly from the mixed upper layer to the cold deeper layer is called",
-                options: [
-                    "isopycnal",
-                    "thermophil",
-                    "thermohaline",
-                    "thermocline"
-                ],
-                correctAnswer: "thermocline"
-            }
+        question: "Siddha comes under the",
+        options: ["public health sector", "voluntary health agencies", "indigenous system of medicine", "private health sector"],
+        correctAnswer: "indigenous system of medicine"
+    },
+    {
+        question: "Which of the following is not a problem of healthcare infrastructure in India?",
+        options: ["shortage of staff", "skewed favor to urban areas", "no proper regulatory mechanism", "standard procedures in all regions"],
+        correctAnswer: "standard procedures in all regions"
+    },
+    {
+        question: "Which of the following is a health system building block as suggested by WHO?",
+        options: ["Economic growth", "Access to public transport", "Politics", "Service delivery"],
+        correctAnswer: "Service delivery"
+    },
+    {
+        question: "An ecologically sustainable approach broadens the definition of",
+        options: ["objective", "outcome", "cost", "value"],
+        correctAnswer: "value"
+    },
+    {
+        question: "is an environment in which data of medical interest can be stored and made easily available.",
+        options: ["health repository", "health bank", "health bag", "health grid"],
+        correctAnswer: "health grid"
+    },
+    {
+        question: "The POSHAN Abhiyan in India aims to improve nutritional outcomes for",
+        options: ["children", "lactating mothers", "pregnant women", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Sus-Ql stands for",
+        options: ["Sustainable quality improvement", "Sustainable quality improvisation", "Sustainable quantity improvement", "Sustainable quantity improvisation"],
+        correctAnswer: "Sustainable quality improvement"
+    },
+    {
+        question: "Which of the following is not a stage of Sus-QI?",
+        options: ["set goals", "measure impacts", "design the improvement effort", "ignore the system"],
+        correctAnswer: "ignore the system"
+    },
+    {
+        question: "Food insecurity is measured on the",
+        options: ["FIES", "FAIS", "FIET", "FAIR"],
+        correctAnswer: "FIES"
+    },
+    {
+        question: "The UN lists levels of food security for any given country.",
+        options: ["5", "4", "3", "2"],
+        correctAnswer: "5"
+    }
         ];
 
 // Lecture 13: Structure and Composition (Hydrosphere)

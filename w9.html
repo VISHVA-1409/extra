@@ -521,7 +521,7 @@
                 <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
                     📄 Open PDF in Full Page
                 </button>
-                <iframe id="pdfViewer" class="pdf-viewer" src="week9.pdf"></iframe>
+                <iframe id="pdfViewer" class="pdf-viewer" src="Education for Sustainable Development Week 9.pdf"></iframe>
                 <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
                     Week 9 Solution 
                 </p>
@@ -532,162 +532,111 @@
     <script>
         // Extra Questions Data - Empty for now
         const extraQuizData = [
-            
-  {
-    question: "The movement of individuals away from their place of birth or hatching or seed production into a new habitat or area to survive and reproduce is called:",
-    options: ["translocation", "migration", "dispersal", "drifting"],
-    correctAnswer: "dispersal"
-  },
-  {
-    question: "The movement of lions across the Gir landscape is an example of:",
-    options: ["diffusion", "secular dispersal", "jump dispersal", "drifting"],
-    correctAnswer: "jump dispersal"
-  },
-  {
-    question: "[translate:Geographical] discipline of Climatology is most closely related to:",
-    options: ["Geology", "Meteorology", "Hydrology", "Pedology"],
-    correctAnswer: "Meteorology"
-  },
-  {
-    question: "The systematic approach to Geography was developed by:",
-    options: ["Alexander von Humboldt", "Karl Ritter", "Rene Descartes", "Eratosthenes"],
-    correctAnswer: "Karl Ritter"
-  },
-  {
-    question: "Which of these is true?",
-    options: ["Wildlife conservation is the same as wildlife preservation", "Wildlife conservation is the same as wildlife ecology", "Wildlife conservation is the same as environmentalism", "none of these"],
-    correctAnswer: "none of these"
-  },
-  {
-    question: "In the word root for conservation, servare stands for:",
-    options: ["together", "to keep", "house", "manage"],
-    correctAnswer: "to keep"
-  },
-  {
-    question: "“allowing some places and some creatures to exist without significant human interference” is the definition of:",
-    options: ["conservation", "preservation", "environmentalism", "ecology"],
-    correctAnswer: "preservation"
-  },
-  {
-    question: "I tried growing vegetables under my teak plantation, but the vegetable plants died out. I should be concerned about:",
-    options: ["autophagy", "allelophagy", "autopathy", "allelopathy"],
-    correctAnswer: "allelopathy"
-  },
-  {
-    question: "The regular, seasonal movement of animals, often along fixed routes is called:",
-    options: ["translocation", "migration", "dispersal", "drifting"],
-    correctAnswer: "migration"
-  },
-  {
-    question: "In the word root for conservation, con stands for:",
-    options: ["together", "to keep", "house", "manage"],
-    correctAnswer: "together"
-  }
+   {
+        question: "Utopian story-telling and science-fiction thinking are some examples of ___ method in ESD.",
+        options: ["economic and environmental exercises", "analysis of complex systems", "theoretical learning", "vision building exercises"],
+        correctAnswer: "vision building exercises"
+    },
+    {
+        question: "Which of the following is not a key competency area for assessment of ESD?",
+        options: ["interpersonal", "intrapersonal", "systems thinking", "past thinking"],
+        correctAnswer: "past thinking"
+    },
+    {
+        question: "The ___ intelligences represent a sum total of human capacities to influence, interact with, and communicate with our world.",
+        options: ["singular", "external", "internal", "multiple"],
+        correctAnswer: "multiple"
+    },
+    {
+        question: "___ intelligence refers to seeing and mapping the world in 3D.",
+        options: ["Linguistic", "Musical", "Naturalist", "Spatial"],
+        correctAnswer: "Spatial"
+    },
+    {
+        question: "ESD assessment is a part of a/an___ of planning, implementing, learning reflection and replanning.",
+        options: ["interactive action/reflection", "linear", "incomplete", "none of the above"],
+        correctAnswer: "interactive action/reflection"
+    },
+    {
+        question: "The idea of ___ implies changes in individual action intertwined with reorganization of societal structures.",
+        options: ["big transformation", "small transformation", "slow transformation", "fast transformation"],
+        correctAnswer: "big transformation"
+    },
+    {
+        question: "Transformative learning and two major focuses: ___ and ___ learning.",
+        options: ["instrumental, communicative", "interactive, commercial", "intuitive, cognitive", "industrial, constructive"],
+        correctAnswer: "instrumental, communicative"
+    },
+    {
+        question: "When a learner finds what they believed in the past is not accurate, they experience ___.",
+        options: ["a critical assessment of the world", "a disorienting dilemma", "a dissatisfaction", "none of the above"],
+        correctAnswer: "a disorienting dilemma"
+    },
+    {
+        question: "Which of the following is not a key principle of adult education?",
+        options: ["self concept", "reluctance to learn", "motivation", "role of experience"],
+        correctAnswer: "reluctance to learn"
+    },
+    {
+        question: "Following are the vital components/drivers of sustainable education, except ___.",
+        options: ["profit.", "planet", "people", "punishment"],
+        correctAnswer: "punishment"
+    }
 ];
 
 
 // Week 9 Assignment Data
         const weekQuizData = [
-            {
-                question: "According to Malthusian model,",
-                options: [
-                    "Population grows in geometric progression, food supply increases in arithmetic progression",
-                    "Population grows in geometric progression, food supply increases in geometric progression",
-                    "Population grows in arithmetic progression, food supply increases in arithmetic progression",
-                    "Population grows in arithmetic progression, food supply increases in geometric progression"
-                ],
-                correctAnswer: "Population grows in geometric progression, food supply increases in arithmetic progression"
-            },
-            {
-                question: "Which of these is commonly observed during humanising of nature?",
-                options: [
-                    "environmental determinism",
-                    "possibilism",
-                    "neodeterminism",
-                    "stop and go determinism"
-                ],
-                correctAnswer: "possibilism"
-            },
-            {
-                question: "Which of these is a pillar of sustainability",
-                options: [
-                    "social sustainability",
-                    "industrial sustainability",
-                    "agricultural sustainability",
-                    "trans-boundary sustainability"
-                ],
-                correctAnswer: "social sustainability"
-            },
-            {
-                question: "Which of these is commonly observed in primitive societies?",
-                options: [
-                    "environmental determinism",
-                    "possibilism",
-                    "neodeterminism",
-                    "stop and go determinism"
-                ],
-                correctAnswer: "environmental determinism"
-            },
-            {
-                question: "The demographic transition sees a society move from",
-                options: [
-                    "high birth rate, low death rate to low birth rate, high death rate",
-                    "low birth rate, high death rate to low birth rate, low death rate",
-                    "high birth rate, high death rate to low birth rate, low death rate",
-                    "high birth rate, high death rate to low birth rate, high death rate"
-                ],
-                correctAnswer: "high birth rate, high death rate to low birth rate, low death rate"
-            },
-            {
-                question: "The logistic growth equation curve is",
-                options: [
-                    "I-shaped",
-                    "J-shaped",
-                    "S-shaped",
-                    "U-shaped"
-                ],
-                correctAnswer: "S-shaped"
-            },
-            {
-                question: "Which of these is a preventive check according to Malthus?",
-                options: [
-                    "foresight",
-                    "vice",
-                    "misery",
-                    "flood"
-                ],
-                correctAnswer: "foresight"
-            },
-            {
-                question: "Which of these is not a pillar of sustainability?",
-                options: [
-                    "environmental sustainability",
-                    "economic sustainability",
-                    "social sustainability",
-                    "trans-boundary sustainability"
-                ],
-                correctAnswer: "trans-boundary sustainability"
-            },
-            {
-                question: "The book 'An Essay on the Principle of Population' was written by",
-                options: [
-                    "Darwin",
-                    "Malthus",
-                    "Verhulst",
-                    "Tilman"
-                ],
-                correctAnswer: "Malthus"
-            },
-            {
-                question: "Which of these is the equation of 'logistic growth'?",
-                options: [
-                    "dN/dt = rN",
-                    "dN/dt = rN(1-N/K)",
-                    "dN/dt = rN(1-K/N)",
-                    "dN/dt = rN(K-N)"
-                ],
-                correctAnswer: "dN/dt = rN(1-N/K)"
-            }
+           {
+        question: "Activities like fish bowl discussion help",
+        options: ["passive thinking", "critical and reflexive thinking", "rote-memory", "all of the given"],
+        correctAnswer: "critical and reflexive thinking"
+    },
+    {
+        question: "Which of the following is not a vision-building exercise?",
+        options: ["scenario analysis", "classroom teaching", "science fiction thinking", "dystopian storytelling"],
+        correctAnswer: "classroom teaching"
+    },
+    {
+        question: "The ability to hold contradictory thoughts and feelings is an competency.",
+        options: ["intellectual", "interpersonal", "intrapersonal", "institutional"],
+        correctAnswer: "intrapersonal"
+    },
+    {
+        question: "intelligences is proposed by Howard Gardner.",
+        options: ["multiple", "singular", "double", "triple"],
+        correctAnswer: "multiple"
+    },
+    {
+        question: "intelligence refers to using one's body in skilled ways.",
+        options: ["kinesthetic", "musical", "naturalist", "spatial"],
+        correctAnswer: "kinesthetic"
+    },
+    {
+        question: "The idea of big transformation implies that changes in individual action are intertwined with",
+        options: ["reorganization of self", "reorganization of societal structures", "ignorance of others", "none of the given"],
+        correctAnswer: "reorganization of societal structures"
+    },
+    {
+        question: "In learning, learners start to question all the things they knew to make room for new insights and information.",
+        options: ["transformative", "transactional", "trivial", "trans-disciplinary"],
+        correctAnswer: "transformative"
+    },
+    {
+        question: "Which of the following is a key principle of adult education?",
+        options: ["need to know why", "guilt", "boredom", "none of the given"],
+        correctAnswer: "need to know why"
+    },
+    {
+        question: "Sustainable Development is a process through which people influence and share control over development initiatives, decisions and sources that affects them.",
+        options: ["Internal", "Societal", "Participatory", "Transformational"],
+        correctAnswer: "Participatory"
+    },
+    {
+        question: "is the common regulatory body for higher education in India.",
+        options: ["HECI", "WHO", "AIIMS", "None of the given"],
+        correctAnswer: "HECI"
+    }
         ];
 
 

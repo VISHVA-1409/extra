@@ -521,7 +521,7 @@
                 <button class="pdf-fullscreen-btn" onclick="openPDFFullscreen()">
                     📄 Open PDF in Full Page
                 </button>
-                <iframe id="pdfViewer" class="pdf-viewer" src="week10.pdf"></iframe>
+                <iframe id="pdfViewer" class="pdf-viewer" src="Education for Sustainable Development Week 10.pdf"></iframe>
                 <p style="margin-top: 15px; color: #6b7280; font-style: italic;">
                     Week 10 Solution 
                 </p>
@@ -532,150 +532,110 @@
     <script>
          // Extra Questions Data
         const extraQuizData = [
-            {
-                question: "Which of these is the largest source of sulphur oxides in the atmosphere?",
-                options: [
-                    "electricity generation",
-                    "mobile sources",
-                    "industrial processes",
-                    "residential fuel"
-                ],
-                correctAnswer: "electricity generation"
-            },
-            {
-                question: "those resources that are currently being used after surveying, quantification and qualification is a definition of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "actual resources"
-            },
-            {
-                question: "Rain gardens are primarily meant to",
-                options: [
-                    "reduce water usage",
-                    "increase recharge to groundwater",
-                    "protect existing water sources",
-                    "increase water flow to streams"
-                ],
-                correctAnswer: "increase recharge to groundwater"
-            },
-            {
-                question: "those resources that have been surveyed but we lack the technology to use them is a definition of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "stock resources"
-            }
+             {
+        question: "Which of the following is false about sustainable leaders?",
+        options: ["they take care of how their role in their organization plays in a larger context", "they are key in shaping the future", "they set strategies for the triple bottom line", "they look at immediate gains"],
+        correctAnswer: "they look at immediate gains"
+    },
+    {
+        question: "Organizations are now expected to take responsibility for the ways in which their activities impact ___.",
+        options: ["their customers and workers", "the society", "the environment", "all of the above"],
+        correctAnswer: "all of the above"
+    },
+    {
+        question: "All leaders, no matter what sphere they are operating in, must attend to sustainability challenges.",
+        options: ["False", "True"],
+        correctAnswer: "True"
+    },
+    {
+        question: "The sustainability mindset involves the following except ___.",
+        options: ["enlightened self-interest", "presencing", "open-mindedness", "short term orientation"],
+        correctAnswer: "short term orientation"
+    },
+    {
+        question: "___ thinking is often highlighted by the ability to zoom in and zoom out.",
+        options: ["Interactive", "Collaborative", "Systems", "Structural"],
+        correctAnswer: "Systems"
+    },
+    {
+        question: "Which of the following is not one of the sustainable leadership practices?",
+        options: ["avoiding ambiguity and conflict management", "making sustainability relevant to others", "thinking holistically", "building authentic relationships"],
+        correctAnswer: "avoiding ambiguity and conflict management"
+    },
+    {
+        question: "___ is an example of a sustainability framework for integrated analysis and action.",
+        options: ["Five domains of sustainable communities", "Natural step system conditions", "Natural capitalism", "All of the above"],
+        correctAnswer: "All of the above"
+    },
+    {
+        question: "Which of the following is false about sustainable leadership?",
+        options: ["addresses issues of social justice", "sustains leadership of oneself only", "develops rather than depletes resources", "secures success over time"],
+        correctAnswer: "sustains leadership of oneself only"
+    },
+    {
+        question: "The practice of inclusive leadership involves the following except ___.",
+        options: ["dialogue and consensus", "coercion", "democratic approaches", "coaching"],
+        correctAnswer: "coercion"
+    },
+    {
+        question: "The ability to detect the path as a leader and change the course of action if necessary is known as ___.",
+        options: ["rationalize", "incentivize", "pilot", "pivot"],
+        correctAnswer: "pivot"
+    }
         ];
 
         // Week 10 Assignment Data
         const weekQuizData = [
             {
-                question: "Hydrogen for nuclear fusion comes under the category of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "stock resources"
-            },
-            {
-                question: "Which of these is the largest source of ammonia (NH3) in the atmosphere?",
-                options: [
-                    "animal manure",
-                    "mineral fertiliser",
-                    "crops and their decomposition",
-                    "human waste"
-                ],
-                correctAnswer: "animal manure"
-            },
-            {
-                question: "the part of actual resources that can be developed profitably in the future is a definition of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "reserve resources"
-            },
-            {
-                question: "Timber from forests that is being harvested can be categorised under",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "actual resources"
-            },
-            {
-                question: "Rain gardens are primarily meant to",
-                options: [
-                    "reduce water usage",
-                    "increase recharge to groundwater",
-                    "protect existing water sources",
-                    "increase water flow to streams"
-                ],
-                correctAnswer: "increase recharge to groundwater"
-            },
-            {
-                question: "Oil that has not been drilled can be categorised under",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "potential resources"
-            },
-            {
-                question: "Which of these is the largest source of nitrogen oxides in the atmosphere?",
-                options: [
-                    "electricity generation",
-                    "mobile sources",
-                    "industrial processes",
-                    "waste disposal"
-                ],
-                correctAnswer: "mobile sources"
-            },
-            {
-                question: "Those resources that are currently being used after surveying, quantification and qualification is a definition of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "actual resources"
-            },
-            {
-                question: "those resources that may be used in the future is a definition of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "potential resources"
-            },
-            {
-                question: "Low concentration ores come in the category of",
-                options: [
-                    "potential resources",
-                    "actual resources",
-                    "reserve resources",
-                    "stock resources"
-                ],
-                correctAnswer: "reserve resources"
-            }
+        question: "Sustainable leaders look at immediate, short-term gains.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "The need of the hour is to have leaders who",
+        options: ["focus only on business profit", "focus only on building technical solutions", "take a holistic approach", "none of the given"],
+        correctAnswer: "take a holistic approach"
+    },
+    {
+        question: "Which of the following is a part of the 3Ps of triple bottom line?",
+        options: ["Profit", "Passion", "Party", "Pivot"],
+        correctAnswer: "Profit"
+    },
+    {
+        question: "Organizations need leaders who create value for",
+        options: ["internal stakeholders", "external stakeholders", "oneself", "all stakeholders"],
+        correctAnswer: "all stakeholders"
+    },
+    {
+        question: "The sustainability mindset involves",
+        options: ["transparency", "presencing", "integrity", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Finding ways to maintain one's own and others' energy is an unsustainable leadership practice.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "Systems thinking is often highlighted by the ability to",
+        options: ["zoom in", "zoom out", "zoom in and out", "none of the given"],
+        correctAnswer: "zoom in and out"
+    },
+    {
+        question: "Practicing consciousness awareness includes",
+        options: ["ignoring self with others", "forgetting about what has happened and moving on", "living in denial", "authentic interactions"],
+        correctAnswer: "authentic interactions"
+    },
+    {
+        question: "is the last challenge of leadership; of letting go, moving on, and planning for one's own obsolescence.",
+        options: ["succession", "regression", "formation", "integration"],
+        correctAnswer: "succession"
+    },
+    {
+        question: "leadership is also called missionary leadership and is different from quiet leadership.",
+        options: ["participative", "servant", "radical", "inspirational"],
+        correctAnswer: "radical"
+    }
         ];
         
 // Lecture 28: Land Resources and Agriculture
