@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education for Sustainable Development </title>
+    <title>Education for Sustainable Development</title>
     <link rel="icon" href="vishva.jpg" type="image/png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5f5;
@@ -20,39 +16,117 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        
-        /* Header Styles */
+
+        /* ── Header ── */
+
         .header {
-            width: 100%;
-            background: linear-gradient(135deg, #8ce2af 0%, #9b90d8 100%);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+        width: 100%;
+        background: linear-gradient(135deg, #8ce2af 0%, #9b90d8 100%);
+        color: white;
+
+        padding: 30px 20px;   /* ✅ increased height */
+        min-height: 100px;    /* ✅ enough space for countdown */
+
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative;
+    }
         
+
+
         .logo-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-around; 
             align-items: center;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             flex-wrap: nowrap;
+            padding: 0 20px; /* leave room for countdown */
         }
-        
-        .logo {
-            height: 80px;
-            width: auto;
-            margin: 5px 10px;
+
+        .logo { height: 80px; width: auto; margin: 5px 10px; }
+
+        /* ── Countdown Timer ── */
+        .countdown-wrapper {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 10;
         }
-        
-        .header-title {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
+
+        .countdown-card {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 10px;
+            padding: 7px 12px;
             text-align: center;
-            margin: 10px 0;
+            min-width: 148px;
+            backdrop-filter: blur(4px);
         }
-        
+
+        .countdown-card .cd-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.4px;
+            margin-bottom: 4px;
+            opacity: 0.88;
+        }
+
+        .countdown-card .cd-time {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-card .cd-units {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 3px;
+        }
+
+        .cd-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cd-num {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .cd-lbl {
+            font-size: 9px;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.3px;
+        }
+
+        .cd-sep {
+            font-size: 15px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+            align-self: flex-start;
+            margin-top: 1px;
+        }
+
+        .countdown-card.expired .cd-num {
+            color: #ffe082;
+        }
+
+        .countdown-card.expired .cd-lbl {
+            color: rgba(255,224,130,0.85);
+        }
+
+        /* ── Titles ── */
         .course-title {
             text-align: center;
             color: #1a4d2e;
@@ -63,18 +137,48 @@
             border-bottom: 3px solid #aabce9;
             margin-bottom: 20px;
         }
-        
+
         .course-vishva {
             text-align: center;
             color: #e21111;
-            padding: 10px 10px;
+            padding: 10px;
             font-size: 32px;
             font-weight: bold;
             background-color: #f5f5f5;
             margin-bottom: 10px;
         }
 
-        /* Professional Calculator and Quick Access Section */
+        /* ── Search ── */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 20px;
+            max-width: 500px;
+            padding: 0 15px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 25px;
+            padding: 5px 15px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
+
+        .search-logo { width: 30px; height: 30px; margin-right: 10px; }
+
+        #searchInput {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 16px;
+            padding: 8px 0;
+        }
+
+        /* ── Tools Section ── */
         .tools-section {
             display: flex;
             justify-content: space-between;
@@ -85,9 +189,13 @@
             gap: 30px;
         }
 
-        /* Calculator Section - Professional Style */
-        .calculator-section {
+        /* Left Column */
+        .left-column {
             flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
         }
 
         .calculator-link {
@@ -98,9 +206,7 @@
             transition: transform 0.2s ease;
         }
 
-        .calculator-link:hover {
-            transform: translateY(-3px);
-        }
+        .calculator-link:hover { transform: translateY(-3px); }
 
         .calculator-box {
             width: 140px;
@@ -122,30 +228,37 @@
             background: linear-gradient(135deg, #3a7ca5 0%, #2c5f82 100%);
         }
 
-        .calculator-icon {
-            font-size: 48px;
-            margin-bottom: 8px;
+        .calculator-icon { font-size: 48px; margin-bottom: 8px; }
+        .calculator-label { color: white; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; }
+        .calculator-text { color: #1a4d6b; font-size: 16px; font-weight: 600; text-align: center; }
+
+        /* Last Year card below calculator */
+        .last-year-card {
+            width: 140px;
+            background: white;
+            border-radius: 10px;
+            padding: 14px 12px;
+            text-decoration: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #7b2d8b;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
         }
 
-        .calculator-label {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+        .last-year-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
         }
 
-        .calculator-text {
-            color: #1a4d6b;
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-        }
+        .last-year-icon { font-size: 22px; }
+        .last-year-title { color: #4a1265; font-size: 14px; font-weight: 700; line-height: 1.3; }
+        .last-year-sub { color: #888; font-size: 11px; }
 
-        /* Quick Access Section - Professional Style */
-        .quick-access-section {
-            flex: 1;
-            max-width: 700px;
-        }
+        /* Right / Quick Access ── */
+        .quick-access-section { flex: 1; max-width: 700px; }
 
         .quick-access-title {
             color: #1a4d2e;
@@ -156,11 +269,59 @@
             border-left: 4px solid #2c7744;
         }
 
-        .access-grid {
+        /* Search results panel (replaces quick access grid when searching) */
+        #searchResultsPanel { display: none; }
+        #defaultPanel { display: block; }
+
+        .search-results-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
+
+        .search-result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            text-decoration: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #2c7744;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .search-result-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .search-result-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .search-result-info { flex: 1; }
+        .search-result-title { color: #1a4d2e; font-size: 17px; font-weight: 600; }
+        .search-result-sub { color: #666; font-size: 13px; margin-top: 3px; }
+
+        .no-results {
+            padding: 20px;
+            color: #888;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        /* Access Grid (default) */
+        .access-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
         .access-card {
             background: white;
@@ -177,17 +338,13 @@
         .access-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
             background: linear-gradient(180deg, #2c7744 0%, #4a9d5f 100%);
             transition: width 0.3s ease;
         }
 
-        .access-card:hover::before {
-            width: 8px;
-        }
+        .access-card:hover::before { width: 8px; }
 
         .access-card:hover {
             transform: translateX(5px);
@@ -201,80 +358,19 @@
             margin-bottom: 8px;
         }
 
-        .access-title {
-            color: #1a4d2e;
-            font-size: 18px;
-            font-weight: 600;
-        }
+        .access-title { color: #1a4d2e; font-size: 18px; font-weight: 600; }
+        .access-icon { font-size: 24px; }
+        .access-subtitle { color: #666; font-size: 13px; margin-top: 4px; }
 
-        .access-icon {
-            font-size: 24px;
-        }
+        .access-card:nth-child(1)::before { background: linear-gradient(180deg, #2c7744 0%, #4a9d5f 100%); }
+        .access-card:nth-child(2) { border-left-color: #c44569; }
+        .access-card:nth-child(2)::before { background: linear-gradient(180deg, #c44569 0%, #d66a8a 100%); }
+        .access-card:nth-child(3) { border-left-color: #0984e3; }
+        .access-card:nth-child(3)::before { background: linear-gradient(180deg, #0984e3 0%, #3498db 100%); }
+        .access-card:nth-child(4) { border-left-color: #00b894; }
+        .access-card:nth-child(4)::before { background: linear-gradient(180deg, #00b894 0%, #00cec9 100%); }
 
-        .access-subtitle {
-            color: #666;
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
-        /* Different colors for each card */
-        .access-card:nth-child(1) {
-            border-left-color: #2c7744;
-        }
-
-        .access-card:nth-child(1)::before {
-            background: linear-gradient(180deg, #2c7744 0%, #4a9d5f 100%);
-        }
-
-        .access-card:nth-child(2) {
-            border-left-color: #c44569;
-        }
-
-        .access-card:nth-child(2)::before {
-            background: linear-gradient(180deg, #c44569 0%, #d66a8a 100%);
-        }
-
-        .access-card:nth-child(3) {
-            border-left-color: #0984e3;
-        }
-
-        .access-card:nth-child(3)::before {
-            background: linear-gradient(180deg, #0984e3 0%, #3498db 100%);
-        }
-
-        .access-card:nth-child(4) {
-            border-left-color: #00b894;
-        }
-
-        .access-card:nth-child(4)::before {
-            background: linear-gradient(180deg, #00b894 0%, #00cec9 100%);
-        }
-
-        /* Exam dates styling */
-        .exam-dates {
-            text-align: center;
-            background-color: #fff1d6;
-            padding: 15px;
-            margin: 0 auto 20px;
-            max-width: 600px;
-            border-radius: 8px;
-            border-left: 5px solid #ff9800;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .exam-dates h3 {
-            color: #d32f2f;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .exam-dates p {
-            font-weight: bold;
-            margin: 5px 0;
-            font-size: 16px;
-        }
-
-        /* Exam info styling */
+        /* ── Exam Info ── */
         .exam-info {
             text-align: left;
             background-color: #e3f2fd;
@@ -286,60 +382,15 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
 
-        .exam-info h3 {
-            color: #0d47a1;
-            margin-bottom: 10px;
-            font-size: 18px;
-            text-align: center;
-        }
+        .exam-info h3 { color: #0d47a1; margin-bottom: 10px; font-size: 18px; text-align: center; }
+        .exam-info h4 { color: #1565c0; margin: 12px 0 6px; font-size: 15px; }
+        .exam-info p { margin: 8px 0; font-size: 15px; line-height: 1.4; }
+        .exam-info ul { margin: 6px 0 6px 20px; font-size: 15px; }
+        .exam-info li { margin: 4px 0; }
+        .exam-info a { color: #0d47a1; }
+        .important-note { font-weight: bold; color: #d32f2f; margin-top: 10px; }
 
-        .exam-info p {
-            margin: 8px 0;
-            font-size: 15px;
-            line-height: 1.4;
-        }
-
-        .important-note {
-            font-weight: bold;
-            color: #d32f2f;
-            margin-top: 10px;
-        }
-        
-        /* Search functionality */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 0 auto 20px;
-            max-width: 500px;
-            padding: 0 15px;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background-color: white;
-            border-radius: 25px;
-            padding: 5px 15px;
-            width: 100%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
-        }
-
-        .search-logo {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        #searchInput {
-            border: none;
-            outline: none;
-            flex-grow: 1;
-            font-size: 16px;
-            padding: 8px 0;
-        }
-        
-        /* Quiz Grid Layout */
+        /* ── Quiz Grid ── */
         .quiz-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -349,8 +400,7 @@
             margin: 0 auto;
             flex-grow: 1;
         }
-        
-        /* Quiz Circle Styles */
+
         .quiz-item {
             text-align: center;
             display: flex;
@@ -358,18 +408,15 @@
             align-items: center;
             transition: transform 0.3s ease;
         }
-        
-        .quiz-item:hover {
-            transform: translateY(-5px);
-        }
-        
+
+        .quiz-item:hover { transform: translateY(-5px); }
+
         .quiz-circle {
             width: 180px;
             height: 180px;
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid #2c7744;
-            position: relative;
             background-color: #ffffff;
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
@@ -378,223 +425,131 @@
             align-items: center;
             margin-bottom: 15px;
         }
-        
-        .quiz-circle:hover {
-            border-color: #ff9800;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-        
-        .quiz-circle img {
-            width: 80%;
-            height: auto;
-        }
-        
-        .quiz-title {
-            color: #1a4d2e;
-            font-size: 20px;
-            font-weight: 600;
-            margin-top: 5px;
-            transition: color 0.3s ease;
-        }
-        
-        .quiz-item:hover .quiz-title {
-            color: #ff9800;
-        }
-        
-        /* Footer Styles */
+
+        .quiz-circle:hover { border-color: #ff9800; box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        .quiz-circle img { width: 80%; height: auto; }
+
+        .quiz-title { color: #1a4d2e; font-size: 20px; font-weight: 600; margin-top: 5px; transition: color 0.3s ease; }
+        .quiz-item:hover .quiz-title { color: #ff9800; }
+
+        /* ── Footer ── */
         .footer {
             background: linear-gradient(135deg, #1a4d2e 0%, #2c7744 100%);
             color: white;
             text-align: center;
             padding: 15px 0;
             margin-top: auto;
-            box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
         }
-        
-        .copyright {
-            font-size: 16px;
-        }
-        
-        /* Responsive Adjustments */
+
+        .copyright { font-size: 16px; }
+
+        a { text-decoration: none; }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .tools-section {
-                flex-direction: column;
-                align-items: center;
-            }
+            .countdown-wrapper { top: 6px; right: 8px; }
+            .countdown-card { min-width: 120px; padding: 5px 8px; }
+            .cd-num { font-size: 14px; }
 
-            .calculator-section {
-                margin-bottom: 20px;
-            }
+            .logo-container { padding-right: 130px; }
+            .logo { height: 60px; }
 
-            .quick-access-section {
-                max-width: 100%;
-            }
-
-            .access-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .course-title {
-                font-size: 26px;
-                padding: 15px 10px;
-            }
-            
-            .logo {
-                height: 60px;
-            }
-            
-            .header-title {
-                font-size: 20px;
-            }
-            
-            .quiz-container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 20px;
-                padding: 10px 15px 30px;
-            }
-            
-            .quiz-circle {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .quiz-title {
-                font-size: 18px;
-            }
-            
-            .copyright {
-                font-size: 14px;
-            }
-            
-            .search-container {
-                max-width: 90%;
-            }
-            
-            .exam-dates, .exam-info {
-                max-width: 90%;
-                padding: 10px;
-            }
-            
-            .exam-dates h3, .exam-info h3 {
-                font-size: 16px;
-            }
-            
-            .exam-dates p, .exam-info p {
-                font-size: 14px;
-            }
+            .tools-section { flex-direction: column; align-items: center; }
+            .left-column { flex-direction: row; gap: 20px; align-items: flex-start; }
+            .last-year-card { width: auto; flex-direction: row; align-items: center; }
+            .quick-access-section { max-width: 100%; }
+            .access-grid, .search-results-grid { grid-template-columns: 1fr; }
+            .course-title { font-size: 26px; padding: 15px 10px; }
+            .quiz-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+            .quiz-circle { width: 140px; height: 140px; }
+            .quiz-title { font-size: 18px; }
+            .exam-info { max-width: 90%; }
         }
-        
+
         @media (max-width: 600px) {
-            .quiz-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-            
-            .logo {
-                height: 40px;
-                margin: 5px 5px;
-            }
+            .quiz-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .logo { height: 40px; }
+            .logo-container { padding-right: 110px; }
         }
-        
+
         @media (max-width: 480px) {
-            .course-title {
-                font-size: 22px;
-                padding: 12px 5px;
-            }
-            
-            .logo {
-                height: 30px;
-                margin: 5px 2px;
-            }
-            
-            .header-title {
-                font-size: 18px;
-            }
-            
-            .logo-container {
-                flex-direction: row;
-                justify-content: space-around;
-                gap: 0;
-            }
-            
-            .quiz-container {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 5px 10px 20px;
-            }
-            
-            .quiz-circle {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .quiz-title {
-                font-size: 16px;
-            }
-            
-            .copyright {
-                font-size: 12px;
-            }
-            
-            .exam-dates h3, .exam-info h3 {
-                font-size: 15px;
-            }
-            
-            .exam-dates p, .exam-info p {
-                font-size: 13px;
-            }
-
-            .calculator-box {
-                width: 120px;
-                height: 120px;
-            }
-
-            .calculator-icon {
-                font-size: 40px;
-            }
-
-            .access-card {
-                padding: 15px;
-            }
-
-            .access-title {
-                font-size: 16px;
-            }
-        }
-        
-        a {
-            text-decoration: none;
+            .countdown-wrapper { top: 4px; right: 4px; }
+            .countdown-card { min-width: 104px; padding: 4px 6px; }
+            .cd-num { font-size: 13px; }
+            .cd-lbl { font-size: 8px; }
+            .logo { height: 30px; }
+            .logo-container { padding-right: 100px; flex-wrap: wrap; gap: 2px; }
+            .course-title { font-size: 22px; }
+            .quiz-container { grid-template-columns: 1fr; }
+            .quiz-circle { width: 120px; height: 120px; }
         }
     </style>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-22LD4DD8ES"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-22LD4DD8ES');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-22LD4DD8ES');
     </script>
-    <link rel="icon" href="logo.png" type="image/png">
 </head>
 <body>
-    <!-- Header with four logos in a row -->
+
+    <!-- Header -->
     <header class="header">
         <div class="logo-container">
-            <img src="1.png" alt="Forest Management Logo 1" class="logo">
-            <img src="2.png" alt="Forest Management Logo 2" class="logo">
-            <img src="logo.png" alt="Forest Management Logo 3" class="logo">
-            <img src="vishva.jpg" alt="Forest Management Logo 4" class="logo">
+            <img src="1.png" alt="Logo 1" class="logo">
+            <img src="NNPHUB.png" alt="Logo 2" class="logo">
+            <img src="logo.png" alt="Logo 3" class="logo">
+            <img src="vishva.jpg" alt="Logo 4" class="logo">
+        </div>
+
+        <!-- Live Countdown Timers -->
+        <div class="countdown-wrapper">
+            <div class="countdown-card" id="cd1">
+                <div class="cd-label">Exam — 25 Apr 2026</div>
+                <div class="cd-units">
+                    <div class="cd-unit"><span class="cd-num" id="cd1-d">--</span><span class="cd-lbl">days</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd1-h">--</span><span class="cd-lbl">hrs</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd1-m">--</span><span class="cd-lbl">min</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd1-s">--</span><span class="cd-lbl">sec</span></div>
+                </div>
+            </div>
+            <div class="countdown-card" id="cd2">
+                <div class="cd-label">Exam — 29 Apr 2026</div>
+                <div class="cd-units">
+                    <div class="cd-unit"><span class="cd-num" id="cd2-d">--</span><span class="cd-lbl">days</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd2-h">--</span><span class="cd-lbl">hrs</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd2-m">--</span><span class="cd-lbl">min</span></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-unit"><span class="cd-num" id="cd2-s">--</span><span class="cd-lbl">sec</span></div>
+                </div>
+            </div>
         </div>
     </header>
-    
-    <h1 class="course-title">Education for Sustainable Development </h1>
+
+    <h1 class="course-title">Education for Sustainable Development</h1>
     <h2 class="course-vishva">Vishva S A</h2>
-    
-    <!-- Professional Tools Section -->
+
+    <!-- Search -->
+    <div class="search-container">
+        <div class="search-bar">
+            <img src="nptel.png" alt="Search Logo" class="search-logo">
+            <input type="text" id="searchInput" placeholder="Search quizzes...">
+        </div>
+    </div>
+
+    <!-- Tools Section -->
     <div class="tools-section">
-        <!-- Calculator Section -->
-        <div class="calculator-section">
+
+        <!-- Left: Calculator + Last Year -->
+        <div class="left-column">
             <a href="calculator.html" class="calculator-link">
                 <div class="calculator-box">
                     <div class="calculator-icon">🧮</div>
@@ -602,247 +557,275 @@
                 </div>
                 <div class="calculator-text">Grade Calculator</div>
             </a>
+
+            <a href="we112.html" class="last-year-card">
+                <div class="last-year-icon">📜</div>
+                <div class="last-year-title">Last Year<br>Questions</div>
+                <div class="last-year-sub">Week 1–12 Prev. Yr</div>
+            </a>
         </div>
 
-        <!-- Quick Access Section -->
+        <!-- Right: Quick Access / Search Results -->
         <div class="quick-access-section">
-            <h3 class="quick-access-title">Quick Access - Combined Quizzes</h3>
-            <div class="access-grid">
-                <a href="w16.html" class="access-card">
-                    <div class="access-card-header">
-                        <div class="access-title">Week 1-6</div>
-                        <div class="access-icon">📚</div>
-                    </div>
-                    <div class="access-subtitle">First Half Assessment</div>
-                </a>
+            <!-- Default Quick Access -->
+            <div id="defaultPanel">
+                <h3 class="quick-access-title">Quick Access — Combined Quizzes</h3>
+                <div class="access-grid">
+                    <a href="w16.html" class="access-card">
+                        <div class="access-card-header">
+                            <div class="access-title">Week 1–6</div>
+                            <div class="access-icon">📚</div>
+                        </div>
+                        <div class="access-subtitle">First Half Assessment</div>
+                    </a>
+                    <a href="w712.html" class="access-card">
+                        <div class="access-card-header">
+                            <div class="access-title">Week 7–12</div>
+                            <div class="access-icon">📖</div>
+                        </div>
+                        <div class="access-subtitle">Second Half Assessment</div>
+                    </a>
+                    <a href="w112.html" class="access-card">
+                        <div class="access-card-header">
+                            <div class="access-title">Week 1–12</div>
+                            <div class="access-icon">📝</div>
+                        </div>
+                        <div class="access-subtitle">Final Comprehensive Quiz</div>
+                    </a>
+                    <a href="mooc.html" class="access-card">
+                        <div class="access-card-header">
+                            <div class="access-title">MOOC Quiz</div>
+                            <div class="access-icon">🎓</div>
+                        </div>
+                        <div class="access-subtitle">Final Assessment</div>
+                    </a>
+                </div>
+            </div>
 
-                <a href="w712.html" class="access-card">
-                    <div class="access-card-header">
-                        <div class="access-title">Week 7-12</div>
-                        <div class="access-icon">📖</div>
-                    </div>
-                    <div class="access-subtitle">Second Half Assessment</div>
-                </a>
-
-                <a href="w112.html" class="access-card">
-                    <div class="access-card-header">
-                        <div class="access-title">Week 1-12</div>
-                        <div class="access-icon">📝</div>
-                    </div>
-                    <div class="access-subtitle">Final Comprehensive Quiz</div>
-                </a>
-
-                <a href="mooc.html" class="access-card">
-                    <div class="access-card-header">
-                        <div class="access-title">MOOC Quiz</div>
-                        <div class="access-icon">🎓</div>
-                    </div>
-                    <div class="access-subtitle">Final Assessment</div>
-                </a>
+            <!-- Search Results Panel -->
+            <div id="searchResultsPanel">
+                <h3 class="quick-access-title" id="searchResultsTitle">Search Results</h3>
+                <div class="search-results-grid" id="searchResultsGrid"></div>
             </div>
         </div>
     </div>
-    
-    <!-- Exam information section -->
+
+    <!-- Exam Info -->
     <div class="exam-info">
-        <h3>Exam & Grading Information</h3>
-        <p><strong>Assignment Score:</strong> 25% of average of best 8 assignments out of the total 12 assignments given in the course.</p>
+        <h3>Exam &amp; Grading Information</h3>
+        <p><strong>Assignment Score:</strong> 25% of average of best 8 assignments out of 12.</p>
         <p><strong>Exam Score:</strong> 75% of the proctored certification exam score out of 100.</p>
         <p><strong>Final Score:</strong> Average assignment score + Exam score</p>
-        <p><strong>Exam Pattern:</strong> 100 X 1 = 100 Marks or 50 X 2 = 100 Marks</p>
-        <p class="important-note">Important: Please bring your Hall Ticket and Aadhaar Card Print out for the exam.</p>
+        <p><strong>Exam Pattern:</strong> 100 × 1 = 100 Marks or 50 × 2 = 100 Marks</p>
+        <p class="important-note">Important: Please bring your Hall Ticket and Aadhaar Card printout for the exam.</p>
+
         <h4>📅 Exam Dates</h4>
-    <p>
-        25 April 2026 <br>
-        29 April 2026 (for some students)
-    </p>
+        <p>25 April 2026<br>29 April 2026 (for some students)</p>
 
-    <h4>📚 Practice</h4>
-    <ul>
-        <li>Extra questions (previous year / practice) added</li>
-        <li>Organized from Week 1 to Week 12</li>
-        <li>Helpful for revision</li>
-    </ul>
+        <h4>📚 Practice</h4>
+        <ul>
+            <li>Extra questions (previous year / practice) added</li>
+            <li>Organised from Week 1 to Week 12</li>
+            <li>Helpful for revision</li>
+        </ul>
+        <p>💡 If you have time, try going through the extra questions.</p>
 
-    <p>💡 If you have time, try going through the extra questions.</p>
+        <h4>🎫 Hall Ticket Info (NPTEL)</h4>
+        <p>Hall Ticket for the exam has been released.</p>
+        <p>🔗 <strong>Hall Ticket:</strong><br>
+            <a href="https://internalapp.nptel.ac.in" target="_blank">internalapp.nptel.ac.in</a></p>
+        <p>🔐 Login using:<br>Email ID (Username)<br>DOB (Password — YYYY-MM-DD)</p>
+        <p>🔗 <strong>Exam Dashboard:</strong><br>
+            <a href="https://examform.nptel.ac.in/2026_01/exam_form/dashboard" target="_blank">examform.nptel.ac.in</a></p>
+        <p class="important-note">⚠️ Please verify your exam date, city, and center in the hall ticket. All details are final.</p>
 
-    <h4>🎫 Hall Ticket Info (NPTEL)</h4>
-
-    <p>
-        Hall Ticket for the exam has been released.
-    </p>
-
-    <p>
-        🔗 <strong>Hall Ticket:</strong><br>
-        <a href="https://internalapp.nptel.ac.in" target="_blank">
-            internalapp.nptel.ac.in
-        </a>
-    </p>
-
-    <p>
-        🔐 Login using:<br>
-        Email ID (Username)<br>
-        DOB (Password - YYYY-MM-DD)
-    </p>
-
-    <p>
-        🔗 <strong>Exam Dashboard:</strong><br>
-        <a href="https://examform.nptel.ac.in/2026_01/exam_form/dashboard" target="_blank">
-            examform.nptel.ac.in
-        </a>
-    </p>
-
-    <p class="important-note">
-        ⚠️ Please verify your exam date, city, and center in the hall ticket.  
-        All details are final.
-    </p>
-
-    <h4>📝 Correction Option</h4>
-    <p>
-        Details (Name, DOB, Photo, Signature) can be corrected with ₹200 per change 
-        (only once, not reversible).
-    </p>
-
-    <p>
-        🔗 <strong>Error Form:</strong><br>
-        <a href="https://internalapp.nptel.ac.in/B2C/exam_form/Error_Form/ErrorPage.php" target="_blank">
-            Open Error Form
-        </a>
-    </p>
-
-    <p><strong>⏰ Deadline:</strong> 23 April 2026, 5 PM</p>
-
-    <p>📧 support@nptel.iitm.ac.in</p>
-
-    <p class="goodluck">🌱 All the best for your exam!</p>
-
+        <h4>📝 Correction Option</h4>
+        <p>Details (Name, DOB, Photo, Signature) can be corrected with ₹200 per change (only once, not reversible).</p>
+        <p>🔗 <strong>Error Form:</strong><br>
+            <a href="https://internalapp.nptel.ac.in/B2C/exam_form/Error_Form/ErrorPage.php" target="_blank">Open Error Form</a></p>
+        <p><strong>⏰ Deadline:</strong> 23 April 2026, 5 PM</p>
+        <p>📧 support@nptel.iitm.ac.in</p>
+        <p>🌱 All the best for your exam!</p>
     </div>
-    
-    <!-- Search functionality -->
-    <div class="search-container">
-        <div class="search-bar">
-            <img src="nptel.png" alt="Search Logo" class="search-logo">
-            <input type="text" id="searchInput" placeholder="Search quizzes...">
-        </div>
-    </div>
-    
-    <div class="quiz-container">
-        <!-- Quiz 1 -->
-        <a href="w1.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 1">
-            </div>
+
+    <!-- Quiz Grid -->
+    <div class="quiz-container" id="quizContainer">
+        <a href="w1.html" class="quiz-item" data-title="Quiz 1" data-week="1">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 1"></div>
             <h2 class="quiz-title">Quiz 1</h2>
         </a>
-        
-        <!-- Quiz 2 -->
-        <a href="w2.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 2">
-            </div>
+        <a href="w2.html" class="quiz-item" data-title="Quiz 2" data-week="2">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 2"></div>
             <h2 class="quiz-title">Quiz 2</h2>
         </a>
-        
-        <!-- Quiz 3 -->
-        <a href="w3.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 3">
-            </div>
+        <a href="w3.html" class="quiz-item" data-title="Quiz 3" data-week="3">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 3"></div>
             <h2 class="quiz-title">Quiz 3</h2>
         </a>
-        
-        <!-- Quiz 4 -->
-        <a href="w4.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 4">
-            </div>
+        <a href="w4.html" class="quiz-item" data-title="Quiz 4" data-week="4">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 4"></div>
             <h2 class="quiz-title">Quiz 4</h2>
         </a>
-        
-        <!-- Quiz 5 -->
-        <a href="w5.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 5">
-            </div>
+        <a href="w5.html" class="quiz-item" data-title="Quiz 5" data-week="5">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 5"></div>
             <h2 class="quiz-title">Quiz 5</h2>
         </a>
-        
-        <!-- Quiz 6 -->
-        <a href="w6.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 6">
-            </div>
+        <a href="w6.html" class="quiz-item" data-title="Quiz 6" data-week="6">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 6"></div>
             <h2 class="quiz-title">Quiz 6</h2>
         </a>
-        
-        <!-- Quiz 7 -->
-        <a href="w7.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 7">
-            </div>
+        <a href="w7.html" class="quiz-item" data-title="Quiz 7" data-week="7">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 7"></div>
             <h2 class="quiz-title">Quiz 7</h2>
         </a>
-        
-        <!-- Quiz 8 -->
-        <a href="w8.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 8">
-            </div>
+        <a href="w8.html" class="quiz-item" data-title="Quiz 8" data-week="8">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 8"></div>
             <h2 class="quiz-title">Quiz 8</h2>
         </a>
-        
-        <!-- Quiz 9 -->
-        <a href="w9.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 9">
-            </div>
+        <a href="w9.html" class="quiz-item" data-title="Quiz 9" data-week="9">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 9"></div>
             <h2 class="quiz-title">Quiz 9</h2>
         </a>
-        
-        <!-- Quiz 10 -->
-        <a href="w10.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 10">
-            </div>
+        <a href="w10.html" class="quiz-item" data-title="Quiz 10" data-week="10">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 10"></div>
             <h2 class="quiz-title">Quiz 10</h2>
         </a>
-        
-        <!-- Quiz 11 -->
-        <a href="w11.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 11">
-            </div>
+        <a href="w11.html" class="quiz-item" data-title="Quiz 11" data-week="11">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 11"></div>
             <h2 class="quiz-title">Quiz 11</h2>
         </a>
-        
-        <!-- Quiz 12 -->
-        <a href="w12.html" class="quiz-item">
-            <div class="quiz-circle">
-                <img src="nptel.png" alt="Forest Quiz 12">
-            </div>
+        <a href="w12.html" class="quiz-item" data-title="Quiz 12" data-week="12">
+            <div class="quiz-circle"><img src="nptel.png" alt="Quiz 12"></div>
             <h2 class="quiz-title">Quiz 12</h2>
         </a>
     </div>
-    
-    <!-- Footer with copyright -->
+
     <footer class="footer">
         <p class="copyright">Copyright © 2025 Software Development, Gudiyattam 632-602.</p>
     </footer>
-    
-    <!-- Search functionality script -->
+
     <script>
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const quizItems = document.querySelectorAll('.quiz-item');
-            
+        /* ── Countdown Timers ── */
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function updateCountdown(targetDate, ids, cardId) {
+            const now = new Date();
+            const diff = targetDate - now;
+            const card = document.getElementById(cardId);
+
+            if (diff <= 0) {
+                document.getElementById(ids[0]).textContent = '00';
+                document.getElementById(ids[1]).textContent = '00';
+                document.getElementById(ids[2]).textContent = '00';
+                document.getElementById(ids[3]).textContent = '00';
+                card.classList.add('expired');
+                return;
+            }
+
+            const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById(ids[0]).textContent = pad(days);
+            document.getElementById(ids[1]).textContent = pad(hours);
+            document.getElementById(ids[2]).textContent = pad(mins);
+            document.getElementById(ids[3]).textContent = pad(secs);
+        }
+
+        /* Exam times — assume 9:00 AM IST (UTC+5:30) */
+        const exam1 = new Date('2026-04-25T09:00:00+05:30');
+        const exam2 = new Date('2026-04-29T09:00:00+05:30');
+
+        function tick() {
+            updateCountdown(exam1, ['cd1-d','cd1-h','cd1-m','cd1-s'], 'cd1');
+            updateCountdown(exam2, ['cd2-d','cd2-h','cd2-m','cd2-s'], 'cd2');
+        }
+
+        tick();
+        setInterval(tick, 1000);
+
+        /* ── Search — show matched quizzes in the Quick Access panel ── */
+        const quizData = [
+            { title: 'Quiz 1',  subtitle: 'Week 1 Assessment',  href: 'w1.html',  icon: '1️⃣' },
+            { title: 'Quiz 2',  subtitle: 'Week 2 Assessment',  href: 'w2.html',  icon: '2️⃣' },
+            { title: 'Quiz 3',  subtitle: 'Week 3 Assessment',  href: 'w3.html',  icon: '3️⃣' },
+            { title: 'Quiz 4',  subtitle: 'Week 4 Assessment',  href: 'w4.html',  icon: '4️⃣' },
+            { title: 'Quiz 5',  subtitle: 'Week 5 Assessment',  href: 'w5.html',  icon: '5️⃣' },
+            { title: 'Quiz 6',  subtitle: 'Week 6 Assessment',  href: 'w6.html',  icon: '6️⃣' },
+            { title: 'Quiz 7',  subtitle: 'Week 7 Assessment',  href: 'w7.html',  icon: '7️⃣' },
+            { title: 'Quiz 8',  subtitle: 'Week 8 Assessment',  href: 'w8.html',  icon: '8️⃣' },
+            { title: 'Quiz 9',  subtitle: 'Week 9 Assessment',  href: 'w9.html',  icon: '9️⃣' },
+            { title: 'Quiz 10', subtitle: 'Week 10 Assessment', href: 'w10.html', icon: '🔟' },
+            { title: 'Quiz 11', subtitle: 'Week 11 Assessment', href: 'w11.html', icon: '📋' },
+            { title: 'Quiz 12', subtitle: 'Week 12 Assessment', href: 'w12.html', icon: '📋' },
+            { title: 'Week 1–6',  subtitle: 'First Half Assessment',      href: 'w16.html',  icon: '📚' },
+            { title: 'Week 7–12', subtitle: 'Second Half Assessment',     href: 'w712.html', icon: '📖' },
+            { title: 'Week 1–12', subtitle: 'Final Comprehensive Quiz',   href: 'w112.html', icon: '📝' },
+            { title: 'MOOC Quiz', subtitle: 'Final Assessment',           href: 'mooc.html', icon: '🎓' },
+        ];
+
+        const borderColors = [
+            '#2c7744','#c44569','#0984e3','#00b894',
+            '#6c5ce7','#e17055','#fd79a8','#00cec9'
+        ];
+
+        const searchInput     = document.getElementById('searchInput');
+        const defaultPanel    = document.getElementById('defaultPanel');
+        const searchPanel     = document.getElementById('searchResultsPanel');
+        const searchGrid      = document.getElementById('searchResultsGrid');
+        const searchTitle     = document.getElementById('searchResultsTitle');
+        const quizItems       = document.querySelectorAll('.quiz-item');
+
+        searchInput.addEventListener('input', function () {
+            const term = this.value.trim().toLowerCase();
+
+            /* Filter bottom quiz grid */
             quizItems.forEach(item => {
-                const title = item.querySelector('.quiz-title').textContent.toLowerCase();
-                if (title.includes(searchTerm) || searchTerm === '') {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
+                const t = item.querySelector('.quiz-title').textContent.toLowerCase();
+                item.style.display = (t.includes(term) || term === '') ? 'flex' : 'none';
             });
+
+            if (term === '') {
+                defaultPanel.style.display = 'block';
+                searchPanel.style.display  = 'none';
+                return;
+            }
+
+            /* Filter quizData */
+            const matches = quizData.filter(q =>
+                q.title.toLowerCase().includes(term) ||
+                q.subtitle.toLowerCase().includes(term) ||
+                ('week ' + term).includes('week') && q.title.toLowerCase().includes('week')
+            );
+
+            /* Build result cards */
+            searchGrid.innerHTML = '';
+
+            if (matches.length === 0) {
+                searchGrid.innerHTML = '<p class="no-results">No quizzes found for "' + this.value + '"</p>';
+            } else {
+                matches.forEach((q, i) => {
+                    const a = document.createElement('a');
+                    a.href = q.href;
+                    a.className = 'search-result-card';
+                    a.style.borderLeftColor = borderColors[i % borderColors.length];
+                    a.innerHTML = `
+                        <div class="search-result-icon">${q.icon}</div>
+                        <div class="search-result-info">
+                            <div class="search-result-title">${q.title}</div>
+                            <div class="search-result-sub">${q.subtitle}</div>
+                        </div>`;
+                    searchGrid.appendChild(a);
+                });
+            }
+
+            searchTitle.textContent = matches.length
+                ? 'Found ' + matches.length + ' result' + (matches.length > 1 ? 's' : '')
+                : 'No results';
+
+            defaultPanel.style.display = 'none';
+            searchPanel.style.display  = 'block';
         });
     </script>
 </body>

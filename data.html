@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESD Quiz — Last Year Assessments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f1a;
+  --surface: #151828;
+  --surface2: #1e2236;
+  --border: rgba(255,255,255,0.07);
+  --accent: #6ee7b7;
+  --accent2: #818cf8;
+  --accent3: #f472b6;
+  --warn: #fb923c;
+  --danger: #f87171;
+  --text: #f1f5f9;
+  --muted: #64748b;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Animated starfield bg */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(110,231,183,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(129,140,248,0.07) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  background:rgba(13,15,26,0.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.back-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--muted);font-size:13px;font-weight:600;
+  cursor:pointer;transition:.2s;text-decoration:none;
+}
+.back-btn:hover{color:var(--text);border-color:var(--accent);}
+.quiz-label{font-family:'Syne',sans-serif;font-size:15px;color:var(--muted);}
+
+.topbar-right{display:flex;align-items:center;gap:16px;}
+
+/* XP pill */
+.xp-pill{
+  display:flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(110,231,183,.15),rgba(110,231,183,.05));
+  border:1px solid rgba(110,231,183,.25);
+  padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;
+  color:var(--accent);
+}
+.xp-pill .icon{font-size:15px;}
+
+/* Streak */
+.streak-pill{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25);
+  padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700;
+  color:var(--warn);
+}
+
+/* Question counter */
+.q-counter{font-size:13px;font-weight:600;color:var(--muted);}
+.q-counter span{color:var(--text);}
+
+/* ── PROGRESS RING TOP ── */
+.progress-track{
+  position:fixed;top:0;left:0;right:0;height:3px;
+  background:rgba(255,255,255,0.06);z-index:101;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 0 10px var(--accent);
+  width:0%;
+}
+
+/* ── MAIN STAGE ── */
+.stage{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:90px 20px 40px;
+  position:relative;z-index:1;
+}
+
+/* ── INTRO SCREEN ── */
+.intro-screen{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;max-width:560px;
+  animation:fadeUp .6s ease;
+}
+.intro-icon{
+  font-size:72px;margin-bottom:20px;
+  animation:pulse 3s ease infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.intro-screen h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(26px,5vw,40px);
+  line-height:1.15;margin-bottom:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.intro-screen p{color:var(--muted);font-size:15px;margin-bottom:28px;line-height:1.7;}
+.stats-row{
+  display:flex;gap:20px;margin-bottom:36px;flex-wrap:wrap;justify-content:center;
+}
+.stat-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px 24px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.stat-box .num{font-size:24px;font-weight:700;color:var(--accent);}
+.stat-box .lbl{font-size:12px;color:var(--muted);font-weight:500;}
+
+.mode-row{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;justify-content:center;}
+.mode-btn{
+  padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--muted);cursor:pointer;transition:.2s;
+}
+.mode-btn.active{
+  background:rgba(110,231,183,.12);border-color:rgba(110,231,183,.4);
+  color:var(--accent);
+}
+.mode-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+.start-btn{
+  padding:16px 48px;border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--accent),#34d399);
+  color:#0d0f1a;font-size:17px;font-weight:700;font-family:'Syne',sans-serif;
+  border:none;cursor:pointer;
+  box-shadow:0 0 40px rgba(110,231,183,.3);
+  transition:all .3s;
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(110,231,183,.45);}
+.start-btn:active{transform:translateY(0);}
+
+/* ── QUIZ CARD ── */
+.quiz-card{
+  width:100%;max-width:680px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  animation:slideIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(30px) scale(.97);}to{opacity:1;transform:none;}}
+@keyframes slideOut{from{opacity:1;transform:none;}to{opacity:0;transform:translateY(-20px) scale(.97);}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:none;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+.card-header{
+  padding:20px 24px;
+  background:var(--surface2);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+}
+.q-num-badge{
+  background:linear-gradient(135deg,rgba(110,231,183,.2),rgba(129,140,248,.2));
+  border:1px solid rgba(110,231,183,.3);
+  border-radius:8px;padding:5px 12px;
+  font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.5px;
+}
+
+/* Timer ring */
+.timer-ring{position:relative;width:48px;height:48px;flex-shrink:0;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-ring circle.track{fill:none;stroke:rgba(255,255,255,0.07);stroke-width:3;}
+.timer-ring circle.fill{
+  fill:none;stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:126;stroke-dashoffset:0;
+  transition:stroke-dashoffset .9s linear, stroke .3s;
+  stroke:var(--accent);
+}
+.timer-text{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--text);
+}
+
+/* Difficulty badge */
+.diff-badge{
+  padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px;
+}
+.diff-easy{background:rgba(110,231,183,.15);color:var(--accent);}
+.diff-medium{background:rgba(251,146,60,.15);color:var(--warn);}
+.diff-hard{background:rgba(248,113,113,.15);color:var(--danger);}
+
+.card-body{padding:28px 24px 20px;}
+.question-text{
+  font-size:clamp(15px,2.5vw,18px);font-weight:600;
+  line-height:1.65;margin-bottom:24px;color:var(--text);
+}
+
+/* Options */
+.options-grid{display:flex;flex-direction:column;gap:10px;}
+.option-btn{
+  width:100%;text-align:left;
+  padding:14px 18px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--surface2);
+  color:var(--text);font-size:14px;font-weight:500;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:12px;
+  position:relative;overflow:hidden;
+}
+.option-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(110,231,183,0),rgba(110,231,183,0));
+  transition:background .3s;
+}
+.option-btn:hover:not(:disabled){
+  border-color:rgba(129,140,248,.5);
+  background:rgba(129,140,248,.08);
+  transform:translateX(4px);
+}
+.option-btn .opt-letter{
+  width:28px;height:28px;border-radius:6px;
+  background:rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--muted);
+  flex-shrink:0;transition:.2s;
+}
+.option-btn:hover:not(:disabled) .opt-letter{
+  background:rgba(129,140,248,.2);color:var(--accent2);
+}
+.option-btn .opt-text{flex:1;line-height:1.4;}
+.option-btn .opt-icon{font-size:18px;flex-shrink:0;opacity:0;transition:.2s;}
+
+/* State: selected */
+.option-btn.selected{
+  border-color:rgba(129,140,248,.6);
+  background:rgba(129,140,248,.1);
+}
+.option-btn.selected .opt-letter{
+  background:var(--accent2);color:#fff;
+}
+
+/* State: correct */
+.option-btn.correct{
+  border-color:rgba(110,231,183,.7) !important;
+  background:rgba(110,231,183,.1) !important;
+  transform:none;
+}
+.option-btn.correct .opt-letter{background:var(--accent);color:#0d0f1a;}
+.option-btn.correct .opt-icon{opacity:1;}
+.option-btn.correct .opt-icon::after{content:'✓';}
+
+/* State: wrong */
+.option-btn.wrong{
+  border-color:rgba(248,113,113,.6) !important;
+  background:rgba(248,113,113,.08) !important;
+  transform:none;
+}
+.option-btn.wrong .opt-letter{background:var(--danger);color:#fff;}
+.option-btn.wrong .opt-icon{opacity:1;}
+.option-btn.wrong .opt-icon::after{content:'✕';}
+
+/* State: reveal (correct was elsewhere) */
+.option-btn.reveal{
+  border-color:rgba(110,231,183,.5) !important;
+  background:rgba(110,231,183,.07) !important;
+}
+.option-btn.reveal .opt-letter{background:rgba(110,231,183,.25);color:var(--accent);}
+
+.option-btn:disabled{cursor:default;}
+
+/* ── FEEDBACK STRIP ── */
+.feedback-strip{
+  margin:18px 24px 0;
+  border-radius:var(--radius-sm);
+  padding:14px 18px;
+  display:none;
+  animation:slideInRight .3s ease;
+  gap:10px;align-items:flex-start;
+}
+.feedback-strip.show{display:flex;}
+.feedback-strip.ok{background:rgba(110,231,183,.1);border:1px solid rgba(110,231,183,.3);}
+.feedback-strip.bad{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);}
+.fb-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+.fb-content{}
+.fb-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.fb-ok .fb-title{color:var(--accent);}
+.fb-bad .fb-title{color:var(--danger);}
+.fb-ans{font-size:13px;color:var(--muted);line-height:1.5;}
+.fb-ans strong{color:var(--text);}
+
+/* XP burst */
+.xp-burst{
+  position:fixed;
+  font-size:18px;font-weight:700;color:var(--accent);
+  pointer-events:none;z-index:9999;
+  animation:burst .8s ease forwards;
+}
+@keyframes burst{
+  0%{opacity:1;transform:translateY(0) scale(1);}
+  100%{opacity:0;transform:translateY(-60px) scale(1.4);}
+}
+
+/* ── CARD FOOTER ── */
+.card-footer{
+  padding:18px 24px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.skip-btn{
+  padding:10px 20px;border-radius:var(--radius-sm);
+  background:transparent;border:1px solid var(--border);
+  color:var(--muted);font-size:13px;font-weight:600;
+  cursor:pointer;transition:.2s;
+}
+.skip-btn:hover{border-color:rgba(255,255,255,.2);color:var(--text);}
+
+.next-btn{
+  padding:12px 32px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,var(--accent),#34d399);
+  color:#0d0f1a;font-size:15px;font-weight:700;
+  border:none;cursor:pointer;
+  transition:all .25s;display:none;
+  box-shadow:0 0 24px rgba(110,231,183,.25);
+}
+.next-btn:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(110,231,183,.4);}
+.next-btn.show{display:flex;align-items:center;gap:8px;}
+.next-btn .arrow{transition:.2s;}
+.next-btn:hover .arrow{transform:translateX(3px);}
+
+/* ── RESULTS SCREEN ── */
+.results-screen{
+  width:100%;max-width:700px;
+  animation:fadeUp .5s ease;
+}
+.results-header{text-align:center;margin-bottom:36px;}
+.results-trophy{font-size:80px;margin-bottom:16px;display:block;}
+.results-header h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(24px,4vw,36px);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.results-header p{color:var(--muted);font-size:15px;}
+
+.results-score-ring{
+  position:relative;width:160px;height:160px;
+  margin:0 auto 32px;
+}
+.results-score-ring svg{transform:rotate(-90deg);}
+.results-score-ring .ring-track{fill:none;stroke:var(--surface2);stroke-width:10;}
+.results-score-ring .ring-fill{
+  fill:none;stroke-width:10;stroke-linecap:round;
+  stroke-dasharray:440;stroke-dashoffset:440;
+  stroke:url(#ring-gradient);
+  transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1);
+}
+.ring-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.ring-pct{font-size:36px;font-weight:700;font-family:'Syne',sans-serif;}
+.ring-label{font-size:12px;color:var(--muted);}
+
+.results-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:12px;margin-bottom:28px;
+}
+.res-stat{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:16px;text-align:center;
+}
+.res-stat .rsnum{font-size:28px;font-weight:700;font-family:'Syne',sans-serif;}
+.res-stat .rslbl{font-size:12px;color:var(--muted);margin-top:4px;}
+.rs-correct .rsnum{color:var(--accent);}
+.rs-wrong .rsnum{color:var(--danger);}
+.rs-skip .rsnum{color:var(--warn);}
+.rs-streak .rsnum{color:#f472b6;}
+.rs-xp .rsnum{color:var(--accent2);}
+
+.grade-banner{
+  text-align:center;padding:18px;border-radius:var(--radius-sm);
+  margin-bottom:28px;border:1px solid;
+}
+.grade-A{background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3);}
+.grade-A .grade-msg{color:var(--accent);}
+.grade-B{background:rgba(129,140,248,.1);border-color:rgba(129,140,248,.3);}
+.grade-B .grade-msg{color:var(--accent2);}
+.grade-C{background:rgba(251,146,60,.1);border-color:rgba(251,146,60,.3);}
+.grade-C .grade-msg{color:var(--warn);}
+.grade-D{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3);}
+.grade-D .grade-msg{color:var(--danger);}
+.grade-letter{font-size:40px;font-weight:800;font-family:'Syne',sans-serif;margin-bottom:6px;}
+.grade-msg{font-size:15px;font-weight:600;}
+
+.results-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.res-btn{
+  padding:13px 28px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:700;cursor:pointer;transition:.2s;border:1px solid;
+}
+.res-retry{
+  background:linear-gradient(135deg,var(--accent),#34d399);
+  color:#0d0f1a;border-color:transparent;
+  box-shadow:0 0 24px rgba(110,231,183,.2);
+}
+.res-retry:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(110,231,183,.35);}
+.res-review{
+  background:transparent;color:var(--muted);
+  border-color:var(--border);
+}
+.res-review:hover{color:var(--text);border-color:rgba(255,255,255,.2);}
+
+/* ── REVIEW MODE ── */
+.review-list{width:100%;max-width:700px;animation:fadeUp .4s ease;}
+.review-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;flex-wrap:wrap;gap:10px;
+}
+.review-header h2{font-family:'Syne',sans-serif;font-size:22px;}
+.filter-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-tab{
+  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--muted);cursor:pointer;transition:.2s;
+}
+.filter-tab.active{background:rgba(110,231,183,.15);border-color:var(--accent);color:var(--accent);}
+
+.review-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:18px;margin-bottom:12px;
+}
+.review-item.ri-correct{border-left:3px solid var(--accent);}
+.review-item.ri-wrong{border-left:3px solid var(--danger);}
+.review-item.ri-skip{border-left:3px solid var(--warn);}
+.ri-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.ri-q{font-size:14px;font-weight:600;line-height:1.5;flex:1;}
+.ri-badge{
+  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;
+}
+.ri-correct .ri-badge{background:rgba(110,231,183,.15);color:var(--accent);}
+.ri-wrong .ri-badge{background:rgba(248,113,113,.15);color:var(--danger);}
+.ri-skip .ri-badge{background:rgba(251,146,60,.15);color:var(--warn);}
+.ri-ans{font-size:13px;color:var(--muted);}
+.ri-ans .correct-ans{color:var(--accent);font-weight:600;}
+.ri-ans .your-ans{color:var(--danger);}
+
+/* ── COMBO DISPLAY ── */
+.combo-banner{
+  position:fixed;top:80px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,rgba(244,114,182,.9),rgba(129,140,248,.9));
+  padding:10px 28px;border-radius:30px;
+  font-size:16px;font-weight:700;color:#fff;
+  box-shadow:0 4px 30px rgba(244,114,182,.4);
+  z-index:999;pointer-events:none;
+  animation:comboPop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes comboPop{from{opacity:0;transform:translateX(-50%) scale(.5);}to{opacity:1;transform:translateX(-50%) scale(1);}}
+.combo-hide{animation:comboFade .5s ease forwards !important;}
+@keyframes comboFade{to{opacity:0;transform:translateX(-50%) translateY(-10px);}}
+
+/* ── HINT POPUP ── */
+.hint-area{
+  margin:0 24px 12px;padding:12px 16px;
+  background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.2);
+  border-radius:var(--radius-sm);
+  font-size:13px;color:var(--muted);display:none;animation:slideInRight .3s ease;
+}
+.hint-area.show{display:block;}
+.hint-area strong{color:var(--warn);}
+
+/* ── UTIL ── */
+.hidden{display:none !important;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:10px;}
+
+@media(max-width:520px){
+  .topbar{padding:10px 14px;}
+  .stage{padding:76px 14px 30px;}
+  .card-body,.card-footer,.card-header{padding-left:16px;padding-right:16px;}
+  .feedback-strip{margin:14px 16px 0;}
+  .hint-area{margin:0 16px 10px;}
+  .topbar-right{gap:8px;}
+  .streak-pill,.xp-pill{padding:5px 10px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">← Back</a>
+    <span class="quiz-label">ESD — Last Year Assessments</span>
+  </div>
+  <div class="topbar-right">
+    <div class="xp-pill"><span class="icon">⚡</span><span id="xpCount">0</span> XP</div>
+    <div class="streak-pill">🔥 <span id="streakCount">0</span></div>
+    <div class="q-counter">Q <span id="qCurrent">—</span> / <span id="qTotal">—</span></div>
+  </div>
+</nav>
+
+<!-- STAGE -->
+<main class="stage" id="stage">
+
+  <!-- INTRO SCREEN -->
+  <div class="intro-screen" id="introScreen">
+    <div class="intro-icon">🌱</div>
+    <h1>Education for Sustainable Development</h1>
+    <p>Previous year exam questions — all 112 MCQs.<br>Test your knowledge, earn XP, build streaks!</p>
+    <div class="stats-row">
+      <div class="stat-box"><span class="num">112</span><span class="lbl">Questions</span></div>
+      <div class="stat-box"><span class="num">30s</span><span class="lbl">Per Question</span></div>
+      <div class="stat-box"><span class="num">+10</span><span class="lbl">XP per correct</span></div>
+      <div class="stat-box"><span class="num">🔥</span><span class="lbl">Streak bonus</span></div>
+    </div>
+    <div class="mode-row">
+      <button class="mode-btn active" data-mode="all" onclick="setMode(this,'all')">All Questions</button>
+      <button class="mode-btn" data-mode="random20" onclick="setMode(this,'random20')">Quick 20</button>
+      <button class="mode-btn" data-mode="random50" onclick="setMode(this,'random50')">Practice 50</button>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz ↗</button>
+  </div>
+
+  <!-- QUIZ CARD -->
+  <div class="quiz-card hidden" id="quizCard">
+    <div class="card-header">
+      <div class="q-num-badge" id="badgeNum">Q 1 of 112</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="diff-badge" id="diffBadge"></span>
+        <div class="timer-ring" id="timerRing">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <circle class="track" cx="24" cy="24" r="20"/>
+            <circle class="fill" id="timerCircle" cx="24" cy="24" r="20"/>
+          </svg>
+          <div class="timer-text" id="timerText">30</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="question-text" id="questionText"></div>
+      <div class="options-grid" id="optionsGrid"></div>
+    </div>
+    <div class="hint-area" id="hintArea"></div>
+    <div class="feedback-strip" id="feedbackStrip">
+      <div class="fb-icon" id="fbIcon"></div>
+      <div class="fb-content">
+        <div class="fb-title" id="fbTitle"></div>
+        <div class="fb-ans" id="fbAns"></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="skip-btn" id="skipBtn" onclick="skipQuestion()">Skip →</button>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+        <span id="nextBtnLabel">Next</span> <span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="results-screen hidden" id="resultsScreen">
+    <div class="results-header">
+      <span class="results-trophy" id="resultsTrophy">🏆</span>
+      <h2 id="resultsHeading">Quiz Complete!</h2>
+      <p id="resultsSubtitle"></p>
+    </div>
+    <div class="results-score-ring">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <defs>
+          <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6ee7b7"/>
+            <stop offset="100%" stop-color="#818cf8"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-track" cx="80" cy="80" r="70"/>
+        <circle class="ring-fill" id="ringFill" cx="80" cy="80" r="70"/>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-pct" id="ringPct">0%</div>
+        <div class="ring-label">Score</div>
+      </div>
+    </div>
+    <div class="results-stats">
+      <div class="res-stat rs-correct"><div class="rsnum" id="rsCorrect">0</div><div class="rslbl">Correct</div></div>
+      <div class="res-stat rs-wrong"><div class="rsnum" id="rsWrong">0</div><div class="rslbl">Wrong</div></div>
+      <div class="res-stat rs-skip"><div class="rsnum" id="rsSkip">0</div><div class="rslbl">Skipped</div></div>
+      <div class="res-stat rs-streak"><div class="rsnum" id="rsStreak">0</div><div class="rslbl">Best Streak</div></div>
+      <div class="res-stat rs-xp"><div class="rsnum" id="rsXP">0</div><div class="rslbl">XP Earned</div></div>
+    </div>
+    <div class="grade-banner" id="gradeBanner">
+      <div class="grade-letter" id="gradeLetter"></div>
+      <div class="grade-msg" id="gradeMsg"></div>
+    </div>
+    <div class="results-actions">
+      <button class="res-btn res-retry" onclick="retryQuiz()">↺ Try Again</button>
+      <button class="res-btn res-review" onclick="showReview()">Review Answers</button>
+    </div>
+  </div>
+
+  <!-- REVIEW LIST -->
+  <div class="review-list hidden" id="reviewList">
+    <div class="review-header">
+      <h2>Answer Review</h2>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterReview('all',this)">All</button>
+        <button class="filter-tab" onclick="filterReview('wrong',this)">Wrong</button>
+        <button class="filter-tab" onclick="filterReview('correct',this)">Correct</button>
+        <button class="filter-tab" onclick="filterReview('skip',this)">Skipped</button>
+      </div>
+    </div>
+    <div id="reviewItems"></div>
+    <button class="res-btn res-retry" style="margin:20px auto;display:block;" onclick="retryQuiz()">↺ Try Again</button>
+  </div>
+
+</main>
+
+<script>
+const ALL_QUESTIONS =  [
+    // WEEK 1
+    {
+        question: "The Global Goals were adopted by all United Nations member states in as a universal call to action to end poverty ensure that all people enjoy peace and prosperity by",
+        options: ["2025, 2080", "2020, 2060", "2012, 2050", "2015, 2030"],
+        correctAnswer: "2015, 2030"
+    },
+    {
+        question: "Which of the following is true?",
+        options: ["The SDGs are a bold commitment to solely increase the GDP of India", "Dealing with climate change has no impact on gender equality", "Success in one SDG affects success of the others", "Only 14 out of the 17 SDGs are interconnected"],
+        correctAnswer: "Success in one SDG affects success of the others"
+    },
+    {
+        question: "In June 1992, at the Earth Summit in Rio de Janeiro, Brazil, more than 178 countries adopted",
+        options: ["Agenda 21", "Millennium Development Goals", "Agenda 51", "Sustainable Development Goals"],
+        correctAnswer: "Agenda 21"
+    },
+    {
+        question: "Brundtland Report was released in 1987 by the WCED. WCED stands for",
+        options: ["World Commission on Environment Degradation", "World Commission on Environment and Development", "World Committee on Environmental Depletion", "World Commission on Earth Development"],
+        correctAnswer: "World Commission on Environment and Development"
+    },
+    {
+        question: "Extreme poverty means living on less than a day.",
+        options: ["$1.25", "$4.25", "$10.25", "$100.25"],
+        correctAnswer: "$1.25"
+    },
+    {
+        question: "poverty measures reveal who is poor and how they are poor.",
+        options: ["Unidimensional", "Bidirectional", "Multidimensional", "Multidirectional"],
+        correctAnswer: "Multidimensional"
+    },
+    {
+        question: "SDG 2 aims end all forms of by 2030.",
+        options: ["crime", "hunger and malnutrition", "pollution", "drought"],
+        correctAnswer: "hunger and malnutrition"
+    },
+    {
+        question: "Which of the following is not one of the indicators of the Global Hunger Index?",
+        options: ["prevalence of wasting and stunting in children under 5 years", "under 5 child mortality rate", "proportion of undernourished in the population", "proportion of obese people in the population"],
+        correctAnswer: "proportion of obese people in the population"
+    },
+    {
+        question: "As per Ministry of Housing and Urban Affairs, 135 litre per capita per day (lpcd) has been suggested as the benchmark For rural areas, a minimum service delivery of 55 lpcd has been fixed under",
+        options: ["Jal Jeevan Mission", "Jal Shakti Mission", "Jal Protection Mission", "Jal Janta Mission"],
+        correctAnswer: "Jal Jeevan Mission"
+    },
+    {
+        question: "Forests cover about percent of the Earth's surface",
+        options: ["5", "85", "30", "50"],
+        correctAnswer: "30"
+    },
+
+    // WEEK 2
+    {
+        question: "Which of the following is a characteristic of ESD as described in the framework?",
+        options: ["It is not locally relevant", "It promotes learning only for children", "It is interdisciplinary", "It uses only two pedagogical techniques"],
+        correctAnswer: "It is interdisciplinary"
+    },
+    {
+        question: "The Declaration on the Right to Development (1986) established that everyone is entitled to participate in and enjoy:",
+        options: ["only economic and social development", "economic, political, psychological and communist development", "economic, social, cultural and political development", "only cultural development"],
+        correctAnswer: "economic, social, cultural and political development"
+    },
+    {
+        question: "Text based methods for assessing ESD programs can be improved by using",
+        options: ["interpretive methodologies", "strict curriculum", "only quantitative techniques", "only qualitative methods"],
+        correctAnswer: "interpretive methodologies"
+    },
+    {
+        question: "SDGS are for the following except",
+        options: ["people", "practice", "planet", "partnership"],
+        correctAnswer: "practice"
+    },
+    {
+        question: "Policies like employment and labor rights, care and family leves, and financial regulation are often called the",
+        options: ["post-regulation", "self-care", "forceful", "pre-distributive"],
+        correctAnswer: "pre-distributive"
+    },
+    {
+        question: "Which of the following is involved in the development of the HRE indicator framework to measure progress on national implementation of human rights education",
+        options: ["Danish Institute of Human Rights", "The Office of the High Commissioner for Human Rights", "Both A and B", "Neither A nor B"],
+        correctAnswer: "Both A and B"
+    },
+    {
+        question: "plays a role in peace education.",
+        options: ["schools", "parents", "community", "all the given"],
+        correctAnswer: "all the given"
+    },
+    {
+        question: "The enterprise of education at its most profound level is",
+        options: ["discriminatory", "selective", "restricted", "transformative"],
+        correctAnswer: "transformative"
+    },
+    {
+        question: "UNESCO's World in 2030 survey revealed that respondents see as one of the top global challenges",
+        options: ["climate change", "hunger", "unemployment", "mental health"],
+        correctAnswer: "climate change"
+    },
+    {
+        question: "Education for sustainable development and peace develops people's skills to take actions that improve our quality of life",
+        options: ["only now", "only for the future", "for now and for the future", "only for the past"],
+        correctAnswer: "for now and for the future"
+    },
+
+    // WEEK 3
+    {
+        question: "Global citizenship is a belief that individuals are members of networks.",
+        options: ["multiple", "diverse", "local and non-local", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "A global citizen",
+        options: ["is not aware of the wider world", "is confused about their place in the world", "takes an active role in their community", "do not care much about the planet"],
+        correctAnswer: "takes an active role in their community"
+    },
+    {
+        question: "Global citizenship education is based on domains of learning.",
+        options: ["three", "two", "four", "seven"],
+        correctAnswer: "three"
+    },
+    {
+        question: "is UNESCO's first Category 1 education-related institute in the Asia-Pacific region.",
+        options: ["MGEIN", "MGIER", "MGIEP", "MGOEL"],
+        correctAnswer: "MGIEP"
+    },
+    {
+        question: "SDG target 4.7 rearticulates a agenda for education.",
+        options: ["regional", "behavioral", "political", "humanistic"],
+        correctAnswer: "humanistic"
+    },
+    {
+        question: "SEL stands for",
+        options: ["Sustainable education and learning", "Social and environmental learning", "Social and emotional learning", "Sustainable and economic learning"],
+        correctAnswer: "Social and emotional learning"
+    },
+    {
+        question: "Which of the following is a role taken by a teacher in education for sustainable development?",
+        options: ["facilitator", "guide", "role model", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Target calls for strengthening efforts to protect and safeguard the world's cultural and natural heritage.",
+        options: ["9.5", "1.5", "2.3", "11.4"],
+        correctAnswer: "11.4"
+    },
+    {
+        question: "The UNESCO International Centre for Technical and Vocational Education and Training enables in member states.",
+        options: ["green TVET", "blue TVET", "orange TVET", "white TVET"],
+        correctAnswer: "green TVET"
+    },
+    {
+        question: "Which of the following statements is not true?",
+        options: ["green jobs contribute to preserving environmental quality", "green jobs ensure workers' rights", "green jobs are only found in the agriculture sector", "green jobs must be accessible to all"],
+        correctAnswer: "green jobs are only found in the agriculture sector"
+    },
+
+    // WEEK 4
+    {
+        question: "GESO stands for",
+        options: ["Green Education for Sustainable Occupation", "Green Enhanced Sustainable Occupation", "Green Enhanced Skills Occupation", "None of the above"],
+        correctAnswer: "Green Enhanced Skills Occupation"
+    },
+    {
+        question: "The classification of occupations into GIDO, GESO and GNEO is given by US National Center for",
+        options: ["G*NET", "A*NET", "I*NET", "O*NET"],
+        correctAnswer: "O*NET"
+    },
+    {
+        question: "The International Framework for Greening TVET consists of the following tiers, except",
+        options: ["Breaking TVET institutions", "Transforming TVET institutions", "Formulating National Policies", "Forming International Alliance"],
+        correctAnswer: "Breaking TVET institutions"
+    },
+    {
+        question: "Energy, water and waste management comes under the dimension of Greening TVET.",
+        options: ["Green research", "Green culture", "Green teaching", "Green campus"],
+        correctAnswer: "Green campus"
+    },
+    {
+        question: "Industry-institute interaction is an indicator of",
+        options: ["green house", "green teaching", "green campus", "green curriculum"],
+        correctAnswer: "green curriculum"
+    },
+    {
+        question: "Sustainable entrepreneurship includes",
+        options: ["social entrepreneurship", "eco-preneurship", "intra-preneurship", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "ESD requires learning methods.",
+        options: ["participatory", "passive", "rigid", "static"],
+        correctAnswer: "participatory"
+    },
+    {
+        question: "Which of the following is a transversal competency?",
+        options: ["creativity", "empathy", "systems thinking", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "is the ability to create good relationships and adapt to different social situations.",
+        options: ["emotional fitness", "mental health", "social health", "physical health"],
+        correctAnswer: "social health"
+    },
+    {
+        question: "Sustainable health is",
+        options: ["a curative approach", "only about the body", "a balance of mind, body and spirit", "only about mental health"],
+        correctAnswer: "a balance of mind, body and spirit"
+    },
+
+    // WEEK 5
+    {
+        question: "Siddha comes under the",
+        options: ["public health sector", "voluntary health agencies", "indigenous system of medicine", "private health sector"],
+        correctAnswer: "indigenous system of medicine"
+    },
+    {
+        question: "Which of the following is not a problem of healthcare infrastructure in India?",
+        options: ["shortage of staff", "skewed favor to urban areas", "no proper regulatory mechanism", "standard procedures in all regions"],
+        correctAnswer: "standard procedures in all regions"
+    },
+    {
+        question: "Which of the following is a health system building block as suggested by WHO?",
+        options: ["Economic growth", "Access to public transport", "Politics", "Service delivery"],
+        correctAnswer: "Service delivery"
+    },
+    {
+        question: "An ecologically sustainable approach broadens the definition of",
+        options: ["objective", "outcome", "cost", "value"],
+        correctAnswer: "value"
+    },
+    {
+        question: "is an environment in which data of medical interest can be stored and made easily available.",
+        options: ["health repository", "health bank", "health bag", "health grid"],
+        correctAnswer: "health grid"
+    },
+    {
+        question: "The POSHAN Abhiyan in India aims to improve nutritional outcomes for",
+        options: ["children", "lactating mothers", "pregnant women", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Sus-Ql stands for",
+        options: ["Sustainable quality improvement", "Sustainable quality improvisation", "Sustainable quantity improvement", "Sustainable quantity improvisation"],
+        correctAnswer: "Sustainable quality improvement"
+    },
+    {
+        question: "Which of the following is not a stage of Sus-QI?",
+        options: ["set goals", "measure impacts", "design the improvement effort", "ignore the system"],
+        correctAnswer: "ignore the system"
+    },
+    {
+        question: "Food insecurity is measured on the",
+        options: ["FIES", "FAIS", "FIET", "FAIR"],
+        correctAnswer: "FIES"
+    },
+    {
+        question: "The UN lists levels of food security for any given country.",
+        options: ["5", "4", "3", "2"],
+        correctAnswer: "5"
+    },
+
+    // WEEK 6
+    {
+        question: "Poor infrastructure can cause hunger in a country.",
+        options: ["True", "False"],
+        correctAnswer: "True"
+    },
+    {
+        question: "In high income countries, hunger is mainly caused due to poverty that results from",
+        options: ["low GDP of the country", "lack of access to food", "poor public transport infrastructure", "lack of jobs"],
+        correctAnswer: "lack of jobs"
+    },
+    {
+        question: "Which of the following is true about hunger?",
+        options: ["It is a cause of war", "It is an effect of war", "It is both a cause and effect of war", "It is neither a cause nor an effect of war"],
+        correctAnswer: "It is both a cause and effect of war"
+    },
+    {
+        question: "are most vulnerable to the harmful effects of hidden hunger.",
+        options: ["adults", "infants", "adolescents", "elderly"],
+        correctAnswer: "infants"
+    },
+    {
+        question: "Desertification is typically a result of",
+        options: ["drought", "deforestation", "inappropriate agriculture", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Which of the following is a key initiative in India for the problem of hunger?",
+        options: ["One Nation, One Plate", "One Nation, One Hunger", "One Nation, No Ration Card", "One Nation, One Ration Card"],
+        correctAnswer: "One Nation, One Ration Card"
+    },
+    {
+        question: "In the past, MGNREGA has",
+        options: ["decreased rural wages", "increased gender wage gaps", "enabled poor access to food", "reduced distress migration from rural areas"],
+        correctAnswer: "reduced distress migration from rural areas"
+    },
+    {
+        question: "Wheat productivity can suffer if",
+        options: ["temperature rises", "temperature does not change", "temperature falls", "none of the given"],
+        correctAnswer: "temperature rises"
+    },
+    {
+        question: "Bringing forgotten and neglected foods like yam into cultivation and onto the market is called",
+        options: ["diversifying food basket", "restricting food basket", "completing food box", "wasting food basket"],
+        correctAnswer: "diversifying food basket"
+    },
+    {
+        question: "Home gardening has been proven as a reliable source to supplement food and nutritional security",
+        options: ["True", "False"],
+        correctAnswer: "True"
+    },
+
+    // WEEK 7
+    {
+        question: "Which of the following is a type of energy?",
+        options: ["fossil fuels", "nuclear power", "traditional biomass", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "In IPCC by UN, I stands for",
+        options: ["Industrial", "Internal", "International", "Intergovernmental"],
+        correctAnswer: "Intergovernmental"
+    },
+    {
+        question: "The extraction, transport and refinement of nuclear fuels results in",
+        options: ["improvement of land from mining", "pollution of air and water", "replenishment of biodiversity", "all of the given"],
+        correctAnswer: "pollution of air and water"
+    },
+    {
+        question: "The greatest contributor to air pollution in China is",
+        options: ["cooking and heating", "coal burning", "transport", "forest burning"],
+        correctAnswer: "coal burning"
+    },
+    {
+        question: "In the wake of tsunami and nuclear disaster following severe earthquake in 2011, a city in Japan set a target for",
+        options: ["hundred net energy", "one net energy", "million net energy", "zero net energy"],
+        correctAnswer: "zero net energy"
+    },
+    {
+        question: "The term 'energy democracy' grew out of the movement.",
+        options: ["hunger justice", "hunger revolt", "climate revolt", "climate justice"],
+        correctAnswer: "climate justice"
+    },
+    {
+        question: "The Paris Agreement is a legally binding treaty on adopted by 196 parties at COP 21 in 2015.",
+        options: ["climate change", "education", "poverty", "none of the given"],
+        correctAnswer: "climate change"
+    },
+    {
+        question: "The Government of India launched the NAPCC in 2008 outlining National Missions on climate change.",
+        options: ["8", "2", "100", "78"],
+        correctAnswer: "8"
+    },
+    {
+        question: "Stubble burning usually takes place in the months of",
+        options: ["October-November", "May-June", "January-February", "July-August"],
+        correctAnswer: "October-November"
+    },
+    {
+        question: "Stubble burning is",
+        options: ["intentional", "natural", "healthy for air quality", "related to burning of paper"],
+        correctAnswer: "intentional"
+    },
+
+    // WEEK 8
+    {
+        question: "The Okayama Commitment is from",
+        options: ["Russia", "South Korea", "North Korea", "Japan"],
+        correctAnswer: "Japan"
+    },
+    {
+        question: "Which of the following is a policy support mechanism of Okayama Commitment?",
+        options: ["Taking money", "Content development", "Exploitation of resources", "None of the given"],
+        correctAnswer: "Content development"
+    },
+    {
+        question: "Education is related to SDG 9 such that",
+        options: ["education helps in skills required to build resilient infrastructure", "education enhances skills to use natural resources more sustainably", "education is critical to lifting people out of poverty", "education helps reduce gender gaps"],
+        correctAnswer: "education helps in skills required to build resilient infrastructure"
+    },
+    {
+        question: "The frame model structures sustainability competencies into _ goal dimensions.",
+        options: ["8", "3", "11", "45"],
+        correctAnswer: "3"
+    },
+    {
+        question: "Sustainability issues must be looked at through a approach.",
+        options: ["isolated thinking", "independent thinking", "silos thinking", "systems thinking"],
+        correctAnswer: "systems thinking"
+    },
+    {
+        question: "Technology and Science can alone solve all our sustainability problems.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "GAP in the context of ESD stands for",
+        options: ["Global Action Programme", "Great Activity Plan", "Global Attention Programme", "Great Action Policy"],
+        correctAnswer: "Global Action Programme"
+    },
+    {
+        question: "competency is the ability to understand and evaluate multiple futures.",
+        options: ["anticipatory", "normative", "strategic", "collaborative"],
+        correctAnswer: "anticipatory"
+    },
+    {
+        question: "The ability to question norms is competency.",
+        options: ["critical thinking", "normative", "anticipatory", "self-awareness"],
+        correctAnswer: "critical thinking"
+    },
+    {
+        question: "Action-oriented learning draws on Kolb's concept of",
+        options: ["experiential learning", "experimental learning", "rote learning", "direct learning"],
+        correctAnswer: "experimental learning"
+    },
+
+    // WEEK 9
+    {
+        question: "Activities like fish bowl discussion help",
+        options: ["passive thinking", "critical and reflexive thinking", "rote-memory", "all of the given"],
+        correctAnswer: "critical and reflexive thinking"
+    },
+    {
+        question: "Which of the following is not a vision-building exercise?",
+        options: ["scenario analysis", "classroom teaching", "science fiction thinking", "dystopian storytelling"],
+        correctAnswer: "classroom teaching"
+    },
+    {
+        question: "The ability to hold contradictory thoughts and feelings is an competency.",
+        options: ["intellectual", "interpersonal", "intrapersonal", "institutional"],
+        correctAnswer: "intrapersonal"
+    },
+    {
+        question: "intelligences is proposed by Howard Gardner.",
+        options: ["multiple", "singular", "double", "triple"],
+        correctAnswer: "multiple"
+    },
+    {
+        question: "intelligence refers to using one's body in skilled ways.",
+        options: ["kinesthetic", "musical", "naturalist", "spatial"],
+        correctAnswer: "kinesthetic"
+    },
+    {
+        question: "The idea of big transformation implies that changes in individual action are intertwined with",
+        options: ["reorganization of self", "reorganization of societal structures", "ignorance of others", "none of the given"],
+        correctAnswer: "reorganization of societal structures"
+    },
+    {
+        question: "In learning, learners start to question all the things they knew to make room for new insights and information.",
+        options: ["transformative", "transactional", "trivial", "trans-disciplinary"],
+        correctAnswer: "transformative"
+    },
+    {
+        question: "Which of the following is a key principle of adult education?",
+        options: ["need to know why", "guilt", "boredom", "none of the given"],
+        correctAnswer: "need to know why"
+    },
+    {
+        question: "Sustainable Development is a process through which people influence and share control over development initiatives, decisions and sources that affects them.",
+        options: ["Internal", "Societal", "Participatory", "Transformational"],
+        correctAnswer: "Participatory"
+    },
+    {
+        question: "is the common regulatory body for higher education in India.",
+        options: ["HECI", "WHO", "AIIMS", "None of the given"],
+        correctAnswer: "HECI"
+    },
+
+    // WEEK 10
+    {
+        question: "Sustainable leaders look at immediate, short-term gains.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "The need of the hour is to have leaders who",
+        options: ["focus only on business profit", "focus only on building technical solutions", "take a holistic approach", "none of the given"],
+        correctAnswer: "take a holistic approach"
+    },
+    {
+        question: "Which of the following is a part of the 3Ps of triple bottom line?",
+        options: ["Profit", "Passion", "Party", "Pivot"],
+        correctAnswer: "Profit"
+    },
+    {
+        question: "Organizations need leaders who create value for",
+        options: ["internal stakeholders", "external stakeholders", "oneself", "all stakeholders"],
+        correctAnswer: "all stakeholders"
+    },
+    {
+        question: "The sustainability mindset involves",
+        options: ["transparency", "presencing", "integrity", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "Finding ways to maintain one's own and others' energy is an unsustainable leadership practice.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "Systems thinking is often highlighted by the ability to",
+        options: ["zoom in", "zoom out", "zoom in and out", "none of the given"],
+        correctAnswer: "zoom in and out"
+    },
+    {
+        question: "Practicing consciousness awareness includes",
+        options: ["ignoring self with others", "forgetting about what has happened and moving on", "living in denial", "authentic interactions"],
+        correctAnswer: "authentic interactions"
+    },
+    {
+        question: "is the last challenge of leadership; of letting go, moving on, and planning for one's own obsolescence.",
+        options: ["succession", "regression", "formation", "integration"],
+        correctAnswer: "succession"
+    },
+    {
+        question: "leadership is also called missionary leadership and is different from quiet leadership.",
+        options: ["participative", "servant", "radical", "inspirational"],
+        correctAnswer: "radical"
+    },
+
+    // WEEK 11
+    {
+        question: "There is one universal curriculum to become a sustainable leader.",
+        options: ["True", "False"],
+        correctAnswer: "False"
+    },
+    {
+        question: "A sustainable leader has a decision-making style.",
+        options: ["forceful", "autocratic", "selfish", "consensual"],
+        correctAnswer: "consensual"
+    },
+    {
+        question: "A sustainable leader must have awareness of contexts.",
+        options: ["ecological", "economic", "political", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "The 'results' component of sustainable leadership relates with the dimension",
+        options: ["institutional", "social", "environmental", "economic"],
+        correctAnswer: "economic"
+    },
+    {
+        question: "____ India gives a theory U that consists of aspects like co-initiating, co-sensing and co-evolving among others.",
+        options: ["HEAD", "SAID", "GEAD", "LEAD"],
+        correctAnswer: "LEAD"
+    },
+    {
+        question: "The ____ component in theory 'U' entails prototyping the new.",
+        options: ["co-evolving", "co-initiating", "co-sensing", "co-creating"],
+        correctAnswer: "co-creating"
+    },
+    {
+        question: "Which of the following factor does not aid in becoming a global leader?",
+        options: ["willingness to stay in one's comfort zone", "undesirable circumstances like poverty", "confidence to embrace risk", "willingness to learn from failure"],
+        correctAnswer: "willingness to stay in one's comfort zone"
+    },
+    {
+        question: "According to Maxwell, there are levels of leadership.",
+        options: ["15", "25", "50", "5"],
+        correctAnswer: "5"
+    },
+    {
+        question: "The ____ in relation to their Global Leadership Fellowship program, describes global leaders as dynamic, engaged and driven individuals who possess a high degree of intellectual curiosity and service-oriented humility;",
+        options: ["World Health Organization", "World Labor Organization", "World Economic Forum", "World Political Forum"],
+        correctAnswer: "World Economic Forum"
+    },
+    {
+        question: "SDG ____ is to make cities and human settlements inclusive, safe, resilient, and sustainable.",
+        options: ["2", "10", "11", "5"],
+        correctAnswer: "11"
+    },
+
+    // WEEK 12
+    {
+        question: "____ resources are those that exist in the absence of human intervention.",
+        options: ["Artificial", "Natural", "Fake", "Real"],
+        correctAnswer: "Natural"
+    },
+    {
+        question: "The food sector accounts for around ____ percent of total greenhouse gas emissions.",
+        options: ["3", "22", "100", "90"],
+        correctAnswer: "22"
+    },
+    {
+        question: "Which of the following is not a solution for natural resource depletion?",
+        options: ["use less renewable energy", "promote sustainable fishing growth", "reduce food waste", "treat wastewater before discharging"],
+        correctAnswer: "use less renewable energy"
+    },
+    {
+        question: "In order to support reform on green fiscal policy, UN Environment has established the ____ in partnership with the International Monetary Fund.",
+        options: ["Green Fiscal Policy Network", "Blue Fiscal Policy Network", "Green Fishery Policy Network", "Green Fiscal Policy Natural"],
+        correctAnswer: "Green Fiscal Policy Network"
+    },
+    {
+        question: "As responsible consumers, we should ask ourselves '____' before buying anything.",
+        options: ["do I really need it?", "how long will I use it?", "can I borrow it from someone I know?", "all of the given"],
+        correctAnswer: "all of the given"
+    },
+    {
+        question: "A bulb thrown out after usage forms",
+        options: ["wet waste", "valuable waste", "responsible waste", "e-waste"],
+        correctAnswer: "e-waste"
+    },
+    {
+        question: "SDG ____ seeks to promote international trade, and help developing countries increase their exports to ensure a universal rules-based and equitable trading system that is fair, open and beneficial to all.",
+        options: ["17", "2", "6", "11"],
+        correctAnswer: "17"
+    },
+    {
+        question: "According to Gandhiji, wealth should be used for",
+        options: ["the betterment of the humanity", "personal indulgence", "conflicts", "politics"],
+        correctAnswer: "the betterment of the humanity"
+    },
+    {
+        question: "The ____ initiated and spearheaded by Gandhiji is the preeminent prototype of small and cottage industries.",
+        options: ["Khadi Movement", "Salt March", "Cotton Movement", "Non-violent Protest"],
+        correctAnswer: "Khadi Movement"
+    },
+    {
+        question: "____ is the ability of a system to absorb disturbances & retain its basic function and structure.",
+        options: ["resilience", "gratitude", "mindfulness", "sustainable consumption"],
+        correctAnswer: "resilience"
+    }
+];
+
+const LETTERS = ['A','B','C','D','E'];
+const TIMER_MAX = 30;
+const TIMER_CIRCUMFERENCE = 126; // 2*π*20
+
+let questions = [];
+let currentIdx = 0;
+let answered = false;
+let timerInterval = null;
+let timeLeft = TIMER_MAX;
+let xp = 0;
+let streak = 0;
+let bestStreak = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let skipCount = 0;
+let userAnswers = [];
+let quizMode = 'all';
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function setMode(el, mode){
+  quizMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function getDifficulty(q, idx){
+  // pseudo-difficulty based on question index thirds
+  if(idx < ALL_QUESTIONS.length/3) return 'easy';
+  if(idx < 2*ALL_QUESTIONS.length/3) return 'medium';
+  return 'hard';
+}
+
+function startQuiz(){
+  let pool = shuffle(ALL_QUESTIONS);
+  if(quizMode==='random20') pool = pool.slice(0,20);
+  else if(quizMode==='random50') pool = pool.slice(0,50);
+  questions = pool;
+  userAnswers = new Array(questions.length).fill(null);
+  currentIdx=0; xp=0; streak=0; bestStreak=0;
+  correctCount=0; wrongCount=0; skipCount=0;
+
+  document.getElementById('qTotal').textContent = questions.length;
+  document.getElementById('xpCount').textContent = 0;
+  document.getElementById('streakCount').textContent = 0;
+
+  document.getElementById('introScreen').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  loadQuestion();
+}
+
+function loadQuestion(){
+  answered = false;
+  const q = questions[currentIdx];
+  const origIdx = ALL_QUESTIONS.indexOf(q);
+  const diff = getDifficulty(q, origIdx);
+
+  // progress
+  const pct = (currentIdx/questions.length)*100;
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('qCurrent').textContent = currentIdx+1;
+  document.getElementById('badgeNum').textContent = `Q ${currentIdx+1} of ${questions.length}`;
+
+  // difficulty badge
+  const db = document.getElementById('diffBadge');
+  db.textContent = diff.charAt(0).toUpperCase()+diff.slice(1);
+  db.className = 'diff-badge diff-'+diff;
+
+  // question
+  document.getElementById('questionText').textContent = q.q;
+
+  // options
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const btn = document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="opt-letter">${LETTERS[i]}</span><span class="opt-text">${opt}</span><span class="opt-icon"></span>`;
+    btn.addEventListener('click',()=>selectAnswer(opt, btn, q.a));
+    grid.appendChild(btn);
+  });
+
+  // hide feedback
+  const fs = document.getElementById('feedbackStrip');
+  fs.className='feedback-strip';
+  document.getElementById('hintArea').classList.remove('show');
+
+  // buttons
+  document.getElementById('skipBtn').style.display='';
+  const nb = document.getElementById('nextBtn');
+  nb.classList.remove('show');
+  document.getElementById('nextBtnLabel').textContent = (currentIdx===questions.length-1) ? 'Finish' : 'Next';
+
+  // animate card
+  const card = document.getElementById('quizCard');
+  card.style.animation='none';
+  requestAnimationFrame(()=>{
+    card.style.animation='slideIn .4s cubic-bezier(.34,1.56,.64,1)';
+  });
+
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  timeLeft = TIMER_MAX;
+  updateTimerUI();
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    updateTimerUI();
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      if(!answered) timeOut();
+    }
+  }, 1000);
+}
+
+function updateTimerUI(){
+  const pct = timeLeft/TIMER_MAX;
+  const offset = TIMER_CIRCUMFERENCE*(1-pct);
+  const circle = document.getElementById('timerCircle');
+  circle.style.strokeDashoffset = offset;
+  document.getElementById('timerText').textContent = timeLeft;
+
+  if(timeLeft<=10){
+    circle.style.stroke='#f87171';
+    document.getElementById('timerText').style.color='#f87171';
+  } else if(timeLeft<=20){
+    circle.style.stroke='#fb923c';
+    document.getElementById('timerText').style.color='var(--text)';
+  } else {
+    circle.style.stroke='var(--accent)';
+    document.getElementById('timerText').style.color='var(--text)';
+  }
+}
+
+function timeOut(){
+  answered=true;
+  userAnswers[currentIdx]='__TIMEOUT__';
+  skipCount++;
+  streak=0;
+  document.getElementById('streakCount').textContent=streak;
+
+  const q=questions[currentIdx];
+  showFeedback(false, q.a, null, true);
+  revealCorrect(q.a);
+  document.getElementById('skipBtn').style.display='none';
+  document.getElementById('nextBtn').classList.add('show');
+
+  // hint
+  const ha=document.getElementById('hintArea');
+  ha.innerHTML=`<strong>⏱ Time's up!</strong> The correct answer was: <strong style="color:var(--accent)">${q.a}</strong>`;
+  ha.classList.add('show');
+}
+
+function selectAnswer(chosen, btn, correct){
+  if(answered) return;
+  clearInterval(timerInterval);
+  answered=true;
+  userAnswers[currentIdx]=chosen;
+
+  const isCorrect=(chosen===correct);
+  const grid=document.getElementById('optionsGrid');
+  const btns=grid.querySelectorAll('.option-btn');
+
+  btns.forEach(b=>{
+    b.disabled=true;
+    const txt=b.querySelector('.opt-text').textContent;
+    if(txt===correct){b.classList.add('correct');}
+    else if(b===btn && !isCorrect){b.classList.add('wrong');}
+  });
+
+  if(isCorrect){
+    correctCount++;
+    streak++;
+    if(streak>bestStreak) bestStreak=streak;
+    const bonus=streak>=3?streak*2:0;
+    const gained=10+bonus;
+    xp+=gained;
+    document.getElementById('xpCount').textContent=xp;
+    document.getElementById('streakCount').textContent=streak;
+    spawnXP(gained, btn);
+    if(streak>=3) showCombo(streak);
+  } else {
+    wrongCount++;
+    streak=0;
+    document.getElementById('streakCount').textContent=0;
+  }
+
+  showFeedback(isCorrect, correct, chosen);
+  document.getElementById('skipBtn').style.display='none';
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function showFeedback(correct, rightAns, userAns, timeout=false){
+  const fs=document.getElementById('feedbackStrip');
+  const fbTitle=document.getElementById('fbTitle');
+  const fbAns=document.getElementById('fbAns');
+  const fbIcon=document.getElementById('fbIcon');
+
+  if(timeout){
+    fs.className='feedback-strip show bad';
+    fbIcon.textContent='⏰';
+    fbTitle.textContent="Time's up!";
+    fbTitle.style.color='var(--warn)';
+    fbAns.innerHTML=`Correct answer: <strong>${rightAns}</strong>`;
+  } else if(correct){
+    fs.className='feedback-strip show ok';
+    fbIcon.textContent='🎯';
+    fbTitle.textContent=streak>=3 ? `Correct! 🔥 ${streak} streak!` : 'Correct!';
+    fbTitle.style.color='var(--accent)';
+    fbAns.innerHTML=`<strong>${rightAns}</strong>`;
+  } else {
+    fs.className='feedback-strip show bad';
+    fbIcon.textContent='💡';
+    fbTitle.textContent='Not quite!';
+    fbTitle.style.color='var(--danger)';
+    fbAns.innerHTML=`You chose: <span class="your-ans">${userAns}</span><br>Correct: <span class="correct-ans">${rightAns}</span>`;
+  }
+}
+
+function revealCorrect(correct){
+  const btns=document.querySelectorAll('.option-btn');
+  btns.forEach(b=>{
+    b.disabled=true;
+    const txt=b.querySelector('.opt-text').textContent;
+    if(txt===correct) b.classList.add('correct');
+  });
+}
+
+function skipQuestion(){
+  if(answered) return;
+  clearInterval(timerInterval);
+  answered=true;
+  skipCount++;
+  streak=0;
+  document.getElementById('streakCount').textContent=0;
+  userAnswers[currentIdx]='__SKIP__';
+
+  const q=questions[currentIdx];
+  revealCorrect(q.a);
+  showFeedback(false, q.a, '__SKIP__');
+  document.getElementById('feedbackStrip').className='feedback-strip show bad';
+  document.getElementById('fbIcon').textContent='⏭';
+  document.getElementById('fbTitle').textContent='Skipped';
+  document.getElementById('fbTitle').style.color='var(--warn)';
+  document.getElementById('skipBtn').style.display='none';
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){
+  currentIdx++;
+  if(currentIdx>=questions.length){
+    showResults();
+  } else {
+    loadQuestion();
+  }
+}
+
+function spawnXP(amount, anchorEl){
+  const el=document.createElement('div');
+  el.className='xp-burst';
+  el.textContent='+'+amount+' XP';
+  const rect=anchorEl.getBoundingClientRect();
+  el.style.left=(rect.left+rect.width/2-30)+'px';
+  el.style.top=(rect.top+window.scrollY-10)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 900);
+}
+
+let comboBannerTimeout=null;
+function showCombo(n){
+  if(comboBannerTimeout) clearTimeout(comboBannerTimeout);
+  let existing=document.querySelector('.combo-banner');
+  if(existing) existing.remove();
+  const msgs=['','','','🔥 Triple!','💥 Quad!','⚡ Penta!','🌟 Six!','👑 Unstoppable!'];
+  const msg=msgs[n]||(n+'× Streak! 🚀');
+  const el=document.createElement('div');
+  el.className='combo-banner';
+  el.textContent=msg;
+  document.body.appendChild(el);
+  comboBannerTimeout=setTimeout(()=>{
+    el.classList.add('combo-hide');
+    setTimeout(()=>el.remove(),500);
+  },1500);
+}
+
+function showResults(){
+  clearInterval(timerInterval);
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('quizCard').classList.add('hidden');
+  const rs=document.getElementById('resultsScreen');
+  rs.classList.remove('hidden');
+
+  const total=questions.length;
+  const pct=Math.round((correctCount/total)*100);
+
+  document.getElementById('rsCorrect').textContent=correctCount;
+  document.getElementById('rsWrong').textContent=wrongCount;
+  document.getElementById('rsSkip').textContent=skipCount;
+  document.getElementById('rsStreak').textContent=bestStreak;
+  document.getElementById('rsXP').textContent=xp;
+  document.getElementById('ringPct').textContent=pct+'%';
+
+  // Animate ring
+  setTimeout(()=>{
+    const circ=440;
+    const offset=circ-(circ*(pct/100));
+    document.getElementById('ringFill').style.strokeDashoffset=offset;
+  },200);
+
+  // Grade
+  let grade, msg, trophy, gc;
+  if(pct>=90){grade='A+';msg='Outstanding! You aced it! 🌟';trophy='🏆';gc='grade-A';}
+  else if(pct>=75){grade='A';msg='Excellent work! Keep it up! 🌿';trophy='🥇';gc='grade-A';}
+  else if(pct>=60){grade='B';msg='Good job! A little more practice! 📚';trophy='🥈';gc='grade-B';}
+  else if(pct>=45){grade='C';msg='Fair attempt. Review and retry! 💪';trophy='🌱';gc='grade-C';}
+  else{grade='D';msg='Keep going — you got this! 📖';trophy='💡';gc='grade-D';}
+
+  document.getElementById('resultsTrophy').textContent=trophy;
+  document.getElementById('resultsHeading').textContent=`${pct}% — ${grade}`;
+  document.getElementById('resultsSubtitle').textContent=`${correctCount} correct out of ${total} questions`;
+  const gb=document.getElementById('gradeBanner');
+  gb.className='grade-banner '+gc;
+  document.getElementById('gradeLetter').textContent=grade;
+  document.getElementById('gradeMsg').textContent=msg;
+
+  if(pct>=60) launchConfetti();
+}
+
+function launchConfetti(){
+  const colors=['#6ee7b7','#818cf8','#f472b6','#fb923c','#fbbf24'];
+  for(let i=0;i<120;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.style.cssText=`position:fixed;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[~~(Math.random()*colors.length)]};left:${Math.random()*100}%;top:-10px;border-radius:${Math.random()>.5?'50%':'2px'};z-index:9999;pointer-events:none;opacity:${0.6+Math.random()*.4};`;
+      document.body.appendChild(el);
+      const dur=(2+Math.random()*2.5)*1000;
+      el.animate([{transform:`translateY(0) rotate(0deg)`,opacity:1},{transform:`translateY(${window.innerHeight+20}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:dur,easing:'ease-in'});
+      setTimeout(()=>el.remove(),dur);
+    },i*18);
+  }
+}
+
+function retryQuiz(){
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('reviewList').classList.add('hidden');
+  document.getElementById('introScreen').classList.remove('hidden');
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('qCurrent').textContent='—';
+}
+
+function showReview(){
+  document.getElementById('resultsScreen').classList.add('hidden');
+  const rl=document.getElementById('reviewList');
+  rl.classList.remove('hidden');
+  renderReview('all');
+}
+
+function renderReview(filter){
+  const container=document.getElementById('reviewItems');
+  container.innerHTML='';
+  questions.forEach((q,i)=>{
+    const ua=userAnswers[i];
+    let status;
+    if(ua==='__SKIP__'||ua==='__TIMEOUT__') status='skip';
+    else if(ua===q.a) status='correct';
+    else status='wrong';
+    if(filter!=='all'&&status!==filter) return;
+    const badgeText=status==='correct'?'✓ Correct':status==='wrong'?'✗ Wrong':'— Skipped';
+    const div=document.createElement('div');
+    div.className=`review-item ri-${status}`;
+    div.innerHTML=`<div class="ri-top"><div class="ri-q">Q${i+1}. ${q.q}</div><span class="ri-badge">${badgeText}</span></div>
+    <div class="ri-ans">Correct: <span class="correct-ans">${q.a}</span>${status==='wrong'?` &nbsp;|&nbsp; You chose: <span class="your-ans">${ua}</span>`:''}</div>`;
+    container.appendChild(div);
+  });
+  if(!container.children.length){
+    container.innerHTML=`<p style="color:var(--muted);text-align:center;padding:20px;">No questions in this category.</p>`;
+  }
+}
+
+function filterReview(filter, el){
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderReview(filter);
+}
+</script>
+</body>
+</html>
