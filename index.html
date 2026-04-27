@@ -864,9 +864,15 @@
 
     <script>
         /* ── Welcome Modal ── */
-        function closeModal() {
-            document.getElementById('welcomeModal').style.display = 'none';
-        }
+       function closeModal() {
+    document.getElementById('welcomeModal').style.display = 'none';
+}
+
+// Auto-close after 7 seconds
+setTimeout(function () {
+    const modal = document.getElementById('welcomeModal');
+    if (modal) modal.style.display = 'none';
+}, 7000);
 
         /* ── Countdown Timer (FIXED) ── */
         function pad(n) { return String(n).padStart(2, '0'); }
