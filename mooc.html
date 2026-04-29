@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forest MCQ Quiz</title>
+    <title>Education for Sustainable Development Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,26 +14,14 @@
             background: #ffffff;
             color: #333;
         }
-        
         .quiz-container {
             background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
-        
-        h1 {
-            color: #2e7d32;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        h2 {
-            color: #e32b12;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
+        h1 { color: #2e7d32; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        h2 { color: #e32b12; text-align: center; margin-bottom: 30px; }
         .question-container {
             margin-bottom: 25px;
             padding: 15px;
@@ -41,55 +29,15 @@
             border-radius: 5px;
             background-color: #ffffff;
         }
-        
-        .question {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #1a5276;
-        }
-        
-        .options {
-            margin-left: 20px;
-        }
-        
-        .option {
-            margin-bottom: 8px;
-            padding: 5px;
-            border-radius: 3px;
-        }
-        
-        .option:hover {
-            background-color: #f9f9f9;
-        }
-        
-        input[type="radio"] {
-            cursor: pointer;
-        }
-        
-        input[type="radio"]:checked + label {
-            font-weight: bold;
-            color: #2980b9;
-        }
-        
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        
-        .correct {
-            background-color: #dff0d8;
-            color: #3c763d;
-            border-left: 4px solid #3c763d;
-        }
-        
-        .incorrect {
-            background-color: #f2dede;
-            color: #a94442;
-            border-left: 4px solid #a94442;
-        }
-        
+        .question { font-weight: bold; margin-bottom: 10px; color: #1a5276; }
+        .options { margin-left: 20px; }
+        .option { margin-bottom: 8px; padding: 5px; border-radius: 3px; }
+        .option:hover { background-color: #f9f9f9; }
+        input[type="radio"] { cursor: pointer; }
+        input[type="radio"]:checked + label { font-weight: bold; color: #2980b9; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; }
+        .correct { background-color: #dff0d8; color: #3c763d; border-left: 4px solid #3c763d; }
+        .incorrect { background-color: #f2dede; color: #a94442; border-left: 4px solid #a94442; }
         button {
             background-color: #4CAF50;
             color: white;
@@ -102,15 +50,8 @@
             margin: 20px auto;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-        
-        button:active {
-            transform: translateY(1px);
-        }
-        
+        button:hover { background-color: #45a049; }
+        button:active { transform: translateY(1px); }
         .score-display {
             text-align: center;
             font-size: 18px;
@@ -121,15 +62,8 @@
             background-color: #ffffff;
             border-radius: 5px;
         }
-        
-        .reset-btn {
-            background-color: #f44336;
-        }
-        
-        .reset-btn:hover {
-            background-color: #d32f2f;
-        }
-        
+        .reset-btn { background-color: #f44336; }
+        .reset-btn:hover { background-color: #d32f2f; }
         .control-panel {
             display: flex;
             justify-content: center;
@@ -139,16 +73,8 @@
             background-color: #ffffff;
             border-radius: 5px;
         }
-        
-        .toggle-btn {
-            background-color: #2980b9;
-            padding: 8px 12px;
-        }
-        
-        .toggle-btn:hover {
-            background-color: #1a5276;
-        }
-        
+        .toggle-btn { background-color: #2980b9; padding: 8px 12px; }
+        .toggle-btn:hover { background-color: #1a5276; }
         .progress-container {
             width: 100%;
             background-color: #f3f3f3;
@@ -156,7 +82,6 @@
             margin: 15px 0;
             overflow: hidden;
         }
-        
         .progress-bar {
             height: 20px;
             background: linear-gradient(to right, #4CAF50, #2196F3);
@@ -169,7 +94,6 @@
             font-size: 12px;
             font-weight: bold;
         }
-
         .info-banner {
             background-color: #f0f8ff;
             border-left: 4px solid #2196F3;
@@ -180,821 +104,312 @@
             font-size: 14px;
         }
     </style>
-    <link rel="icon" href="logo.png" type="image/png">
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>Education for Sustainable Development Quiz</h1>
-        <h2>MOOC Exam</h2>
-        
-        <div class="info-banner">
-            📋 This quiz contains 50 questions randomly selected from all weeks (4 questions from each week + 2 questions). Click "Generate New Quiz" for a fresh set of questions!
-        </div>
+<div class="quiz-container">
+    <h1>Education for Sustainable Development Quiz</h1>
+    <h2>MOOC Exam</h2>
 
-        <div class="control-panel">
-            <button id="regenerate-btn" class="toggle-btn">Generate New Quiz</button>
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progress">0%</div>
-        </div>
-        
-        <div id="quiz"></div>
-        <button id="submit" type="button">Submit Answers</button>
-        <button id="reset" type="button" class="reset-btn" style="display: none;">Reset Quiz</button>
-        <div class="score-display" id="score"></div>
+    <div class="info-banner">
+        📋 This quiz contains 50 questions randomly selected from all weeks (4 questions from each of the 12 weeks + 2 bonus questions). Click "Generate New Quiz" for a fresh set of questions!
     </div>
 
-    <script>
-        const allQuestions = [
+    <div class="control-panel">
+        <button id="regenerate-btn" class="toggle-btn">Generate New Quiz</button>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress">0%</div>
+    </div>
+
+    <div id="quiz"></div>
+    <button id="submit" type="button">Submit Answers</button>
+    <button id="reset" type="button" class="reset-btn" style="display:none;">Reset Quiz</button>
+    <div class="score-display" id="score"></div>
+</div>
+
+<script>
+const allQuestions = [
     // WEEK 1
-    {
-        question: "The Global Goals were adopted by all United Nations member states in as a universal call to action to end poverty ensure that all people enjoy peace and prosperity by",
-        options: ["2025, 2080", "2020, 2060", "2012, 2050", "2015, 2030"],
-        correctAnswer: "2015, 2030"
-    },
-    {
-        question: "Which of the following is true?",
-        options: ["The SDGs are a bold commitment to solely increase the GDP of India", "Dealing with climate change has no impact on gender equality", "Success in one SDG affects success of the others", "Only 14 out of the 17 SDGs are interconnected"],
-        correctAnswer: "Success in one SDG affects success of the others"
-    },
-    {
-        question: "In June 1992, at the Earth Summit in Rio de Janeiro, Brazil, more than 178 countries adopted",
-        options: ["Agenda 21", "Millennium Development Goals", "Agenda 51", "Sustainable Development Goals"],
-        correctAnswer: "Agenda 21"
-    },
-    {
-        question: "Brundtland Report was released in 1987 by the WCED. WCED stands for",
-        options: ["World Commission on Environment Degradation", "World Commission on Environment and Development", "World Committee on Environmental Depletion", "World Commission on Earth Development"],
-        correctAnswer: "World Commission on Environment and Development"
-    },
-    {
-        question: "Extreme poverty means living on less than a day.",
-        options: ["$1.25", "$4.25", "$10.25", "$100.25"],
-        correctAnswer: "$1.25"
-    },
-    {
-        question: "poverty measures reveal who is poor and how they are poor.",
-        options: ["Unidimensional", "Bidirectional", "Multidimensional", "Multidirectional"],
-        correctAnswer: "Multidimensional"
-    },
-    {
-        question: "SDG 2 aims end all forms of by 2030.",
-        options: ["crime", "hunger and malnutrition", "pollution", "drought"],
-        correctAnswer: "hunger and malnutrition"
-    },
-    {
-        question: "Which of the following is not one of the indicators of the Global Hunger Index?",
-        options: ["prevalence of wasting and stunting in children under 5 years", "under 5 child mortality rate", "proportion of undernourished in the population", "proportion of obese people in the population"],
-        correctAnswer: "proportion of obese people in the population"
-    },
-    {
-        question: "As per Ministry of Housing and Urban Affairs, 135 litre per capita per day (lpcd) has been suggested as the benchmark For rural areas, a minimum service delivery of 55 lpcd has been fixed under",
-        options: ["Jal Jeevan Mission", "Jal Shakti Mission", "Jal Protection Mission", "Jal Janta Mission"],
-        correctAnswer: "Jal Jeevan Mission"
-    },
-    {
-        question: "Forests cover about percent of the Earth's surface",
-        options: ["5", "85", "30", "50"],
-        correctAnswer: "30"
-    },
+    { week: 1, question: "The Global Goals were adopted by all United Nations member states in as a universal call to action to end poverty ensure that all people enjoy peace and prosperity by", options: ["2025, 2080","2020, 2060","2012, 2050","2015, 2030"], correctAnswer: "2015, 2030" },
+    { week: 1, question: "Which of the following is true?", options: ["The SDGs are a bold commitment to solely increase the GDP of India","Dealing with climate change has no impact on gender equality","Success in one SDG affects success of the others","Only 14 out of the 17 SDGs are interconnected"], correctAnswer: "Success in one SDG affects success of the others" },
+    { week: 1, question: "In June 1992, at the Earth Summit in Rio de Janeiro, Brazil, more than 178 countries adopted", options: ["Agenda 21","Millennium Development Goals","Agenda 51","Sustainable Development Goals"], correctAnswer: "Agenda 21" },
+    { week: 1, question: "Brundtland Report was released in 1987 by the WCED. WCED stands for", options: ["World Commission on Environment Degradation","World Commission on Environment and Development","World Committee on Environmental Depletion","World Commission on Earth Development"], correctAnswer: "World Commission on Environment and Development" },
+    { week: 1, question: "Extreme poverty means living on less than a day.", options: ["$1.25","$4.25","$10.25","$100.25"], correctAnswer: "$1.25" },
+    { week: 1, question: "poverty measures reveal who is poor and how they are poor.", options: ["Unidimensional","Bidirectional","Multidimensional","Multidirectional"], correctAnswer: "Multidimensional" },
+    { week: 1, question: "SDG 2 aims end all forms of by 2030.", options: ["crime","hunger and malnutrition","pollution","drought"], correctAnswer: "hunger and malnutrition" },
+    { week: 1, question: "Which of the following is not one of the indicators of the Global Hunger Index?", options: ["prevalence of wasting and stunting in children under 5 years","under 5 child mortality rate","proportion of undernourished in the population","proportion of obese people in the population"], correctAnswer: "proportion of obese people in the population" },
+    { week: 1, question: "As per Ministry of Housing and Urban Affairs, 135 litre per capita per day (lpcd) has been suggested as the benchmark. For rural areas, a minimum service delivery of 55 lpcd has been fixed under", options: ["Jal Jeevan Mission","Jal Shakti Mission","Jal Protection Mission","Jal Janta Mission"], correctAnswer: "Jal Jeevan Mission" },
+    { week: 1, question: "Forests cover about percent of the Earth's surface", options: ["5","85","30","50"], correctAnswer: "30" },
 
     // WEEK 2
-    {
-        question: "Which of the following is a characteristic of ESD as described in the framework?",
-        options: ["It is not locally relevant", "It promotes learning only for children", "It is interdisciplinary", "It uses only two pedagogical techniques"],
-        correctAnswer: "It is interdisciplinary"
-    },
-    {
-        question: "The Declaration on the Right to Development (1986) established that everyone is entitled to participate in and enjoy:",
-        options: ["only economic and social development", "economic, political, psychological and communist development", "economic, social, cultural and political development", "only cultural development"],
-        correctAnswer: "economic, social, cultural and political development"
-    },
-    {
-        question: "Text based methods for assessing ESD programs can be improved by using",
-        options: ["interpretive methodologies", "strict curriculum", "only quantitative techniques", "only qualitative methods"],
-        correctAnswer: "interpretive methodologies"
-    },
-    {
-        question: "SDGS are for the following except",
-        options: ["people", "practice", "planet", "partnership"],
-        correctAnswer: "practice"
-    },
-    {
-        question: "Policies like employment and labor rights, care and family leves, and financial regulation are often called the",
-        options: ["post-regulation", "self-care", "forceful", "pre-distributive"],
-        correctAnswer: "pre-distributive"
-    },
-    {
-        question: "Which of the following is involved in the development of the HRE indicator framework to measure progress on national implementation of human rights education",
-        options: ["Danish Institute of Human Rights", "The Office of the High Commissioner for Human Rights", "Both A and B", "Neither A nor B"],
-        correctAnswer: "Both A and B"
-    },
-    {
-        question: "plays a role in peace education.",
-        options: ["schools", "parents", "community", "all the given"],
-        correctAnswer: "all the given"
-    },
-    {
-        question: "The enterprise of education at its most profound level is",
-        options: ["discriminatory", "selective", "restricted", "transformative"],
-        correctAnswer: "transformative"
-    },
-    {
-        question: "UNESCO's World in 2030 survey revealed that respondents see as one of the top global challenges",
-        options: ["climate change", "hunger", "unemployment", "mental health"],
-        correctAnswer: "climate change"
-    },
-    {
-        question: "Education for sustainable development and peace develops people's skills to take actions that improve our quality of life",
-        options: ["only now", "only for the future", "for now and for the future", "only for the past"],
-        correctAnswer: "for now and for the future"
-    },
+    { week: 2, question: "Which of the following is a characteristic of ESD as described in the framework?", options: ["It is not locally relevant","It promotes learning only for children","It is interdisciplinary","It uses only two pedagogical techniques"], correctAnswer: "It is interdisciplinary" },
+    { week: 2, question: "The Declaration on the Right to Development (1986) established that everyone is entitled to participate in and enjoy:", options: ["only economic and social development","economic, political, psychological and communist development","economic, social, cultural and political development","only cultural development"], correctAnswer: "economic, social, cultural and political development" },
+    { week: 2, question: "Text based methods for assessing ESD programs can be improved by using", options: ["interpretive methodologies","strict curriculum","only quantitative techniques","only qualitative methods"], correctAnswer: "interpretive methodologies" },
+    { week: 2, question: "SDGS are for the following except", options: ["people","practice","planet","partnership"], correctAnswer: "practice" },
+    { week: 2, question: "Policies like employment and labor rights, care and family leaves, and financial regulation are often called the", options: ["post-regulation","self-care","forceful","pre-distributive"], correctAnswer: "pre-distributive" },
+    { week: 2, question: "Which of the following is involved in the development of the HRE indicator framework to measure progress on national implementation of human rights education", options: ["Danish Institute of Human Rights","The Office of the High Commissioner for Human Rights","Both A and B","Neither A nor B"], correctAnswer: "Both A and B" },
+    { week: 2, question: "plays a role in peace education.", options: ["schools","parents","community","all the given"], correctAnswer: "all the given" },
+    { week: 2, question: "The enterprise of education at its most profound level is", options: ["discriminatory","selective","restricted","transformative"], correctAnswer: "transformative" },
+    { week: 2, question: "UNESCO's World in 2030 survey revealed that respondents see as one of the top global challenges", options: ["climate change","hunger","unemployment","mental health"], correctAnswer: "climate change" },
+    { week: 2, question: "Education for sustainable development and peace develops people's skills to take actions that improve our quality of life", options: ["only now","only for the future","for now and for the future","only for the past"], correctAnswer: "for now and for the future" },
 
     // WEEK 3
-    {
-        question: "Global citizenship is a belief that individuals are members of networks.",
-        options: ["multiple", "diverse", "local and non-local", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "A global citizen",
-        options: ["is not aware of the wider world", "is confused about their place in the world", "takes an active role in their community", "do not care much about the planet"],
-        correctAnswer: "takes an active role in their community"
-    },
-    {
-        question: "Global citizenship education is based on domains of learning.",
-        options: ["three", "two", "four", "seven"],
-        correctAnswer: "three"
-    },
-    {
-        question: "is UNESCO's first Category 1 education-related institute in the Asia-Pacific region.",
-        options: ["MGEIN", "MGIER", "MGIEP", "MGOEL"],
-        correctAnswer: "MGIEP"
-    },
-    {
-        question: "SDG target 4.7 rearticulates a agenda for education.",
-        options: ["regional", "behavioral", "political", "humanistic"],
-        correctAnswer: "humanistic"
-    },
-    {
-        question: "SEL stands for",
-        options: ["Sustainable education and learning", "Social and environmental learning", "Social and emotional learning", "Sustainable and economic learning"],
-        correctAnswer: "Social and emotional learning"
-    },
-    {
-        question: "Which of the following is a role taken by a teacher in education for sustainable development?",
-        options: ["facilitator", "guide", "role model", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "Target calls for strengthening efforts to protect and safeguard the world's cultural and natural heritage.",
-        options: ["9.5", "1.5", "2.3", "11.4"],
-        correctAnswer: "11.4"
-    },
-    {
-        question: "The UNESCO International Centre for Technical and Vocational Education and Training enables in member states.",
-        options: ["green TVET", "blue TVET", "orange TVET", "white TVET"],
-        correctAnswer: "green TVET"
-    },
-    {
-        question: "Which of the following statements is not true?",
-        options: ["green jobs contribute to preserving environmental quality", "green jobs ensure workers' rights", "green jobs are only found in the agriculture sector", "green jobs must be accessible to all"],
-        correctAnswer: "green jobs are only found in the agriculture sector"
-    },
+    { week: 3, question: "Global citizenship is a belief that individuals are members of networks.", options: ["multiple","diverse","local and non-local","all of the given"], correctAnswer: "all of the given" },
+    { week: 3, question: "A global citizen", options: ["is not aware of the wider world","is confused about their place in the world","takes an active role in their community","do not care much about the planet"], correctAnswer: "takes an active role in their community" },
+    { week: 3, question: "Global citizenship education is based on domains of learning.", options: ["three","two","four","seven"], correctAnswer: "three" },
+    { week: 3, question: "is UNESCO's first Category 1 education-related institute in the Asia-Pacific region.", options: ["MGEIN","MGIER","MGIEP","MGOEL"], correctAnswer: "MGIEP" },
+    { week: 3, question: "SDG target 4.7 rearticulates a agenda for education.", options: ["regional","behavioral","political","humanistic"], correctAnswer: "humanistic" },
+    { week: 3, question: "SEL stands for", options: ["Sustainable education and learning","Social and environmental learning","Social and emotional learning","Sustainable and economic learning"], correctAnswer: "Social and emotional learning" },
+    { week: 3, question: "Which of the following is a role taken by a teacher in education for sustainable development?", options: ["facilitator","guide","role model","all of the given"], correctAnswer: "all of the given" },
+    { week: 3, question: "Target calls for strengthening efforts to protect and safeguard the world's cultural and natural heritage.", options: ["9.5","1.5","2.3","11.4"], correctAnswer: "11.4" },
+    { week: 3, question: "The UNESCO International Centre for Technical and Vocational Education and Training enables in member states.", options: ["green TVET","blue TVET","orange TVET","white TVET"], correctAnswer: "green TVET" },
+    { week: 3, question: "Which of the following statements is not true?", options: ["green jobs contribute to preserving environmental quality","green jobs ensure workers' rights","green jobs are only found in the agriculture sector","green jobs must be accessible to all"], correctAnswer: "green jobs are only found in the agriculture sector" },
 
     // WEEK 4
-    {
-        question: "GESO stands for",
-        options: ["Green Education for Sustainable Occupation", "Green Enhanced Sustainable Occupation", "Green Enhanced Skills Occupation", "None of the above"],
-        correctAnswer: "Green Enhanced Skills Occupation"
-    },
-    {
-        question: "The classification of occupations into GIDO, GESO and GNEO is given by US National Center for",
-        options: ["G*NET", "A*NET", "I*NET", "O*NET"],
-        correctAnswer: "O*NET"
-    },
-    {
-        question: "The International Framework for Greening TVET consists of the following tiers, except",
-        options: ["Breaking TVET institutions", "Transforming TVET institutions", "Formulating National Policies", "Forming International Alliance"],
-        correctAnswer: "Breaking TVET institutions"
-    },
-    {
-        question: "Energy, water and waste management comes under the dimension of Greening TVET.",
-        options: ["Green research", "Green culture", "Green teaching", "Green campus"],
-        correctAnswer: "Green campus"
-    },
-    {
-        question: "Industry-institute interaction is an indicator of",
-        options: ["green house", "green teaching", "green campus", "green curriculum"],
-        correctAnswer: "green curriculum"
-    },
-    {
-        question: "Sustainable entrepreneurship includes",
-        options: ["social entrepreneurship", "eco-preneurship", "intra-preneurship", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "ESD requires learning methods.",
-        options: ["participatory", "passive", "rigid", "static"],
-        correctAnswer: "participatory"
-    },
-    {
-        question: "Which of the following is a transversal competency?",
-        options: ["creativity", "empathy", "systems thinking", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "is the ability to create good relationships and adapt to different social situations.",
-        options: ["emotional fitness", "mental health", "social health", "physical health"],
-        correctAnswer: "social health"
-    },
-    {
-        question: "Sustainable health is",
-        options: ["a curative approach", "only about the body", "a balance of mind, body and spirit", "only about mental health"],
-        correctAnswer: "a balance of mind, body and spirit"
-    },
+    { week: 4, question: "GESO stands for", options: ["Green Education for Sustainable Occupation","Green Enhanced Sustainable Occupation","Green Enhanced Skills Occupation","None of the above"], correctAnswer: "Green Enhanced Skills Occupation" },
+    { week: 4, question: "The classification of occupations into GIDO, GESO and GNEO is given by US National Center for", options: ["G*NET","A*NET","I*NET","O*NET"], correctAnswer: "O*NET" },
+    { week: 4, question: "The International Framework for Greening TVET consists of the following tiers, except", options: ["Breaking TVET institutions","Transforming TVET institutions","Formulating National Policies","Forming International Alliance"], correctAnswer: "Breaking TVET institutions" },
+    { week: 4, question: "Energy, water and waste management comes under the dimension of Greening TVET.", options: ["Green research","Green culture","Green teaching","Green campus"], correctAnswer: "Green campus" },
+    { week: 4, question: "Industry-institute interaction is an indicator of", options: ["green house","green teaching","green campus","green curriculum"], correctAnswer: "green curriculum" },
+    { week: 4, question: "Sustainable entrepreneurship includes", options: ["social entrepreneurship","eco-preneurship","intra-preneurship","all of the given"], correctAnswer: "all of the given" },
+    { week: 4, question: "ESD requires learning methods.", options: ["participatory","passive","rigid","static"], correctAnswer: "participatory" },
+    { week: 4, question: "Which of the following is a transversal competency?", options: ["creativity","empathy","systems thinking","all of the given"], correctAnswer: "all of the given" },
+    { week: 4, question: "is the ability to create good relationships and adapt to different social situations.", options: ["emotional fitness","mental health","social health","physical health"], correctAnswer: "social health" },
+    { week: 4, question: "Sustainable health is", options: ["a curative approach","only about the body","a balance of mind, body and spirit","only about mental health"], correctAnswer: "a balance of mind, body and spirit" },
 
     // WEEK 5
-    {
-        question: "Siddha comes under the",
-        options: ["public health sector", "voluntary health agencies", "indigenous system of medicine", "private health sector"],
-        correctAnswer: "indigenous system of medicine"
-    },
-    {
-        question: "Which of the following is not a problem of healthcare infrastructure in India?",
-        options: ["shortage of staff", "skewed favor to urban areas", "no proper regulatory mechanism", "standard procedures in all regions"],
-        correctAnswer: "standard procedures in all regions"
-    },
-    {
-        question: "Which of the following is a health system building block as suggested by WHO?",
-        options: ["Economic growth", "Access to public transport", "Politics", "Service delivery"],
-        correctAnswer: "Service delivery"
-    },
-    {
-        question: "An ecologically sustainable approach broadens the definition of",
-        options: ["objective", "outcome", "cost", "value"],
-        correctAnswer: "value"
-    },
-    {
-        question: "is an environment in which data of medical interest can be stored and made easily available.",
-        options: ["health repository", "health bank", "health bag", "health grid"],
-        correctAnswer: "health grid"
-    },
-    {
-        question: "The POSHAN Abhiyan in India aims to improve nutritional outcomes for",
-        options: ["children", "lactating mothers", "pregnant women", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "Sus-Ql stands for",
-        options: ["Sustainable quality improvement", "Sustainable quality improvisation", "Sustainable quantity improvement", "Sustainable quantity improvisation"],
-        correctAnswer: "Sustainable quality improvement"
-    },
-    {
-        question: "Which of the following is not a stage of Sus-QI?",
-        options: ["set goals", "measure impacts", "design the improvement effort", "ignore the system"],
-        correctAnswer: "ignore the system"
-    },
-    {
-        question: "Food insecurity is measured on the",
-        options: ["FIES", "FAIS", "FIET", "FAIR"],
-        correctAnswer: "FIES"
-    },
-    {
-        question: "The UN lists levels of food security for any given country.",
-        options: ["5", "4", "3", "2"],
-        correctAnswer: "5"
-    },
+    { week: 5, question: "Siddha comes under the", options: ["public health sector","voluntary health agencies","indigenous system of medicine","private health sector"], correctAnswer: "indigenous system of medicine" },
+    { week: 5, question: "Which of the following is not a problem of healthcare infrastructure in India?", options: ["shortage of staff","skewed favor to urban areas","no proper regulatory mechanism","standard procedures in all regions"], correctAnswer: "standard procedures in all regions" },
+    { week: 5, question: "Which of the following is a health system building block as suggested by WHO?", options: ["Economic growth","Access to public transport","Politics","Service delivery"], correctAnswer: "Service delivery" },
+    { week: 5, question: "An ecologically sustainable approach broadens the definition of", options: ["objective","outcome","cost","value"], correctAnswer: "value" },
+    { week: 5, question: "is an environment in which data of medical interest can be stored and made easily available.", options: ["health repository","health bank","health bag","health grid"], correctAnswer: "health grid" },
+    { week: 5, question: "The POSHAN Abhiyan in India aims to improve nutritional outcomes for", options: ["children","lactating mothers","pregnant women","all of the given"], correctAnswer: "all of the given" },
+    { week: 5, question: "Sus-Ql stands for", options: ["Sustainable quality improvement","Sustainable quality improvisation","Sustainable quantity improvement","Sustainable quantity improvisation"], correctAnswer: "Sustainable quality improvement" },
+    { week: 5, question: "Which of the following is not a stage of Sus-QI?", options: ["set goals","measure impacts","design the improvement effort","ignore the system"], correctAnswer: "ignore the system" },
+    { week: 5, question: "Food insecurity is measured on the", options: ["FIES","FAIS","FIET","FAIR"], correctAnswer: "FIES" },
+    { week: 5, question: "The UN lists levels of food security for any given country.", options: ["5","4","3","2"], correctAnswer: "5" },
 
     // WEEK 6
-    {
-        question: "Poor infrastructure can cause hunger in a country.",
-        options: ["True", "False"],
-        correctAnswer: "True"
-    },
-    {
-        question: "In high income countries, hunger is mainly caused due to poverty that results from",
-        options: ["low GDP of the country", "lack of access to food", "poor public transport infrastructure", "lack of jobs"],
-        correctAnswer: "lack of jobs"
-    },
-    {
-        question: "Which of the following is true about hunger?",
-        options: ["It is a cause of war", "It is an effect of war", "It is both a cause and effect of war", "It is neither a cause nor an effect of war"],
-        correctAnswer: "It is both a cause and effect of war"
-    },
-    {
-        question: "are most vulnerable to the harmful effects of hidden hunger.",
-        options: ["adults", "infants", "adolescents", "elderly"],
-        correctAnswer: "infants"
-    },
-    {
-        question: "Desertification is typically a result of",
-        options: ["drought", "deforestation", "inappropriate agriculture", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "Which of the following is a key initiative in India for the problem of hunger?",
-        options: ["One Nation, One Plate", "One Nation, One Hunger", "One Nation, No Ration Card", "One Nation, One Ration Card"],
-        correctAnswer: "One Nation, One Ration Card"
-    },
-    {
-        question: "In the past, MGNREGA has",
-        options: ["decreased rural wages", "increased gender wage gaps", "enabled poor access to food", "reduced distress migration from rural areas"],
-        correctAnswer: "reduced distress migration from rural areas"
-    },
-    {
-        question: "Wheat productivity can suffer if",
-        options: ["temperature rises", "temperature does not change", "temperature falls", "none of the given"],
-        correctAnswer: "temperature rises"
-    },
-    {
-        question: "Bringing forgotten and neglected foods like yam into cultivation and onto the market is called",
-        options: ["diversifying food basket", "restricting food basket", "completing food box", "wasting food basket"],
-        correctAnswer: "diversifying food basket"
-    },
-    {
-        question: "Home gardening has been proven as a reliable source to supplement food and nutritional security",
-        options: ["True", "False"],
-        correctAnswer: "True"
-    },
+    { week: 6, question: "Poor infrastructure can cause hunger in a country.", options: ["True","False"], correctAnswer: "True" },
+    { week: 6, question: "In high income countries, hunger is mainly caused due to poverty that results from", options: ["low GDP of the country","lack of access to food","poor public transport infrastructure","lack of jobs"], correctAnswer: "lack of jobs" },
+    { week: 6, question: "Which of the following is true about hunger?", options: ["It is a cause of war","It is an effect of war","It is both a cause and effect of war","It is neither a cause nor an effect of war"], correctAnswer: "It is both a cause and effect of war" },
+    { week: 6, question: "are most vulnerable to the harmful effects of hidden hunger.", options: ["adults","infants","adolescents","elderly"], correctAnswer: "infants" },
+    { week: 6, question: "Desertification is typically a result of", options: ["drought","deforestation","inappropriate agriculture","all of the given"], correctAnswer: "all of the given" },
+    { week: 6, question: "Which of the following is a key initiative in India for the problem of hunger?", options: ["One Nation, One Plate","One Nation, One Hunger","One Nation, No Ration Card","One Nation, One Ration Card"], correctAnswer: "One Nation, One Ration Card" },
+    { week: 6, question: "In the past, MGNREGA has", options: ["decreased rural wages","increased gender wage gaps","enabled poor access to food","reduced distress migration from rural areas"], correctAnswer: "reduced distress migration from rural areas" },
+    { week: 6, question: "Wheat productivity can suffer if", options: ["temperature rises","temperature does not change","temperature falls","none of the given"], correctAnswer: "temperature rises" },
+    { week: 6, question: "Bringing forgotten and neglected foods like yam into cultivation and onto the market is called", options: ["diversifying food basket","restricting food basket","completing food box","wasting food basket"], correctAnswer: "diversifying food basket" },
+    { week: 6, question: "Home gardening has been proven as a reliable source to supplement food and nutritional security", options: ["True","False"], correctAnswer: "True" },
 
     // WEEK 7
-    {
-        question: "Which of the following is a type of energy?",
-        options: ["fossil fuels", "nuclear power", "traditional biomass", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "In IPCC by UN, I stands for",
-        options: ["Industrial", "Internal", "International", "Intergovernmental"],
-        correctAnswer: "Intergovernmental"
-    },
-    {
-        question: "The extraction, transport and refinement of nuclear fuels results in",
-        options: ["improvement of land from mining", "pollution of air and water", "replenishment of biodiversity", "all of the given"],
-        correctAnswer: "pollution of air and water"
-    },
-    {
-        question: "The greatest contributor to air pollution in China is",
-        options: ["cooking and heating", "coal burning", "transport", "forest burning"],
-        correctAnswer: "coal burning"
-    },
-    {
-        question: "In the wake of tsunami and nuclear disaster following severe earthquake in 2011, a city in Japan set a target for",
-        options: ["hundred net energy", "one net energy", "million net energy", "zero net energy"],
-        correctAnswer: "zero net energy"
-    },
-    {
-        question: "The term 'energy democracy' grew out of the movement.",
-        options: ["hunger justice", "hunger revolt", "climate revolt", "climate justice"],
-        correctAnswer: "climate justice"
-    },
-    {
-        question: "The Paris Agreement is a legally binding treaty on adopted by 196 parties at COP 21 in 2015.",
-        options: ["climate change", "education", "poverty", "none of the given"],
-        correctAnswer: "climate change"
-    },
-    {
-        question: "The Government of India launched the NAPCC in 2008 outlining National Missions on climate change.",
-        options: ["8", "2", "100", "78"],
-        correctAnswer: "8"
-    },
-    {
-        question: "Stubble burning usually takes place in the months of",
-        options: ["October-November", "May-June", "January-February", "July-August"],
-        correctAnswer: "October-November"
-    },
-    {
-        question: "Stubble burning is",
-        options: ["intentional", "natural", "healthy for air quality", "related to burning of paper"],
-        correctAnswer: "intentional"
-    },
+    { week: 7, question: "Which of the following is a type of energy?", options: ["fossil fuels","nuclear power","traditional biomass","all of the given"], correctAnswer: "all of the given" },
+    { week: 7, question: "In IPCC by UN, I stands for", options: ["Industrial","Internal","International","Intergovernmental"], correctAnswer: "Intergovernmental" },
+    { week: 7, question: "The extraction, transport and refinement of nuclear fuels results in", options: ["improvement of land from mining","pollution of air and water","replenishment of biodiversity","all of the given"], correctAnswer: "pollution of air and water" },
+    { week: 7, question: "The greatest contributor to air pollution in China is", options: ["cooking and heating","coal burning","transport","forest burning"], correctAnswer: "coal burning" },
+    { week: 7, question: "In the wake of tsunami and nuclear disaster following severe earthquake in 2011, a city in Japan set a target for", options: ["hundred net energy","one net energy","million net energy","zero net energy"], correctAnswer: "zero net energy" },
+    { week: 7, question: "The term 'energy democracy' grew out of the movement.", options: ["hunger justice","hunger revolt","climate revolt","climate justice"], correctAnswer: "climate justice" },
+    { week: 7, question: "The Paris Agreement is a legally binding treaty on adopted by 196 parties at COP 21 in 2015.", options: ["climate change","education","poverty","none of the given"], correctAnswer: "climate change" },
+    { week: 7, question: "The Government of India launched the NAPCC in 2008 outlining National Missions on climate change.", options: ["8","2","100","78"], correctAnswer: "8" },
+    { week: 7, question: "Stubble burning usually takes place in the months of", options: ["October-November","May-June","January-February","July-August"], correctAnswer: "October-November" },
+    { week: 7, question: "Stubble burning is", options: ["intentional","natural","healthy for air quality","related to burning of paper"], correctAnswer: "intentional" },
 
     // WEEK 8
-    {
-        question: "The Okayama Commitment is from",
-        options: ["Russia", "South Korea", "North Korea", "Japan"],
-        correctAnswer: "Japan"
-    },
-    {
-        question: "Which of the following is a policy support mechanism of Okayama Commitment?",
-        options: ["Taking money", "Content development", "Exploitation of resources", "None of the given"],
-        correctAnswer: "Content development"
-    },
-    {
-        question: "Education is related to SDG 9 such that",
-        options: ["education helps in skills required to build resilient infrastructure", "education enhances skills to use natural resources more sustainably", "education is critical to lifting people out of poverty", "education helps reduce gender gaps"],
-        correctAnswer: "education helps in skills required to build resilient infrastructure"
-    },
-    {
-        question: "The frame model structures sustainability competencies into _ goal dimensions.",
-        options: ["8", "3", "11", "45"],
-        correctAnswer: "3"
-    },
-    {
-        question: "Sustainability issues must be looked at through a approach.",
-        options: ["isolated thinking", "independent thinking", "silos thinking", "systems thinking"],
-        correctAnswer: "systems thinking"
-    },
-    {
-        question: "Technology and Science can alone solve all our sustainability problems.",
-        options: ["True", "False"],
-        correctAnswer: "False"
-    },
-    {
-        question: "GAP in the context of ESD stands for",
-        options: ["Global Action Programme", "Great Activity Plan", "Global Attention Programme", "Great Action Policy"],
-        correctAnswer: "Global Action Programme"
-    },
-    {
-        question: "competency is the ability to understand and evaluate multiple futures.",
-        options: ["anticipatory", "normative", "strategic", "collaborative"],
-        correctAnswer: "anticipatory"
-    },
-    {
-        question: "The ability to question norms is competency.",
-        options: ["critical thinking", "normative", "anticipatory", "self-awareness"],
-        correctAnswer: "critical thinking"
-    },
-    {
-        question: "Action-oriented learning draws on Kolb's concept of",
-        options: ["experiential learning", "experimental learning", "rote learning", "direct learning"],
-        correctAnswer: "experimental learning"
-    },
+    { week: 8, question: "The Okayama Commitment is from", options: ["Russia","South Korea","North Korea","Japan"], correctAnswer: "Japan" },
+    { week: 8, question: "Which of the following is a policy support mechanism of Okayama Commitment?", options: ["Taking money","Content development","Exploitation of resources","None of the given"], correctAnswer: "Content development" },
+    { week: 8, question: "Education is related to SDG 9 such that", options: ["education helps in skills required to build resilient infrastructure","education enhances skills to use natural resources more sustainably","education is critical to lifting people out of poverty","education helps reduce gender gaps"], correctAnswer: "education helps in skills required to build resilient infrastructure" },
+    { week: 8, question: "The frame model structures sustainability competencies into _ goal dimensions.", options: ["8","3","11","45"], correctAnswer: "3" },
+    { week: 8, question: "Sustainability issues must be looked at through a approach.", options: ["isolated thinking","independent thinking","silos thinking","systems thinking"], correctAnswer: "systems thinking" },
+    { week: 8, question: "Technology and Science can alone solve all our sustainability problems.", options: ["True","False"], correctAnswer: "False" },
+    { week: 8, question: "GAP in the context of ESD stands for", options: ["Global Action Programme","Great Activity Plan","Global Attention Programme","Great Action Policy"], correctAnswer: "Global Action Programme" },
+    { week: 8, question: "competency is the ability to understand and evaluate multiple futures.", options: ["anticipatory","normative","strategic","collaborative"], correctAnswer: "anticipatory" },
+    { week: 8, question: "The ability to question norms is competency.", options: ["critical thinking","normative","anticipatory","self-awareness"], correctAnswer: "critical thinking" },
+    { week: 8, question: "Action-oriented learning draws on Kolb's concept of", options: ["experiential learning","experimental learning","rote learning","direct learning"], correctAnswer: "experiential learning" },
 
     // WEEK 9
-    {
-        question: "Activities like fish bowl discussion help",
-        options: ["passive thinking", "critical and reflexive thinking", "rote-memory", "all of the given"],
-        correctAnswer: "critical and reflexive thinking"
-    },
-    {
-        question: "Which of the following is not a vision-building exercise?",
-        options: ["scenario analysis", "classroom teaching", "science fiction thinking", "dystopian storytelling"],
-        correctAnswer: "classroom teaching"
-    },
-    {
-        question: "The ability to hold contradictory thoughts and feelings is an competency.",
-        options: ["intellectual", "interpersonal", "intrapersonal", "institutional"],
-        correctAnswer: "intrapersonal"
-    },
-    {
-        question: "intelligences is proposed by Howard Gardner.",
-        options: ["multiple", "singular", "double", "triple"],
-        correctAnswer: "multiple"
-    },
-    {
-        question: "intelligence refers to using one's body in skilled ways.",
-        options: ["kinesthetic", "musical", "naturalist", "spatial"],
-        correctAnswer: "kinesthetic"
-    },
-    {
-        question: "The idea of big transformation implies that changes in individual action are intertwined with",
-        options: ["reorganization of self", "reorganization of societal structures", "ignorance of others", "none of the given"],
-        correctAnswer: "reorganization of societal structures"
-    },
-    {
-        question: "In learning, learners start to question all the things they knew to make room for new insights and information.",
-        options: ["transformative", "transactional", "trivial", "trans-disciplinary"],
-        correctAnswer: "transformative"
-    },
-    {
-        question: "Which of the following is a key principle of adult education?",
-        options: ["need to know why", "guilt", "boredom", "none of the given"],
-        correctAnswer: "need to know why"
-    },
-    {
-        question: "Sustainable Development is a process through which people influence and share control over development initiatives, decisions and sources that affects them.",
-        options: ["Internal", "Societal", "Participatory", "Transformational"],
-        correctAnswer: "Participatory"
-    },
-    {
-        question: "is the common regulatory body for higher education in India.",
-        options: ["HECI", "WHO", "AIIMS", "None of the given"],
-        correctAnswer: "HECI"
-    },
+    { week: 9, question: "Activities like fish bowl discussion help", options: ["passive thinking","critical and reflexive thinking","rote-memory","all of the given"], correctAnswer: "critical and reflexive thinking" },
+    { week: 9, question: "Which of the following is not a vision-building exercise?", options: ["scenario analysis","classroom teaching","science fiction thinking","dystopian storytelling"], correctAnswer: "classroom teaching" },
+    { week: 9, question: "The ability to hold contradictory thoughts and feelings is an competency.", options: ["intellectual","interpersonal","intrapersonal","institutional"], correctAnswer: "intrapersonal" },
+    { week: 9, question: "intelligences is proposed by Howard Gardner.", options: ["multiple","singular","double","triple"], correctAnswer: "multiple" },
+    { week: 9, question: "intelligence refers to using one's body in skilled ways.", options: ["kinesthetic","musical","naturalist","spatial"], correctAnswer: "kinesthetic" },
+    { week: 9, question: "The idea of big transformation implies that changes in individual action are intertwined with", options: ["reorganization of self","reorganization of societal structures","ignorance of others","none of the given"], correctAnswer: "reorganization of societal structures" },
+    { week: 9, question: "In learning, learners start to question all the things they knew to make room for new insights and information.", options: ["transformative","transactional","trivial","trans-disciplinary"], correctAnswer: "transformative" },
+    { week: 9, question: "Which of the following is a key principle of adult education?", options: ["need to know why","guilt","boredom","none of the given"], correctAnswer: "need to know why" },
+    { week: 9, question: "Sustainable Development is a process through which people influence and share control over development initiatives, decisions and sources that affects them.", options: ["Internal","Societal","Participatory","Transformational"], correctAnswer: "Participatory" },
+    { week: 9, question: "is the common regulatory body for higher education in India.", options: ["HECI","WHO","AIIMS","None of the given"], correctAnswer: "HECI" },
 
     // WEEK 10
-    {
-        question: "Sustainable leaders look at immediate, short-term gains.",
-        options: ["True", "False"],
-        correctAnswer: "False"
-    },
-    {
-        question: "The need of the hour is to have leaders who",
-        options: ["focus only on business profit", "focus only on building technical solutions", "take a holistic approach", "none of the given"],
-        correctAnswer: "take a holistic approach"
-    },
-    {
-        question: "Which of the following is a part of the 3Ps of triple bottom line?",
-        options: ["Profit", "Passion", "Party", "Pivot"],
-        correctAnswer: "Profit"
-    },
-    {
-        question: "Organizations need leaders who create value for",
-        options: ["internal stakeholders", "external stakeholders", "oneself", "all stakeholders"],
-        correctAnswer: "all stakeholders"
-    },
-    {
-        question: "The sustainability mindset involves",
-        options: ["transparency", "presencing", "integrity", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "Finding ways to maintain one's own and others' energy is an unsustainable leadership practice.",
-        options: ["True", "False"],
-        correctAnswer: "False"
-    },
-    {
-        question: "Systems thinking is often highlighted by the ability to",
-        options: ["zoom in", "zoom out", "zoom in and out", "none of the given"],
-        correctAnswer: "zoom in and out"
-    },
-    {
-        question: "Practicing consciousness awareness includes",
-        options: ["ignoring self with others", "forgetting about what has happened and moving on", "living in denial", "authentic interactions"],
-        correctAnswer: "authentic interactions"
-    },
-    {
-        question: "is the last challenge of leadership; of letting go, moving on, and planning for one's own obsolescence.",
-        options: ["succession", "regression", "formation", "integration"],
-        correctAnswer: "succession"
-    },
-    {
-        question: "leadership is also called missionary leadership and is different from quiet leadership.",
-        options: ["participative", "servant", "radical", "inspirational"],
-        correctAnswer: "radical"
-    },
+    { week: 10, question: "Sustainable leaders look at immediate, short-term gains.", options: ["True","False"], correctAnswer: "False" },
+    { week: 10, question: "The need of the hour is to have leaders who", options: ["focus only on business profit","focus only on building technical solutions","take a holistic approach","none of the given"], correctAnswer: "take a holistic approach" },
+    { week: 10, question: "Which of the following is a part of the 3Ps of triple bottom line?", options: ["Profit","Passion","Party","Pivot"], correctAnswer: "Profit" },
+    { week: 10, question: "Organizations need leaders who create value for", options: ["internal stakeholders","external stakeholders","oneself","all stakeholders"], correctAnswer: "all stakeholders" },
+    { week: 10, question: "The sustainability mindset involves", options: ["transparency","presencing","integrity","all of the given"], correctAnswer: "all of the given" },
+    { week: 10, question: "Finding ways to maintain one's own and others' energy is an unsustainable leadership practice.", options: ["True","False"], correctAnswer: "False" },
+    { week: 10, question: "Systems thinking is often highlighted by the ability to", options: ["zoom in","zoom out","zoom in and out","none of the given"], correctAnswer: "zoom in and out" },
+    { week: 10, question: "Practicing consciousness awareness includes", options: ["ignoring self with others","forgetting about what has happened and moving on","living in denial","authentic interactions"], correctAnswer: "authentic interactions" },
+    { week: 10, question: "is the last challenge of leadership; of letting go, moving on, and planning for one's own obsolescence.", options: ["succession","regression","formation","integration"], correctAnswer: "succession" },
+    { week: 10, question: "leadership is also called missionary leadership and is different from quiet leadership.", options: ["participative","servant","radical","inspirational"], correctAnswer: "radical" },
 
     // WEEK 11
-    {
-        question: "There is one universal curriculum to become a sustainable leader.",
-        options: ["True", "False"],
-        correctAnswer: "False"
-    },
-    {
-        question: "A sustainable leader has a decision-making style.",
-        options: ["forceful", "autocratic", "selfish", "consensual"],
-        correctAnswer: "consensual"
-    },
-    {
-        question: "A sustainable leader must have awareness of contexts.",
-        options: ["ecological", "economic", "political", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "The 'results' component of sustainable leadership relates with the dimension",
-        options: ["institutional", "social", "environmental", "economic"],
-        correctAnswer: "economic"
-    },
-    {
-        question: "____ India gives a theory U that consists of aspects like co-initiating, co-sensing and co-evolving among others.",
-        options: ["HEAD", "SAID", "GEAD", "LEAD"],
-        correctAnswer: "LEAD"
-    },
-    {
-        question: "The ____ component in theory 'U' entails prototyping the new.",
-        options: ["co-evolving", "co-initiating", "co-sensing", "co-creating"],
-        correctAnswer: "co-creating"
-    },
-    {
-        question: "Which of the following factor does not aid in becoming a global leader?",
-        options: ["willingness to stay in one's comfort zone", "undesirable circumstances like poverty", "confidence to embrace risk", "willingness to learn from failure"],
-        correctAnswer: "willingness to stay in one's comfort zone"
-    },
-    {
-        question: "According to Maxwell, there are levels of leadership.",
-        options: ["15", "25", "50", "5"],
-        correctAnswer: "5"
-    },
-    {
-        question: "The ____ in relation to their Global Leadership Fellowship program, describes global leaders as dynamic, engaged and driven individuals who possess a high degree of intellectual curiosity and service-oriented humility;",
-        options: ["World Health Organization", "World Labor Organization", "World Economic Forum", "World Political Forum"],
-        correctAnswer: "World Economic Forum"
-    },
-    {
-        question: "SDG ____ is to make cities and human settlements inclusive, safe, resilient, and sustainable.",
-        options: ["2", "10", "11", "5"],
-        correctAnswer: "11"
-    },
+    { week: 11, question: "There is one universal curriculum to become a sustainable leader.", options: ["True","False"], correctAnswer: "False" },
+    { week: 11, question: "A sustainable leader has a decision-making style.", options: ["forceful","autocratic","selfish","consensual"], correctAnswer: "consensual" },
+    { week: 11, question: "A sustainable leader must have awareness of contexts.", options: ["ecological","economic","political","all of the given"], correctAnswer: "all of the given" },
+    { week: 11, question: "The 'results' component of sustainable leadership relates with the dimension", options: ["institutional","social","environmental","economic"], correctAnswer: "economic" },
+    { week: 11, question: "____ India gives a theory U that consists of aspects like co-initiating, co-sensing and co-evolving among others.", options: ["HEAD","SAID","GEAD","LEAD"], correctAnswer: "LEAD" },
+    { week: 11, question: "The ____ component in theory 'U' entails prototyping the new.", options: ["co-evolving","co-initiating","co-sensing","co-creating"], correctAnswer: "co-creating" },
+    { week: 11, question: "Which of the following factor does not aid in becoming a global leader?", options: ["willingness to stay in one's comfort zone","undesirable circumstances like poverty","confidence to embrace risk","willingness to learn from failure"], correctAnswer: "willingness to stay in one's comfort zone" },
+    { week: 11, question: "According to Maxwell, there are levels of leadership.", options: ["15","25","50","5"], correctAnswer: "5" },
+    { week: 11, question: "The ____ in relation to their Global Leadership Fellowship program, describes global leaders as dynamic, engaged and driven individuals who possess a high degree of intellectual curiosity and service-oriented humility;", options: ["World Health Organization","World Labor Organization","World Economic Forum","World Political Forum"], correctAnswer: "World Economic Forum" },
+    { week: 11, question: "SDG ____ is to make cities and human settlements inclusive, safe, resilient, and sustainable.", options: ["2","10","11","5"], correctAnswer: "11" },
 
     // WEEK 12
-    {
-        question: "____ resources are those that exist in the absence of human intervention.",
-        options: ["Artificial", "Natural", "Fake", "Real"],
-        correctAnswer: "Natural"
-    },
-    {
-        question: "The food sector accounts for around ____ percent of total greenhouse gas emissions.",
-        options: ["3", "22", "100", "90"],
-        correctAnswer: "22"
-    },
-    {
-        question: "Which of the following is not a solution for natural resource depletion?",
-        options: ["use less renewable energy", "promote sustainable fishing growth", "reduce food waste", "treat wastewater before discharging"],
-        correctAnswer: "use less renewable energy"
-    },
-    {
-        question: "In order to support reform on green fiscal policy, UN Environment has established the ____ in partnership with the International Monetary Fund.",
-        options: ["Green Fiscal Policy Network", "Blue Fiscal Policy Network", "Green Fishery Policy Network", "Green Fiscal Policy Natural"],
-        correctAnswer: "Green Fiscal Policy Network"
-    },
-    {
-        question: "As responsible consumers, we should ask ourselves '____' before buying anything.",
-        options: ["do I really need it?", "how long will I use it?", "can I borrow it from someone I know?", "all of the given"],
-        correctAnswer: "all of the given"
-    },
-    {
-        question: "A bulb thrown out after usage forms",
-        options: ["wet waste", "valuable waste", "responsible waste", "e-waste"],
-        correctAnswer: "e-waste"
-    },
-    {
-        question: "SDG ____ seeks to promote international trade, and help developing countries increase their exports to ensure a universal rules-based and equitable trading system that is fair, open and beneficial to all.",
-        options: ["17", "2", "6", "11"],
-        correctAnswer: "17"
-    },
-    {
-        question: "According to Gandhiji, wealth should be used for",
-        options: ["the betterment of the humanity", "personal indulgence", "conflicts", "politics"],
-        correctAnswer: "the betterment of the humanity"
-    },
-    {
-        question: "The ____ initiated and spearheaded by Gandhiji is the preeminent prototype of small and cottage industries.",
-        options: ["Khadi Movement", "Salt March", "Cotton Movement", "Non-violent Protest"],
-        correctAnswer: "Khadi Movement"
-    },
-    {
-        question: "____ is the ability of a system to absorb disturbances & retain its basic function and structure.",
-        options: ["resilience", "gratitude", "mindfulness", "sustainable consumption"],
-        correctAnswer: "resilience"
-    }
+    { week: 12, question: "____ resources are those that exist in the absence of human intervention.", options: ["Artificial","Natural","Fake","Real"], correctAnswer: "Natural" },
+    { week: 12, question: "The food sector accounts for around ____ percent of total greenhouse gas emissions.", options: ["3","22","100","90"], correctAnswer: "22" },
+    { week: 12, question: "Which of the following is not a solution for natural resource depletion?", options: ["use less renewable energy","promote sustainable fishing growth","reduce food waste","treat wastewater before discharging"], correctAnswer: "use less renewable energy" },
+    { week: 12, question: "In order to support reform on green fiscal policy, UN Environment has established the ____ in partnership with the International Monetary Fund.", options: ["Green Fiscal Policy Network","Blue Fiscal Policy Network","Green Fishery Policy Network","Green Fiscal Policy Natural"], correctAnswer: "Green Fiscal Policy Network" },
+    { week: 12, question: "As responsible consumers, we should ask ourselves '____' before buying anything.", options: ["do I really need it?","how long will I use it?","can I borrow it from someone I know?","all of the given"], correctAnswer: "all of the given" },
+    { week: 12, question: "A bulb thrown out after usage forms", options: ["wet waste","valuable waste","responsible waste","e-waste"], correctAnswer: "e-waste" },
+    { week: 12, question: "SDG ____ seeks to promote international trade, and help developing countries increase their exports to ensure a universal rules-based and equitable trading system that is fair, open and beneficial to all.", options: ["17","2","6","11"], correctAnswer: "17" },
+    { week: 12, question: "According to Gandhiji, wealth should be used for", options: ["the betterment of the humanity","personal indulgence","conflicts","politics"], correctAnswer: "the betterment of the humanity" },
+    { week: 12, question: "The ____ initiated and spearheaded by Gandhiji is the preeminent prototype of small and cottage industries.", options: ["Khadi Movement","Salt March","Cotton Movement","Non-violent Protest"], correctAnswer: "Khadi Movement" },
+    { week: 12, question: "____ is the ability of a system to absorb disturbances & retain its basic function and structure.", options: ["resilience","gratitude","mindfulness","sustainable consumption"], correctAnswer: "resilience" }
 ];
 
-        let currentQuizData = [];
-        
-        const quizContainer = document.getElementById('quiz');
-        const submitButton = document.getElementById('submit');
-        const resetButton = document.getElementById('reset');
-        const scoreDisplay = document.getElementById('score');
-        const regenerateBtn = document.getElementById('regenerate-btn');
-        const progressBar = document.getElementById('progress');
-        
-        // Function to shuffle array (Fisher-Yates algorithm)
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-        
-        // Function to select 4 questions from each week + 2 bonus questions for total of 50
-        function generateQuizQuestions() {
-            const selectedQuestions = [];
-            
-            // For each week (1-12), select 4 random questions
-            for (let week = 1; week <= 12; week++) {
-                const weekQuestions = allQuestions.filter(q => q.week === week);
-                const shuffled = shuffleArray(weekQuestions);
-                const selected = shuffled.slice(0, 4);
-                selectedQuestions.push(...selected);
-            }
-            
-            // Add 2 more random questions from any week to make it 50 total
-            const remainingQuestions = allQuestions.filter(q => !selectedQuestions.includes(q));
-            const shuffledRemaining = shuffleArray(remainingQuestions);
-            const bonusQuestions = shuffledRemaining.slice(0, 2);
-            selectedQuestions.push(...bonusQuestions);
-            
-            // Shuffle the final 50 questions
-            return shuffleArray(selectedQuestions);
-        }
-        
-        function buildQuiz() {
-            const output = [];
-            
-            currentQuizData.forEach((question, questionIndex) => {
-                const options = [];
-                
-                for (let i = 0; i < question.options.length; i++) {
-                    options.push(
-                        `<div class="option">
-                            <input type="radio" id="question${questionIndex}option${i}" name="question${questionIndex}" value="${question.options[i]}">
-                            <label for="question${questionIndex}option${i}">${question.options[i]}</label>
-                        </div>`
-                    );
-                }
-                
-                output.push(
-                    `<div class="question-container">
-                        <div class="question">${questionIndex + 1}. ${question.question}</div>
-                        <div class="options">${options.join('')}</div>
-                        <div class="feedback" id="feedback${questionIndex}"></div>
-                    </div>`
-                );
-            });
-            
-            quizContainer.innerHTML = output.join('');
-            
-            updateProgress();
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
-            radioButtons.forEach(button => {
-                button.addEventListener('change', updateProgress);
-            });
-        }
-        
-        function updateProgress() {
-            const totalQuestions = currentQuizData.length;
-            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
-            const progressPercentage = Math.round((answeredQuestions / totalQuestions) * 100);
-            
-            progressBar.style.width = `${progressPercentage}%`;
-            progressBar.textContent = `${progressPercentage}% Complete`;
-        }
-        
-        function showResults() {
-            const answerContainers = quizContainer.querySelectorAll('.question-container');
-            let score = 0;
-            
-            currentQuizData.forEach((question, questionIndex) => {
-                const answerContainer = answerContainers[questionIndex];
-                const selector = `input[name=question${questionIndex}]:checked`;
-                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-                const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
-                
-                if (userAnswer === question.correctAnswer) {
-                    score++;
-                    feedbackDiv.innerHTML = `<span style="font-size:18px">✓</span> Yes, the answer is correct.<br>Accepted Answer:<br><em>${question.correctAnswer}</em><br><strong>1 point</strong>`;
-                    feedbackDiv.className = 'feedback correct';
-                    answerContainer.style.borderLeft = '4px solid #3c763d';
-                } else {
-                    feedbackDiv.innerHTML = `<span style="font-size:18px">✗</span> Incorrect. The correct answer is:<br><em>${question.correctAnswer}</em>`;
-                    feedbackDiv.className = 'feedback incorrect';
-                    answerContainer.style.borderLeft = '4px solid #a94442';
-                }
-                
-                feedbackDiv.style.display = 'block';
-            });
-            
-            const percentage = Math.round((score / currentQuizData.length) * 100);
-            scoreDisplay.innerHTML = `
-                <div style="font-size: 24px; margin-bottom: 10px;">Final Score: ${score} out of ${currentQuizData.length} (${percentage}%)</div>
-                <div style="font-size: 18px;">${getScoreMessage(percentage)}</div>
-            `;
-            
-            submitButton.style.display = 'none';
-            resetButton.style.display = 'block';
-        }
+let currentQuizData = [];
 
-        function getScoreMessage(percentage) {
-            if (percentage >= 90) {
-                return "Excellent! You're a Education for Sustainable Development expert! 🌳👑";
-            } else if (percentage >= 70) {
-                return "Great job! You have solid knowledge about Education for Sustainable Development ! 🌲";
-            } else if (percentage >= 50) {
-                return "Good effort! Keep learning about our Education for Sustainable Development! 🌱";
-            } else {
-                return "You might want to review the Education for Sustainable Development concepts again. Don't give up! 📚";
-            }
+const quizContainer = document.getElementById('quiz');
+const submitButton = document.getElementById('submit');
+const resetButton = document.getElementById('reset');
+const scoreDisplay = document.getElementById('score');
+const regenerateBtn = document.getElementById('regenerate-btn');
+const progressBar = document.getElementById('progress');
+
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function generateQuizQuestions() {
+    const selectedQuestions = [];
+
+    // Select 4 random questions from each of the 12 weeks
+    for (let week = 1; week <= 12; week++) {
+        const weekQuestions = allQuestions.filter(q => q.week === week);
+        const shuffled = shuffleArray(weekQuestions);
+        selectedQuestions.push(...shuffled.slice(0, 4));
+    }
+
+    // Add 2 bonus questions from remaining pool
+    const remainingQuestions = allQuestions.filter(q => !selectedQuestions.includes(q));
+    const bonusQuestions = shuffleArray(remainingQuestions).slice(0, 2);
+    selectedQuestions.push(...bonusQuestions);
+
+    return shuffleArray(selectedQuestions);
+}
+
+function buildQuiz() {
+    const output = [];
+
+    currentQuizData.forEach((question, questionIndex) => {
+        const options = question.options.map((opt, i) =>
+            `<div class="option">
+                <input type="radio" id="q${questionIndex}o${i}" name="question${questionIndex}" value="${opt}">
+                <label for="q${questionIndex}o${i}">${opt}</label>
+            </div>`
+        ).join('');
+
+        output.push(
+            `<div class="question-container">
+                <div class="question">${questionIndex + 1}. ${question.question}</div>
+                <div class="options">${options}</div>
+                <div class="feedback" id="feedback${questionIndex}"></div>
+            </div>`
+        );
+    });
+
+    quizContainer.innerHTML = output.join('');
+    updateProgress();
+    document.querySelectorAll('input[type="radio"]').forEach(btn => btn.addEventListener('change', updateProgress));
+}
+
+function updateProgress() {
+    const total = currentQuizData.length;
+    const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+    const pct = Math.round((answered / total) * 100);
+    progressBar.style.width = `${pct}%`;
+    progressBar.textContent = `${pct}% Complete`;
+}
+
+function showResults() {
+    let score = 0;
+    const answerContainers = quizContainer.querySelectorAll('.question-container');
+
+    currentQuizData.forEach((question, questionIndex) => {
+        const container = answerContainers[questionIndex];
+        const selected = container.querySelector(`input[name=question${questionIndex}]:checked`);
+        const userAnswer = selected ? selected.value : null;
+        const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+
+        if (userAnswer === question.correctAnswer) {
+            score++;
+            feedbackDiv.innerHTML = `<span style="font-size:18px">✓</span> Correct!<br>Answer: <em>${question.correctAnswer}</em><br><strong>1 point</strong>`;
+            feedbackDiv.className = 'feedback correct';
+            container.style.borderLeft = '4px solid #3c763d';
+        } else {
+            feedbackDiv.innerHTML = `<span style="font-size:18px">✗</span> Incorrect. Correct answer:<br><em>${question.correctAnswer}</em>`;
+            feedbackDiv.className = 'feedback incorrect';
+            container.style.borderLeft = '4px solid #a94442';
         }
+        feedbackDiv.style.display = 'block';
+    });
 
-        function resetQuiz() {
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
-            radioButtons.forEach(button => button.checked = false);
-            
-            const feedbackDivs = document.querySelectorAll('.feedback');
-            feedbackDivs.forEach(div => div.style.display = 'none');
-            
-            const questionContainers = document.querySelectorAll('.question-container');
-            questionContainers.forEach(container => container.style.borderLeft = '1px solid #ddd');
-            
-            scoreDisplay.innerHTML = '';
-            
-            submitButton.style.display = 'block';
-            resetButton.style.display = 'none';
-            
-            progressBar.style.width = '0%';
-            progressBar.textContent = '0% Complete';
-        }
+    const pct = Math.round((score / currentQuizData.length) * 100);
+    scoreDisplay.innerHTML = `
+        <div style="font-size:24px;margin-bottom:10px;">Final Score: ${score} / ${currentQuizData.length} (${pct}%)</div>
+        <div style="font-size:18px;">${getScoreMessage(pct)}</div>
+    `;
+    submitButton.style.display = 'none';
+    resetButton.style.display = 'block';
+}
 
-        function regenerateQuiz() {
-            currentQuizData = generateQuizQuestions();
-            buildQuiz();
-            resetQuiz();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+function getScoreMessage(pct) {
+    if (pct >= 90) return "Excellent! You're an ESD expert! 🌳👑";
+    if (pct >= 70) return "Great job! Solid knowledge of ESD! 🌲";
+    if (pct >= 50) return "Good effort! Keep learning about ESD! 🌱";
+    return "You might want to review the ESD concepts again. Don't give up! 📚";
+}
 
-        // Initialize quiz on page load
-        currentQuizData = generateQuizQuestions();
-        buildQuiz();
+function resetQuiz() {
+    document.querySelectorAll('input[type="radio"]').forEach(btn => btn.checked = false);
+    document.querySelectorAll('.feedback').forEach(div => div.style.display = 'none');
+    document.querySelectorAll('.question-container').forEach(c => c.style.borderLeft = '1px solid #ddd');
+    scoreDisplay.innerHTML = '';
+    submitButton.style.display = 'block';
+    resetButton.style.display = 'none';
+    progressBar.style.width = '0%';
+    progressBar.textContent = '0% Complete';
+}
 
-        // Event listeners
-        submitButton.addEventListener('click', showResults);
-        resetButton.addEventListener('click', resetQuiz);
-        regenerateBtn.addEventListener('click', regenerateQuiz);
-    </script>
+function regenerateQuiz() {
+    currentQuizData = generateQuizQuestions();
+    buildQuiz();
+    scoreDisplay.innerHTML = '';
+    submitButton.style.display = 'block';
+    resetButton.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+currentQuizData = generateQuizQuestions();
+buildQuiz();
+
+submitButton.addEventListener('click', showResults);
+resetButton.addEventListener('click', resetQuiz);
+regenerateBtn.addEventListener('click', regenerateQuiz);
+</script>
 </body>
 </html>
