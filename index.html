@@ -64,7 +64,7 @@
             border: 1.5px solid #fbc02d;
             border-radius: 10px;
             padding: 14px 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -77,7 +77,10 @@
             margin-bottom: 8px;
         }
 
-        .modal-id-box ul { list-style: none; padding: 0; }
+        .modal-id-box ul {
+            list-style: none;
+            padding: 0;
+        }
 
         .modal-id-box ul li {
             font-size: 14px;
@@ -88,32 +91,12 @@
             gap: 8px;
         }
 
+    
+
         .modal-note {
             font-size: 12px;
             color: #777;
             margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* ── Timer bar inside modal ── */
-        .modal-timer-wrap {
-            background: #e8f5e9;
-            border-radius: 99px;
-            height: 5px;
-            overflow: hidden;
-            margin-bottom: 14px;
-        }
-        .modal-timer-bar {
-            height: 100%;
-            width: 100%;
-            border-radius: 99px;
-            background: linear-gradient(90deg, #2c7744, #4a9d5f);
-            transition: width 1s linear;
-        }
-        .modal-timer-label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 14px;
             font-style: italic;
         }
 
@@ -135,29 +118,97 @@
             box-shadow: 0 6px 20px rgba(44,119,68,0.4);
         }
 
-        /* ── Header ── */
+         /* Header Styles - Modified for four logos */
         .header {
             width: 100%;
             background: linear-gradient(135deg, #8ce2af 0%, #9b90d8 100%);
             color: white;
-            padding: 30px 20px;
-            min-height: 100px;
+            padding: 15px 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            position: relative;
         }
-
+        
         .logo-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-wrap: nowrap;
-            padding: 0 20px;
+        display: flex;
+        justify-content: center;   /* removes extra side space */
+        align-items: center;
+        gap: 10px;                /* controls spacing between logos */
+        width: 100%;
+        margin: 0 auto;
+        flex-wrap: nowrap;
+        padding: 0 8px;
+        overflow-x: auto;         /* if mobile small, scroll instead of space */
+        }
+        
+        .logo {
+           height: 55px;
+           width: auto;
+           margin: 5px;
+        }
+        
+        .header-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .course-title {
+            text-align: center;
+            color: #1a4d2e;
+            padding: 20px 10px;
+            font-size: 32px;
+            font-weight: bold;
+            background-color: #f5f5f5;
+            border-bottom: 3px solid #aabce9;
+            margin-bottom: 20px;
+        }
+        
+        .course-vishva {
+            text-align: center;
+            color: #e21111;
+            padding: 10px 10px;
+            font-size: 32px;
+            font-weight: bold;
+            background-color: #f5f5f5;
+            margin-bottom: 10px;
         }
 
-        .logo { height: 80px; width: auto; margin: 5px 10px; }
+        /* Exam dates styling */
+        .exam-dates {
+            text-align: center;
+            background-color: #fff1d6;
+            padding: 15px;
+            margin: 0 auto 20px;
+            max-width: 600px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .exam-dates h3 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .exam-dates p {
+            font-weight: bold;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        /* Exam info styling */
+        .exam-info {
+            text-align: left;
+            background-color: #e3f2fd;
+            padding: 15px;
+            margin: 0 auto 20px;
+            max-width: 600px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
 
         /* ── Countdown Timer ── */
         .countdown-wrapper {
@@ -196,14 +247,41 @@
             margin-top: 3px;
         }
 
-        .cd-unit { display: flex; flex-direction: column; align-items: center; }
-        .cd-num { font-size: 16px; font-weight: 700; color: #fff; line-height: 1; }
-        .cd-lbl { font-size: 9px; color: rgba(255,255,255,0.75); letter-spacing: 0.3px; }
-        .cd-sep { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.7); align-self: flex-start; margin-top: 1px; }
+        .cd-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cd-num {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .cd-lbl {
+            font-size: 9px;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.3px;
+        }
+
+        .cd-sep {
+            font-size: 15px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+            align-self: flex-start;
+            margin-top: 1px;
+        }
 
         .countdown-card.expired .cd-num { color: #ffe082; }
         .countdown-card.expired .cd-lbl { color: rgba(255,224,130,0.85); }
-        .countdown-card.expired .cd-done { font-size: 13px; font-weight: 700; color: #ffe082; padding: 4px 0; }
+        .countdown-card.expired .cd-done {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffe082;
+            padding: 4px 0;
+        }
 
         /* ── Titles ── */
         .course-title {
@@ -348,7 +426,11 @@
         #searchResultsPanel { display: none; }
         #defaultPanel { display: block; }
 
-        .search-results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .search-results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
         .search-result-card {
             background: white;
@@ -384,7 +466,12 @@
         .search-result-title { color: #1a4d2e; font-size: 17px; font-weight: 600; }
         .search-result-sub { color: #666; font-size: 13px; margin-top: 3px; }
 
-        .no-results { padding: 20px; color: #888; font-size: 15px; text-align: center; }
+        .no-results {
+            padding: 20px;
+            color: #888;
+            font-size: 15px;
+            text-align: center;
+        }
 
         .access-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
@@ -454,6 +541,7 @@
         .exam-info a { color: #0d47a1; }
         .important-note { font-weight: bold; color: #d32f2f; margin-top: 10px; }
 
+        /* ID card info box inside exam-info */
         .id-card-box {
             background: #fff8e1;
             border: 1.5px solid #fbc02d;
@@ -462,7 +550,13 @@
             margin: 10px 0;
         }
 
-        .id-card-box .id-box-title { font-size: 14px; font-weight: 700; color: #e65100; margin-bottom: 8px; }
+        .id-card-box .id-box-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 8px;
+        }
+
         .id-card-box ul { list-style: none; padding: 0; margin: 0; }
         .id-card-box ul li {
             font-size: 14px;
@@ -472,7 +566,13 @@
             align-items: center;
             gap: 7px;
         }
-        .id-card-box .id-note { font-size: 12px; color: #777; margin-top: 8px; font-style: italic; }
+
+        .id-card-box .id-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+            font-style: italic;
+        }
 
         /* ── Quiz Grid ── */
         .quiz-container {
@@ -565,6 +665,21 @@
             .quiz-container { grid-template-columns: 1fr; }
             .quiz-circle { width: 120px; height: 120px; }
         }
+
+        @media (max-width: 768px) {
+            .logo {
+                height: 45px;
+            }
+
+            .logo-container {
+                gap: 8px;
+                padding: 0 5px;
+            }
+
+            .header {
+                padding: 10px 0;
+            }
+        }
     </style>
 
     <!-- Google tag -->
@@ -577,6 +692,8 @@
     </script>
 </head>
 <body>
+
+   
 
 <!-- Welcome Modal -->
 <div class="modal-overlay" id="welcomeModal">
@@ -592,12 +709,15 @@
         </div>
 
         <div class="modal-id-box">
+
             <div class="id-heading">📋 Carry to Exam Hall</div>
+
             <ul>
                 <li>✅ Hall Ticket – Xerox Copy <strong>(Mandatory)</strong></li>
             </ul>
 
-            <div class="id-heading" style="margin-top:10px;">🪪 Accepted ID Proofs (Original or Xerox Copy)</div>
+            <div class="id-box-title">🪪 Accepted ID Proofs (Original or Xerox Copy)</div>
+
             <ul>
                 <li>✅ Any One Valid Photo ID Proof <strong>(Mandatory)</strong></li>
                 <li>• Aadhaar Card</li>
@@ -609,16 +729,11 @@
             </ul>
 
             <div class="modal-note">
-                ⚠️ ID must show Name, DOB, Photo &amp; Signature.<br>
+                ⚠️ ID must show Name, DOB, Photo & Signature.<br>
                 ⚠️ Without Hall Ticket, entry may not be allowed.
             </div>
-        </div>
 
-        <!-- Auto-close timer bar -->
-        <div class="modal-timer-wrap">
-            <div class="modal-timer-bar" id="modalTimerBar"></div>
         </div>
-        <div class="modal-timer-label" id="modalTimerLabel">Closing in 7s...</div>
 
         <button class="modal-btn" onclick="closeModal()">Proceed 🚀</button>
 
@@ -632,22 +747,6 @@
             <img src="NNPHUB.png" alt="Logo 2" class="logo">
             <img src="logo.png" alt="Logo 3" class="logo">
             <img src="vishva.jpg" alt="Logo 4" class="logo">
-        </div>
-
-        <!-- Live Countdown Timer -->
-        <div class="countdown-wrapper">
-            <div class="countdown-card" id="cd2">
-                <div class="cd-label">Exam — 29 Apr 2026</div>
-                <div class="cd-units" id="cd2-units">
-                    <div class="cd-unit"><span class="cd-num" id="cd2-d">--</span><span class="cd-lbl">days</span></div>
-                    <div class="cd-sep">:</div>
-                    <div class="cd-unit"><span class="cd-num" id="cd2-h">--</span><span class="cd-lbl">hrs</span></div>
-                    <div class="cd-sep">:</div>
-                    <div class="cd-unit"><span class="cd-num" id="cd2-m">--</span><span class="cd-lbl">min</span></div>
-                    <div class="cd-sep">:</div>
-                    <div class="cd-unit"><span class="cd-num" id="cd2-s">--</span><span class="cd-lbl">sec</span></div>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -831,52 +930,28 @@
     </footer>
 
     <script>
-        /* ── Welcome Modal with 7-second auto-close ── */
-        var modalSeconds = 7;
-        var modalInterval = null;
-
-        function closeModal() {
-            clearInterval(modalInterval);
+        /* ── Welcome Modal ── */
+            function closeModal() {
             document.getElementById('welcomeModal').style.display = 'none';
         }
 
-        function startModalTimer() {
-            var bar   = document.getElementById('modalTimerBar');
-            var label = document.getElementById('modalTimerLabel');
-            var total = modalSeconds;
-            var remaining = total;
-
-            /* Update bar width instantly on each tick */
-            modalInterval = setInterval(function () {
-                remaining--;
-                var pct = (remaining / total) * 100;
-                bar.style.width = pct + '%';
-                label.textContent = remaining > 0
-                    ? 'Closing in ' + remaining + 's...'
-                    : 'Closing...';
-
-                if (remaining <= 0) {
-                    clearInterval(modalInterval);
-                    closeModal();
-                }
-            }, 1000);
-        }
-
-        /* Start the timer as soon as the page loads */
+        // Auto-close after 7 seconds
         setTimeout(function () {
-            startModalTimer();
-        }, 0);
+            const modal = document.getElementById('welcomeModal');
+            if (modal) modal.style.display = 'none';
+        }, 7000);
 
-        /* ── Countdown Timer ── */
+        /* ── Countdown Timer (FIXED) ── */
         function pad(n) { return String(n).padStart(2, '0'); }
 
         function updateCountdown(targetDate, dId, hId, mId, sId, cardId) {
-            var now  = new Date();
-            var diff = targetDate - now;
-            var card = document.getElementById(cardId);
+            const now  = new Date();
+            const diff = targetDate - now;
+            const card = document.getElementById(cardId);
 
             if (diff <= 0) {
-                var unitsEl = document.getElementById(cardId + '-units');
+                /* Replace units with a single "Exam Day!" message */
+                const unitsEl = document.getElementById(cardId + '-units');
                 if (unitsEl && !card.classList.contains('expired')) {
                     unitsEl.innerHTML = '<div class="cd-done">🎓 Exam Day!</div>';
                 }
@@ -884,10 +959,10 @@
                 return;
             }
 
-            var days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            var secs  = Math.floor((diff % (1000 * 60)) / 1000);
+            const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs  = Math.floor((diff % (1000 * 60)) / 1000);
 
             document.getElementById(dId).textContent = pad(days);
             document.getElementById(hId).textContent = pad(hours);
@@ -895,7 +970,8 @@
             document.getElementById(sId).textContent = pad(secs);
         }
 
-        var exam2 = new Date('2026-04-29T09:00:00+05:30');
+        /* Exam 2: 29 Apr 2026 at 9:00 AM IST */
+        const exam2 = new Date('2026-04-29T09:00:00+05:30');
 
         function tick() {
             updateCountdown(exam2, 'cd2-d', 'cd2-h', 'cd2-m', 'cd2-s', 'cd2');
@@ -905,7 +981,7 @@
         setInterval(tick, 1000);
 
         /* ── Search ── */
-        var quizData = [
+        const quizData = [
             { title: 'Quiz 1',    subtitle: 'Week 1 Assessment',          href: 'w1.html',   icon: '1️⃣' },
             { title: 'Quiz 2',    subtitle: 'Week 2 Assessment',          href: 'w2.html',   icon: '2️⃣' },
             { title: 'Quiz 3',    subtitle: 'Week 3 Assessment',          href: 'w3.html',   icon: '3️⃣' },
@@ -924,23 +1000,23 @@
             { title: 'MOOC Quiz', subtitle: 'Final Assessment',           href: 'mooc.html', icon: '🎓' },
         ];
 
-        var borderColors = [
+        const borderColors = [
             '#2c7744','#c44569','#0984e3','#00b894',
             '#6c5ce7','#e17055','#fd79a8','#00cec9'
         ];
 
-        var searchInput  = document.getElementById('searchInput');
-        var defaultPanel = document.getElementById('defaultPanel');
-        var searchPanel  = document.getElementById('searchResultsPanel');
-        var searchGrid   = document.getElementById('searchResultsGrid');
-        var searchTitle  = document.getElementById('searchResultsTitle');
-        var quizItems    = document.querySelectorAll('.quiz-item');
+        const searchInput  = document.getElementById('searchInput');
+        const defaultPanel = document.getElementById('defaultPanel');
+        const searchPanel  = document.getElementById('searchResultsPanel');
+        const searchGrid   = document.getElementById('searchResultsGrid');
+        const searchTitle  = document.getElementById('searchResultsTitle');
+        const quizItems    = document.querySelectorAll('.quiz-item');
 
         searchInput.addEventListener('input', function () {
-            var term = this.value.trim().toLowerCase();
+            const term = this.value.trim().toLowerCase();
 
-            quizItems.forEach(function (item) {
-                var t = item.querySelector('.quiz-title').textContent.toLowerCase();
+            quizItems.forEach(item => {
+                const t = item.querySelector('.quiz-title').textContent.toLowerCase();
                 item.style.display = (t.includes(term) || term === '') ? 'flex' : 'none';
             });
 
@@ -950,27 +1026,27 @@
                 return;
             }
 
-            var matches = quizData.filter(function (q) {
-                return q.title.toLowerCase().includes(term) ||
-                       q.subtitle.toLowerCase().includes(term);
-            });
+            const matches = quizData.filter(q =>
+                q.title.toLowerCase().includes(term) ||
+                q.subtitle.toLowerCase().includes(term)
+            );
 
             searchGrid.innerHTML = '';
 
             if (matches.length === 0) {
                 searchGrid.innerHTML = '<p class="no-results">No quizzes found for "' + this.value + '"</p>';
             } else {
-                matches.forEach(function (q, i) {
-                    var a = document.createElement('a');
+                matches.forEach((q, i) => {
+                    const a = document.createElement('a');
                     a.href = q.href;
                     a.className = 'search-result-card';
                     a.style.borderLeftColor = borderColors[i % borderColors.length];
-                    a.innerHTML =
-                        '<div class="search-result-icon">' + q.icon + '</div>' +
-                        '<div class="search-result-info">' +
-                            '<div class="search-result-title">' + q.title + '</div>' +
-                            '<div class="search-result-sub">' + q.subtitle + '</div>' +
-                        '</div>';
+                    a.innerHTML = `
+                        <div class="search-result-icon">${q.icon}</div>
+                        <div class="search-result-info">
+                            <div class="search-result-title">${q.title}</div>
+                            <div class="search-result-sub">${q.subtitle}</div>
+                        </div>`;
                     searchGrid.appendChild(a);
                 });
             }
