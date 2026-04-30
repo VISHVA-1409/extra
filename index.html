@@ -128,21 +128,18 @@
         }
         
         .logo-container {
-        display: flex;
-        justify-content: center;   /* removes extra side space */
-        align-items: center;
-        gap: 10px;                /* controls spacing between logos */
-        width: 100%;
-        margin: 0 auto;
-        flex-wrap: nowrap;
-        padding: 0 8px;
-        overflow-x: auto;         /* if mobile small, scroll instead of space */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: nowrap; /* Changed from wrap to nowrap to keep logos in a row */
         }
         
         .logo {
-           height: 55px;
-           width: auto;
-           margin: 5px;
+            height: 80px;
+            width: auto;
+            margin: 5px 10px;
         }
         
         .header-title {
@@ -664,21 +661,6 @@
             .course-title { font-size: 22px; }
             .quiz-container { grid-template-columns: 1fr; }
             .quiz-circle { width: 120px; height: 120px; }
-        }
-
-        @media (max-width: 768px) {
-            .logo {
-                height: 45px;
-            }
-
-            .logo-container {
-                gap: 8px;
-                padding: 0 5px;
-            }
-
-            .header {
-                padding: 10px 0;
-            }
         }
     </style>
 
